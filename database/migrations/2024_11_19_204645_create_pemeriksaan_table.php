@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('pemeriksaan', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_petugas')->constrained('petugas')->onDelete('cascade');
+            $table->foreignId('id_checklist')->constrained('checklists')->onDelete('cascade');
+            $table->string('kendaraan');
+            $table->date('tanggal');
+            $table->enum('kondisi', ['cukup', 'rusak', 'tdk ada']);
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }
