@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Petugas extends Model
 {
     use HasFactory;
-    protected $fillable = ['nama_petugas', 'regu'];
+    protected $fillable = ['nama_petugas', 'regu','petugas_id'];
 }

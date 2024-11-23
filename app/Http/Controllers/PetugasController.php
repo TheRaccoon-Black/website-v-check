@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Petugas;
 use Illuminate\Http\Request;
 
 class PetugasController extends Controller
@@ -11,54 +12,57 @@ class PetugasController extends Controller
      */
     public function index()
     {
-        //
+        $petugas = Petugas::all();
+        return view('petugas.index', compact('petugas'));
+    }
+
+    public function create()
+    {
+        return view('petugas.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nama_petugas' => 'required|string|max:255',
+            'regu' => 'required|string|max:255',
+            'petugas_id' => 'required|string|max:255|unique:petugas',
+        ]);
+
+        Petugas::create($request->all());
+
+        return redirect()->route('petugas.index')->with('success', 'Petugas berhasil ditambahkan.');
+    }
+
+    public function edit($id)
+    {
+        $petugas = Petugas::findOrFail($id);
+        return view('petugas.edit', compact('petugas'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nama_petugas' => 'required|string|max:255',
+            'regu' => 'required|string|max:255',
+            'petugas_id' => 'required|string|max:255|unique:petugas,petugas_id,' . $id,
+        ]);
+
+        $petugas = Petugas::findOrFail($id);
+        $petugas->update($request->all());
+
+        return redirect()->route('petugas.index')->with('success', 'Petugas berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $petugas = Petugas::findOrFail($id);
+        $petugas->delete();
+
+        return redirect()->route('petugas.index')->with('success', 'Petugas berhasil dihapus.');
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

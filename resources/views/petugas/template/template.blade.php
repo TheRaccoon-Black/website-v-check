@@ -89,10 +89,10 @@
                                         <p>Dashboard v3</p>
                                     </a> </li>
                             </ul> --}}
-                            <li class="nav-item {{ Request::is() ? 'bg-dark' : '' }}">
-                                <a href="" class="nav-link">
-                                    <i class="nav-icon bi bi-speedometer"></i>
-                                    <p>Dashboard</p>
+                            <li class="nav-item {{Request::is('petugas*') ? 'bg-dark' : ''}}">
+                                <a href="{{route('petugas.index')}}" class="nav-link">
+                                    <i class="nav-icon bi bi-people"></i>
+                                    <p>Petugas</p>
                                 </a>
                             </li>
 
