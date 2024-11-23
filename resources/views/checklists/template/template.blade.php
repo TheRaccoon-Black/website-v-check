@@ -96,10 +96,10 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item {{ Request::is('checklists*') ? 'bg-dark' : '' }}">
-                                <a href="{{ route('checklists.index') }}" class="nav-link">
-                                    <i class="nav-icon bi bi-check"></i>
-                                    <p>Checklists</p>
+                            <li class="nav-item {{-- Request::is('admin/template*') ? 'bg-dark' : '' --}}">
+                                {{-- <a href="{{ route('admin.template') }}" class="nav-link">
+                                    <i class="nav-icon bi bi-envelope"></i> --}}
+                                    <p>Surat Masuk</p>
                                 </a>
                             </li>
 

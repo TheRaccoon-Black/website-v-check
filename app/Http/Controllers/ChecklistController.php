@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Checklist;
 use Illuminate\Http\Request;
 
 class ChecklistController extends Controller
@@ -9,56 +10,67 @@ class ChecklistController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
+    public function index(Request $request)
+{
+    $group = $request->input('group'); // Cek parameter 'group' dari URL
+    $checklists = Checklist::all();
+
+    // Grupkan berdasarkan parameter yang diterima
+    if ($group == 'kategori') {
+        $groupedChecklists = $checklists->groupBy('kategori');
+    } elseif ($group == 'jenis_kendaraan') {
+        $groupedChecklists = $checklists->groupBy('jenis_kendaraan');
+    } else {
+        // Jika tidak ada pengelompokan, tampilkan semua data dalam satu grup default
+        $groupedChecklists = collect(['Semua Checklist' => $checklists]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    return view('checklists.index', compact('groupedChecklists'));
+}
+
+
     public function create()
     {
-        //
+        return view('checklists.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_item' => 'required|string|max:255',
+            'kategori' => 'required|in:sebelum,setelah,test_jalan,test_pompa',
+            'jenis_kendaraan' => 'required|in:utama,pendukung',
+        ]);
+
+        Checklist::create($request->all());
+        return redirect()->route('checklists.index')->with('success', 'Checklist berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $checklist = Checklist::findOrFail($id);
+        return view('checklists.edit', compact('checklist'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama_item' => 'required|string|max:255',
+            'kategori' => 'required|in:sebelum,setelah,test_jalan,test_pompa',
+            'jenis_kendaraan' => 'required|in:utama,pendukung',
+        ]);
+
+        $checklist = Checklist::findOrFail($id);
+        $checklist->update($request->all());
+
+        return redirect()->route('checklists.index')->with('success', 'Checklist berhasil diperbarui.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
+        $checklist = Checklist::findOrFail($id);
+        $checklist->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('checklists.index')->with('success', 'Checklist berhasil dihapus.');
     }
 }
