@@ -103,28 +103,21 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item {{ Request::is('kendaraans*') ? 'bg-dark' : '' }}">
-                                <a href="{{ route('kendaraans.index') }}" class="nav-link">
-                                    <i class="nav-icon bi bi-car-front"></i>
-                                    <p>Kendaraan</p>
+                            <li class="nav-item {{-- Request::is('admin/keluar*') ? 'bg-dark' : '' --}}">
+                                <a href="{{-- route('admin.keluar') --}}" class="nav-link">
+                                    <i class="nav-icon bi bi-envelope"></i>
+                                    <p>Surat Keluar</p>
                                 </a>
                             </li>
 
-                            <li class="nav-item {{ Request::is('ke*') ? 'bg-dark' : '' }}">
-                                <a href="" class="nav-link">
-                                    <i class="nav-icon bi bi-receipt"></i>
-                                    <p>Rekap Pemeriksaan</p>
+                            {{-- <li class="nav-item {{ Request::is('user*') ? 'bg-dark' : '' }}">
+                                <a href="{{ route('user') }}" class="nav-link">
+                                    <i class="nav-icon bi bi-people"></i>
+                                    <p>Manajemen User</p>
                                 </a>
                             </li>
 
-                            <li class="nav-item {{ Request::is('*') ? 'bg-dark' : '' }}">
-                                <a href="" class="nav-link">
-                                    <i class="nav-icon bi bi-book"></i>
-                                    <p>Log Book</p>
-                                </a>
-                            </li>
-
-                            {{--<li class="nav-item {{ Request::is('admin/guru*') ? 'bg-dark' : '' }}">
+                            <li class="nav-item {{ Request::is('admin/guru*') ? 'bg-dark' : '' }}">
                                 <a href="{{ route('admin.guru') }}" class="nav-link">
                                     <i class="nav-icon bi bi-person"></i>
                                     <p>Manajemen Guru</p>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\ChecklistController;
+use App\Http\Controllers\KendaraanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,44 +16,43 @@ use App\Http\Controllers\ChecklistController;
 |
 */
 
+// Home Route
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Menampilkan daftar petugas
-Route::get('/petugas', [PetugasController::class, 'index'])->name('petugas.index');
+// --------------------------------------------------------------------------
+// Petugas Routes
+// --------------------------------------------------------------------------
+Route::prefix('petugas')->name('petugas.')->group(function () {
+    Route::get('/', [PetugasController::class, 'index'])->name('index');
+    Route::get('/create', [PetugasController::class, 'create'])->name('create');
+    Route::post('/', [PetugasController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [PetugasController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [PetugasController::class, 'update'])->name('update');
+    Route::delete('/{id}', [PetugasController::class, 'destroy'])->name('destroy');
+});
 
-// Menampilkan form tambah petugas
-Route::get('/petugas/create', [PetugasController::class, 'create'])->name('petugas.create');
+// --------------------------------------------------------------------------
+// Checklist Routes
+// --------------------------------------------------------------------------
+Route::prefix('checklists')->name('checklists.')->group(function () {
+    Route::get('/', [ChecklistController::class, 'index'])->name('index');
+    Route::get('/create', [ChecklistController::class, 'create'])->name('create');
+    Route::post('/', [ChecklistController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [ChecklistController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [ChecklistController::class, 'update'])->name('update');
+    Route::delete('/{id}', [ChecklistController::class, 'destroy'])->name('destroy');
+});
 
-// Menyimpan data petugas baru
-Route::post('/petugas', [PetugasController::class, 'store'])->name('petugas.store');
-
-// Menampilkan form edit petugas
-Route::get('/petugas/{id}/edit', [PetugasController::class, 'edit'])->name('petugas.edit');
-
-// Memperbarui data petugas
-Route::put('/petugas/{id}', [PetugasController::class, 'update'])->name('petugas.update');
-
-// Menghapus data petugas
-Route::delete('/petugas/{id}', [PetugasController::class, 'destroy'])->name('petugas.destroy');
-
-
-// --------------------------------------------------------------------------checklist
-// Menampilkan daftar checklist
-Route::get('/checklists', [ChecklistController::class, 'index'])->name('checklists.index');
-
-// Menampilkan form tambah checklist
-Route::get('/checklists/create', [ChecklistController::class, 'create'])->name('checklists.create');
-
-// Menyimpan data checklist baru
-Route::post('/checklists', [ChecklistController::class, 'store'])->name('checklists.store');
-
-// Menampilkan form edit checklist
-Route::get('/checklists/{id}/edit', [ChecklistController::class, 'edit'])->name('checklists.edit');
-
-// Memperbarui data checklist
-Route::put('/checklists/{id}', [ChecklistController::class, 'update'])->name('checklists.update');
-
-// Menghapus checklist
-Route::delete('/checklists/{id}', [ChecklistController::class, 'destroy'])->name('checklists.destroy');
+// --------------------------------------------------------------------------
+// Kendaraan Routes
+// --------------------------------------------------------------------------
+Route::prefix('kendaraans')->name('kendaraans.')->group(function () {
+    Route::get('/', [KendaraanController::class, 'index'])->name('index');
+    Route::get('/create', [KendaraanController::class, 'create'])->name('create');
+    Route::post('/', [KendaraanController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [KendaraanController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [KendaraanController::class, 'update'])->name('update');
+    Route::delete('/{id}', [KendaraanController::class, 'destroy'])->name('destroy');
+});
