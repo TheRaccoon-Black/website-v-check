@@ -75,40 +75,27 @@
 
                             <li class="nav-item {{Request::is('petugas*') ? 'bg-dark' : ''}}">
                                 <a href="{{route('petugas.index')}}" class="nav-link">
-                                    <i class="nav-icon bi bi-people"></i>
-                                    <p>Petugas</p>
+                                    <i class="nav-icon bi bi-ev-front-fill"></i>
+                                    <p>Kendaraan Utama</p>
                                 </a>
                             </li>
 
                             <li class="nav-item {{ Request::is('checklists*') ? 'bg-dark' : '' }}">
                                 <a href="{{ route('checklists.index') }}" class="nav-link">
-                                    <i class="nav-icon bi bi-check"></i>
-                                    <p>Checklists</p>
+                                    <i class="nav-icon bi bi-ev-front"></i>
+                                    <p>Kendaraan Pendukung</p>
                                 </a>
                             </li>
 
-                            <li class="nav-item {{ Request::is('kendaraans*') ? 'bg-dark' : '' }}">
-                                <a href="{{ route('kendaraans.index') }}" class="nav-link">
-                                    <i class="nav-icon bi bi-car-front"></i>
-                                    <p>Kendaraan</p>
-                                </a>
-                            </li>
 
-                            <li class="nav-item {{ Request::is('ke*') ? 'bg-dark' : '' }}">
-                                <a href="" class="nav-link">
-                                    <i class="nav-icon bi bi-receipt"></i>
-                                    <p>Rekap Pemeriksaan</p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item {{ Request::is('*') ? 'bg-dark' : '' }}">
+                            <li class="nav-item {{ Request::is('test*') ? 'bg-dark' : '' }}">
                                 <a href="" class="nav-link">
                                     <i class="nav-icon bi bi-book"></i>
                                     <p>Log Book</p>
                                 </a>
                             </li>
 
-                            
+
         </aside> <!--end::Sidebar--> <!--begin::App Main-->
         <main class="app-main"> <!--begin::App Content Header-->
             <div class="app-content-header"> <!--begin::Container-->
@@ -178,7 +165,7 @@
 <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
 
 <!-- JSZip for Excel -->
-<script src="{{ asset('adminlte/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/chart.js/Chart.min.js') }}"></script>
 
 <!-- pdfMake for PDF -->
 <script src="{{ asset('adminlte/plugins/pdfmake/pdfmake.min.js') }}"></script>
@@ -189,143 +176,190 @@
 <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
-<!-- AdminLTE App -->
-<script src="{{ asset('adminlte/dist/js/adminlte.min.js?v=3.2.0') }}"></script>
-    <script>
-        // NOTICE!! DO NOT USE ANY OF THIS JAVASCRIPT
-        // IT'S ALL JUST JUNK FOR DEMO
-        // ++++++++++++++++++++++++++++++++++++++++++
+<script>
+    $(function () {
+      /* ChartJS
+       * -------
+       * Here we will create a few charts using ChartJS
+       */
 
-        const visitors_chart_options = {
-            series: [{
-                    name: "High - 2023",
-                    data: [100, 120, 170, 167, 180, 177, 160],
-                },
-                {
-                    name: "Low - 2023",
-                    data: [60, 80, 70, 67, 80, 77, 100],
-                },
-            ],
-            chart: {
-                height: 200,
-                type: "line",
-                toolbar: {
-                    show: false,
-                },
-            },
-            colors: ["#0d6efd", "#adb5bd"],
-            stroke: {
-                curve: "smooth",
-            },
-            grid: {
-                borderColor: "#e7e7e7",
-                row: {
-                    colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-                    opacity: 0.5,
-                },
-            },
-            legend: {
-                show: false,
-            },
-            markers: {
-                size: 1,
-            },
-            xaxis: {
-                categories: ["22th", "23th", "24th", "25th", "26th", "27th", "28th"],
-            },
-        };
+      //--------------
+      //- AREA CHART -
+      //--------------
 
-        const visitors_chart = new ApexCharts(
-            document.querySelector("#visitors-chart"),
-            visitors_chart_options
-        );
-        visitors_chart.render();
+      // Get context with jQuery - using jQuery's .get() method.
+      var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
 
-        const sales_chart_options = {
-            series: [{
-                    name: "Net Profit",
-                    data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-                },
-                {
-                    name: "Revenue",
-                    data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
-                },
-                {
-                    name: "Free Cash Flow",
-                    data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
-                },
-            ],
-            chart: {
-                type: "bar",
-                height: 200,
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: "55%",
-                    endingShape: "rounded",
-                },
-            },
-            legend: {
-                show: false,
-            },
-            colors: ["#0d6efd", "#20c997", "#ffc107"],
-            dataLabels: {
-                enabled: false,
-            },
-            stroke: {
-                show: true,
-                width: 2,
-                colors: ["transparent"],
-            },
-            xaxis: {
-                categories: [
-                    "Feb",
-                    "Mar",
-                    "Apr",
-                    "May",
-                    "Jun",
-                    "Jul",
-                    "Aug",
-                    "Sep",
-                    "Oct",
-                ],
-            },
-            fill: {
-                opacity: 1,
-            },
-            tooltip: {
-                y: {
-                    formatter: function(val) {
-                        return "$ " + val + " thousands";
-                    },
-                },
-            },
-        };
+      var areaChartData = {
+        labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [
+          {
+            label               : 'Digital Goods',
+            backgroundColor     : 'rgba(60,141,188,0.9)',
+            borderColor         : 'rgba(60,141,188,0.8)',
+            pointRadius          : false,
+            pointColor          : '#3b8bba',
+            pointStrokeColor    : 'rgba(60,141,188,1)',
+            pointHighlightFill  : '#fff',
+            pointHighlightStroke: 'rgba(60,141,188,1)',
+            data                : [28, 48, 40, 19, 86, 27, 90]
+          },
+          {
+            label               : 'Electronics',
+            backgroundColor     : 'rgba(210, 214, 222, 1)',
+            borderColor         : 'rgba(210, 214, 222, 1)',
+            pointRadius         : false,
+            pointColor          : 'rgba(210, 214, 222, 1)',
+            pointStrokeColor    : '#c1c7d1',
+            pointHighlightFill  : '#fff',
+            pointHighlightStroke: 'rgba(220,220,220,1)',
+            data                : [65, 59, 80, 81, 56, 55, 40]
+          },
+        ]
+      }
 
-        const sales_chart = new ApexCharts(
-            document.querySelector("#sales-chart"),
-            sales_chart_options
-        );
-        sales_chart.render();
-    </script> <!--end::Script-->
-    <script>
-        $(function () {
-          $("#example1").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-          }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-          $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-          });
-        });
-      </script>
-</body><!--end::Body-->
+      var areaChartOptions = {
+        maintainAspectRatio : false,
+        responsive : true,
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            gridLines : {
+              display : false,
+            }
+          }],
+          yAxes: [{
+            gridLines : {
+              display : false,
+            }
+          }]
+        }
+      }
+
+      // This will get the first returned node in the jQuery collection.
+      new Chart(areaChartCanvas, {
+        type: 'line',
+        data: areaChartData,
+        options: areaChartOptions
+      })
+
+      //-------------
+      //- LINE CHART -
+      //--------------
+      var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
+      var lineChartOptions = $.extend(true, {}, areaChartOptions)
+      var lineChartData = $.extend(true, {}, areaChartData)
+      lineChartData.datasets[0].fill = false;
+      lineChartData.datasets[1].fill = false;
+      lineChartOptions.datasetFill = false
+
+      var lineChart = new Chart(lineChartCanvas, {
+        type: 'line',
+        data: lineChartData,
+        options: lineChartOptions
+      })
+
+      //-------------
+      //- DONUT CHART -
+      //-------------
+      // Get context with jQuery - using jQuery's .get() method.
+      var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+      var donutData        = {
+        labels: [
+            'Chrome',
+            'IE',
+            'FireFox',
+            'Safari',
+            'Opera',
+            'Navigator',
+        ],
+        datasets: [
+          {
+            data: [700,500,400,600,300,100],
+            backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+          }
+        ]
+      }
+      var donutOptions     = {
+        maintainAspectRatio : false,
+        responsive : true,
+      }
+      //Create pie or douhnut chart
+      // You can switch between pie and douhnut using the method below.
+      new Chart(donutChartCanvas, {
+        type: 'doughnut',
+        data: donutData,
+        options: donutOptions
+      })
+
+      //-------------
+      //- PIE CHART -
+      //-------------
+      // Get context with jQuery - using jQuery's .get() method.
+      var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+      var pieData        = donutData;
+      var pieOptions     = {
+        maintainAspectRatio : false,
+        responsive : true,
+      }
+      //Create pie or douhnut chart
+      // You can switch between pie and douhnut using the method below.
+      new Chart(pieChartCanvas, {
+        type: 'pie',
+        data: pieData,
+        options: pieOptions
+      })
+
+      //-------------
+      //- BAR CHART -
+      //-------------
+      var barChartCanvas = $('#barChart').get(0).getContext('2d')
+      var barChartData = $.extend(true, {}, areaChartData)
+      var temp0 = areaChartData.datasets[0]
+      var temp1 = areaChartData.datasets[1]
+      barChartData.datasets[0] = temp1
+      barChartData.datasets[1] = temp0
+
+      var barChartOptions = {
+        responsive              : true,
+        maintainAspectRatio     : false,
+        datasetFill             : false
+      }
+
+      new Chart(barChartCanvas, {
+        type: 'bar',
+        data: barChartData,
+        options: barChartOptions
+      })
+
+      //---------------------
+      //- STACKED BAR CHART -
+      //---------------------
+      var stackedBarChartCanvas = $('#stackedBarChart').get(0).getContext('2d')
+      var stackedBarChartData = $.extend(true, {}, barChartData)
+
+      var stackedBarChartOptions = {
+        responsive              : true,
+        maintainAspectRatio     : false,
+        scales: {
+          xAxes: [{
+            stacked: true,
+          }],
+          yAxes: [{
+            stacked: true
+          }]
+        }
+      }
+
+      new Chart(stackedBarChartCanvas, {
+        type: 'bar',
+        data: stackedBarChartData,
+        options: stackedBarChartOptions
+      })
+    })
+  </script>
+  </body><!--end::Body-->
 
 </html>
