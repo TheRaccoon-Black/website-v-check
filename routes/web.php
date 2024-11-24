@@ -62,5 +62,6 @@ Route::prefix('kendaraans')->name('kendaraans.')->group(function () {
 Route::prefix("pemeriksaan")->name("pemeriksaan.")->group(function () {
     Route::get("/", [PemeriksaanController::class, "index"])->name("index");
     Route::get('/create', [PemeriksaanController::class, 'create'])->name('create');
-Route::post('/store', [PemeriksaanController::class, 'store'])->name('store');
+    Route::get('/cetak/{id_hasil}', [PemeriksaanController::class, 'cetak'])->name('cetak');
+    Route::post('/store', [PemeriksaanController::class, 'store'])->name('store');
 });
