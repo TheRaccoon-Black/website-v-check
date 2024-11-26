@@ -108,10 +108,120 @@ class PemeriksaanController extends Controller
         return view('pemeriksaans.cetak', compact('info', 'sebelum', 'setelah', 'testJalan', 'testPompa'));
     }
 
+    //     public function recap()
+    // {
+    //     // Mengambil semua data pemeriksaan, termasuk relasi ke petugas, kendaraan, dan checklist
+    //     $hasil = Pemeriksaan::select('id_hasil', 'tanggal', 'dinas', 'id_petugas', 'id_kendaraan')
+    //         ->with(['petugas', 'kendaraan'])
+    //         ->groupBy('id_hasil', 'tanggal', 'dinas', 'id_petugas', 'id_kendaraan') // Untuk mencegah duplikasi ID hasil
+    //         ->orderBy('tanggal', 'desc')
+    //         ->get();
 
+    //     return view('pemeriksaans.recap', compact('hasil'));
+    // }
     public function recap()
     {
-        $hasil = Pemeriksaan::all();
-        return view('pemeriksaans.recap', compact('hasil'));
+
+        $hasil = Pemeriksaan::select('id_hasil', 'tanggal', 'dinas', 'id_petugas', 'id_kendaraan')
+            ->with(['petugas', 'kendaraan'])
+            ->groupBy('id_hasil', 'tanggal', 'dinas', 'id_petugas', 'id_kendaraan') // Untuk mencegah duplikasi ID hasil
+            ->orderBy('tanggal', 'desc')
+            ->get();
+
+        $hasilFormatted = $hasil->map(function ($item) {
+
+            $tanggal = \Carbon\Carbon::parse($item->tanggal);
+            $hari = strtolower($tanggal->translatedFormat('l')); // Contoh: 'sabtu'
+
+            // Format tanggal menjadi "dmY" (contoh: 26042024)
+            $tanggalFormatted = $tanggal->format('dmY');
+
+            $idHasilBaru = "{$hari}{$tanggalFormatted}{$item->dinas}";
+
+            $idHasilFormatted = "{$hari}-{$tanggal->format('d-m-Y')}-{$item->dinas}";
+
+            return [
+                'hasil' => $idHasilBaru,
+                'id_hasil' => $idHasilFormatted,
+                'tanggal' => $item->tanggal,
+                'dinas' => ucfirst($item->dinas),
+                'petugas' => $item->petugas->nama_petugas ?? '-',
+                'kendaraan' => $item->kendaraan->nama_kendaraan ?? '-',
+            ];
+        });
+
+        // dd($hasilFormatted);
+
+        return view('pemeriksaans.recap', compact('hasilFormatted'));
     }
+
+
+
+    public function arsip($id_hasil)
+    {
+        $pemeriksaans = Pemeriksaan::where('id_hasil', $id_hasil)
+            ->with('checklist', 'petugas', 'kendaraan')
+            ->get();
+
+        if ($pemeriksaans->isEmpty()) {
+            return redirect()->back()->withErrors(['error' => 'Data arsip tidak ditemukan.']);
+        }
+
+        // Ambil informasi utama (tanggal, dinas, kendaraan, petugas)
+        $info = $pemeriksaans->first();
+
+        return view('pemeriksaans.arsip', compact('info', 'pemeriksaans'));
+    }
+
+    public function fetch(Request $request)
+{
+    $query = Pemeriksaan::select('id_hasil', 'tanggal', 'dinas', 'id_petugas', 'id_kendaraan')
+        ->with(['petugas', 'kendaraan']);
+
+    // Filter pencarian
+    if ($request->has('search') && $request->search) {
+        $search = $request->search;
+        $query->whereHas('petugas', function ($q) use ($search) {
+            $q->where('nama_petugas', 'LIKE', "%{$search}%");
+        })->orWhereHas('kendaraan', function ($q) use ($search) {
+            $q->where('nama_kendaraan', 'LIKE', "%{$search}%");
+        })->orWhere('tanggal', 'LIKE', "%{$search}%");
+    }
+
+    // Urutkan berdasarkan tanggal
+    if ($request->has('order')) {
+        $query->orderBy('tanggal', $request->order);
+    }
+
+    // Kelompokkan berdasarkan dinas
+    if ($request->has('group')) {
+        $query->orderBy('dinas');
+    }
+
+    $hasil = $query->get();
+    
+
+    $hasilFormatted = $hasil->map(function ($item) {
+        $tanggal = \Carbon\Carbon::parse($item->tanggal);
+        $hari = strtolower($tanggal->translatedFormat('l')); // Contoh: 'sabtu'
+
+        $tanggalFormatted = $tanggal->format('dmY');
+        $idHasilBaru = "{$hari}{$tanggalFormatted}{$item->dinas}";
+        $idHasilFormatted = "{$hari}-{$tanggal->format('d-m-Y')}-{$item->dinas}";
+
+        return [
+            'hasil' => $idHasilBaru,
+            'id_hasil' => $idHasilFormatted,
+            'tanggal' => $item->tanggal,
+            'dinas' => ucfirst($item->dinas),
+            'petugas' => $item->petugas->nama_petugas ?? '-',
+            'kendaraan' => $item->kendaraan->nama_kendaraan ?? '-',
+        ];
+    });
+
+    $html = view('pemeriksaans.partials.rekapBody', compact('hasilFormatted'))->render();
+
+    return response()->json(['html' => $html]);
+}
+
 }

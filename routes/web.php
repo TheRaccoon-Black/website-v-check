@@ -64,4 +64,9 @@ Route::prefix("pemeriksaan")->name("pemeriksaan.")->group(function () {
     Route::get('/create', [PemeriksaanController::class, 'create'])->name('create');
     Route::get('/cetak/{id_hasil}', [PemeriksaanController::class, 'cetak'])->name('cetak');
     Route::post('/store', [PemeriksaanController::class, 'store'])->name('store');
+    Route::get('/rekap', [PemeriksaanController::class, 'recap'])->name('recap');
+    Route::get('/arsip/{id_hasil}', [PemeriksaanController::class, 'arsip'])->name('arsip');
+    Route::get('/fetch', [PemeriksaanController::class, 'fetch'])->name('fetch');
+
+
 });

@@ -94,8 +94,8 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item {{ Request::is('ke*') ? 'bg-dark' : '' }}">
-                                <a href="" class="nav-link">
+                            <li class="nav-item {{ Request::is('pemeriksaan/rekap*') ? 'bg-dark' : '' }}">
+                                <a href="{{ route('pemeriksaan.recap') }}" class="nav-link">
                                     <i class="nav-icon bi bi-receipt"></i>
                                     <p>Rekap Pemeriksaan</p>
                                 </a>
@@ -108,7 +108,7 @@
                                 </a>
                             </li>
 
-                            
+
         </aside> <!--end::Sidebar--> <!--begin::App Main-->
         <main class="app-main"> <!--begin::App Content Header-->
             <div class="app-content-header"> <!--begin::Container-->
