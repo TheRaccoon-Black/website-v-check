@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('checklists', function (Blueprint $table) {
             $table->id();
             $table->string('nama_item');
-            $table->enum('kategori', ['sebelum', 'setelah', 'test_jalan', 'test_pompa']);
+            $table->enum('kategori', ['sebelum', 'setelah', 'test_jalan', 'test_pompa','lain-lain']);
             $table->enum('jenis_kendaraan', ['utama', 'pendukung']);
             $table->timestamps();
         });

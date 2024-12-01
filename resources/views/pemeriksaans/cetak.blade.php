@@ -191,7 +191,7 @@
                     $n = 1;
                 @endphp
                 @foreach ($testJalan as $index => $item)
-                <tr style="font-weight: bold;background-color: #C6C6C6;">
+                <tr">
                     <td>{{ $n++ }}</td>
                     <td style="text-align: left;">{{ $item->checklist->nama_item }}</td>
                     <td>{!! $item->kondisi === 'baik' ? '✔' : '' !!}</td>

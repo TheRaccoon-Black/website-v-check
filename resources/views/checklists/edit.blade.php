@@ -21,6 +21,7 @@
                     <option value="setelah" {{ $checklist->kategori == 'setelah' ? 'selected' : '' }}>Setelah</option>
                     <option value="test_jalan" {{ $checklist->kategori == 'test_jalan' ? 'selected' : '' }}>Test Jalan</option>
                     <option value="test_pompa" {{ $checklist->kategori == 'test_pompa' ? 'selected' : '' }}>Test Pompa</option>
+                    <option value="lain-lain" {{ $checklist->kategori == 'lain-lain' ? 'selected' : '' }}>Lain-lain</option>
                 </select>
             </div>
             <div class="form-group">

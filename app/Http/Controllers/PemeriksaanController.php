@@ -23,7 +23,14 @@ class PemeriksaanController extends Controller
         // dd($kendaraan);
         return view('pemeriksaans.create', compact('checklists', 'petugas', 'jenis', 'kendaraan'));
     }
+    public function showpdf()
+    {
 
+        $pdfPath = asset('pdfs/pkppk.pdf');
+
+
+        return view('pdf-view', compact('pdfPath'));
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -199,7 +206,7 @@ class PemeriksaanController extends Controller
     }
 
     $hasil = $query->get();
-    
+
 
     $hasilFormatted = $hasil->map(function ($item) {
         $tanggal = \Carbon\Carbon::parse($item->tanggal);

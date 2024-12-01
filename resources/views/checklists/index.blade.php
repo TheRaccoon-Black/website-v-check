@@ -34,7 +34,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $checklist->nama_item }}</td>
-                            <td>{{ ['sebelum' => 'Sebelum', 'setelah' => 'Setelah', 'test_jalan' => 'Test Jalan', 'test_pompa' => 'Test Pompa'][$checklist->kategori] }}</td>
+                            <td>{{ ['sebelum' => 'Sebelum', 'setelah' => 'Setelah', 'test_jalan' => 'Test Jalan', 'test_pompa' => 'Test Pompa','lain-lain' => 'Lain-lain'][$checklist->kategori] }}</td>
                             <td>{{ ucfirst($checklist->jenis_kendaraan) }}</td>
                             <td>
                                 <a href="{{ route('checklists.edit', $checklist->id) }}" class="btn btn-sm btn-warning">Edit</a>
