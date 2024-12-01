@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PetugasController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ChecklistController;
 use App\Http\Controllers\KendaraanController;
 use App\Http\Controllers\PemeriksaanController;
@@ -17,14 +18,22 @@ use App\Http\Controllers\PemeriksaanController;
 |
 */
 
-// Home Route
 Route::get('/', function () {
     return view('welcome');
 });
 
-// --------------------------------------------------------------------------
-// Petugas Routes
-// --------------------------------------------------------------------------
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+});
+
 Route::prefix('petugas')->name('petugas.')->group(function () {
     Route::get('/', [PetugasController::class, 'index'])->name('index');
     Route::get('/create', [PetugasController::class, 'create'])->name('create');
@@ -70,3 +79,5 @@ Route::prefix("pemeriksaan")->name("pemeriksaan.")->group(function () {
 
 
 });
+Route::get('/view-pdf', [PemeriksaanController::class, 'showpdf'])->name('view.showpdf');
+require __DIR__.'/auth.php';
