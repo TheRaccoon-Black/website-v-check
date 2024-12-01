@@ -1,5 +1,5 @@
 <aside data-sidebar="sidebar" id="drawer-navigation"
-    class="fixed top-0 left-0 z-40 w-[calc(16rem+.25rem)] h-screen transition-transform -translate-x-full font-text dark:bg-gray-800 bg-sidebar-background flex gap-2 flex-col"
+    class="fixed top-0 left-0 z-40 w-64 h-dvh transition-transform duration-300 -translate-x-full sm:translate-x-0 font-text dark:bg-gray-800 bg-sidebar-background flex gap-2 flex-col border-r border-sidebar-border"
     tabindex="-1" aria-labelledby="drawer-navigation-label">
 
     <div data-sidebar="header" class="flex flex-col gap-2 p-4 pb-0">
@@ -21,17 +21,8 @@
         </a>
     </div>
 
-    {{-- <button type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation"
-        class="text-gray-400 bg-transparent hover:bg-sidebar-accent hover:text-sidebar-primary rounded-lg text-sm p-1.5 absolute top-2.5 end-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
-        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                clip-rule="evenodd"></path>
-        </svg>
-        <span class="sr-only">Close menu</span> --}}
     </button>
-    <div data-sidebar="content" class="overflow-scroll scroll px-4 flex min-h-0 flex-1">
+    <div data-sidebar="content" class="overflow-y-scroll scroll px-4 flex min-h-0 flex-1">
         <div data-sidebar="group" class="flex gap-2 flex-col mt-2 w-full">
             <div data-sidebar="group-label" class="text-xs font-medium text-sidebar-ring ms-2">
                 Menu</div>
@@ -114,20 +105,22 @@
                         </svg>
                     </button>
 
-                    <ul id="pemeriksaan-menu" class="hidden py-2 space-y-2">
+                    <ul id="pemeriksaan-menu" class="hidden my-2 space-y-2 ml-4 pl-4 border-l border-sidebar-border">
                         <li>
                             <a href="#"
-                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Kendaraan
-                                Utama</a>
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg  group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                Kendaraan
+                                Utama
+                            </a>
                         </li>
                         <li>
                             <a href="#"
-                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Kendaraan
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg  group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Kendaraan
                                 Pendukung</a>
                         </li>
                         <li>
                             <a href="#"
-                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Rekap</a>
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg  group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Rekap</a>
                         </li>
 
                     </ul>
@@ -150,7 +143,7 @@
         </div>
     </div>
     <div data-sidebar="footer" class="flex flex-col gap-2 p-4 pt-0">
-        <button data-sidebar="menu-button" data-dropdown-toggle="footer-menu" data-dropdown-placement="right">
+        <button data-sidebar="menu-button" data-dropdown-toggle="footer-menu">
             <div
                 class="peer/menu-button flex w-full px-2 items-center gap-2 overflow-hidden rounded-md text-left outline-none ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:!size-8 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground h-12 text-sm group-data-[collapsible=icon]:!p-0">
                 <div

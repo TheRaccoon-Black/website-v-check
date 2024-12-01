@@ -45,6 +45,10 @@ export default {
                 "sidebar-accent-foreground": "hsl(240, 5.9%, 10%)",
                 "sidebar-border": "hsl(220, 13%, 91%)",
                 "sidebar-ring": "hsl(240, 5%, 64.9%)",
+                "red-primary": "hsl(0, 72.2%, 50.6%)",
+                "red-primary-foreground": "hsl(0, 85.7%, 97.3%)",
+                "red-secondary": "hsl(0, 0%, 96.1%)",
+                "red-secondary-foreground": "hsl(0, 0%, 9%)",
             },
             borderRadius: {
                 DEFAULT: "0.5rem",

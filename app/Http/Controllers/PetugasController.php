@@ -12,8 +12,15 @@ class PetugasController extends Controller
      */
     public function index()
     {
-        $petugas = Petugas::all();
-        return view('petugas.index', compact('petugas'));
+        $petugas = Petugas::paginate(10);
+        $grouped = $petugas->groupBy('regu')->map(function ($items, $regu) {
+            return (object) [
+                'regu' => $regu,
+                'total' => $items->count()
+            ];
+        });
+
+        return view('petugas.index', compact('petugas', 'grouped'));
     }
 
     public function create()

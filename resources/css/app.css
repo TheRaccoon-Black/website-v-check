@@ -13,16 +13,16 @@
     scrollbar-color: rgb(233, 233, 233) transparent;
 }
 
-.scroll::-webkit-scrollbar {
+*::-webkit-scrollbar {
     width: 0.25rem;
     height: 0.25rem;
 }
 
-.scroll::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.scroll::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
     background-color: rgb(203, 213, 225);
     border-radius: 10px;
 }
