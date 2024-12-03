@@ -11,7 +11,12 @@ export default {
         "./resources/**/*.vue",
         "./node_modules/flowbite/**/*.js",
     ],
-
+    safelist: [
+        {
+            pattern:
+                /animation-(fade-in|fade-out|slide-right-to-left|slide-left-to-right|slide-top-to-bottom|slide-bottom-to-top)/,
+        },
+    ],
     theme: {
         extend: {
             fontFamily: {
@@ -59,6 +64,44 @@ export default {
             },
             borderRadius: {
                 DEFAULT: "0.5rem",
+            },
+            animation: {
+                "fade-in": "fadeIn 0.3 ease-in-out",
+                "fade-out": "fadeOut 0.3s ease-in-out",
+                "slide-right-to-left":
+                    "slideRightToLeft 0.3s cubic-bezier(0.65, 0, 0.35, 1)",
+                "slide-left-to-right":
+                    "slideLeftToRight 0.3s cubic-bezier(0.65, 0, 0.35, 1)",
+                "slide-top-to-bottom":
+                    "slideTopToBottom 0.3s cubic-bezier(0.65, 0, 0.35, 1)",
+                "slide-bottom-to-top":
+                    "slideBottomToTop 0.3s cubic-bezier(0.65, 0, 0.35, 1)",
+            },
+            keyframes: {
+                fadeIn: {
+                    "0%": { opacity: "0" },
+                    "100%": { opacity: "1" },
+                },
+                fadeOut: {
+                    "0%": { opacity: "1" },
+                    "100%": { opacity: "0" },
+                },
+                slideRightToLeft: {
+                    "0%": { transform: "translateX(100%)", opacity: "0" },
+                    "100%": { transform: "translateX(0)", opacity: "1" },
+                },
+                slideLeftToRight: {
+                    "0%": { transform: "translateX(-100%)", opacity: "0" },
+                    "100%": { transform: "translateX(0)", opacity: "1" },
+                },
+                slideTopToBottom: {
+                    "0%": { transform: "translateY(-100%)", opacity: "0" },
+                    "100%": { transform: "translateY(0)", opacity: "1" },
+                },
+                slideBottomToTop: {
+                    "0%": { transform: "translateY(100%)", opacity: "0" },
+                    "100%": { transform: "translateY(0)", opacity: "1" },
+                },
             },
         },
     },

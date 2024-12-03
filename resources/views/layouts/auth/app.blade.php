@@ -7,6 +7,7 @@
 @section('app')
     @include('layouts.auth.partials.header')
     <x-sidebar />
+    <x-toast />
     @include('layouts.auth.partials.main')
     @include('layouts.auth.partials.footer')
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Petugas;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class PetugasController extends Controller
@@ -30,11 +31,15 @@ class PetugasController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validator =  Validator::make($request->all(), [
             'nama_petugas' => 'required|string|max:255',
             'regu' => 'required|string|max:255',
             'petugas_id' => 'required|string|max:255|unique:petugas',
         ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->with('error', 'Petugas gagal ditambahkan.');
+        }
 
         Petugas::create($request->all());
 
