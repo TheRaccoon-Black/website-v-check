@@ -27,3 +27,39 @@
         </div>
     </div>
 </div>
+
+{{-- 
+@push('scripts')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const modal = document.getElementById("{{ $id }}");
+
+            const openModal = () => {
+                modal.classList.remove("hidden");
+                modal.classList.add("animation-fade-in");
+            };
+
+            const closeModal = () => {
+                console.log("close modal");
+
+                modal.classList.remove("animation-fade-in");
+                modal.classList.add("animation-fade-out");
+                setTimeout(() => {
+                    modal.classList.add("hidden");
+                    modal.classList.remove("animation-fade-out");
+                    console.log("close modal2");
+                }, 300);
+            };
+
+            document.querySelectorAll('[data-modal-toggle="{{ $id }}"]').forEach(button => {
+                button.addEventListener("click", () => {
+                    if (modal.classList.contains("hidden")) {
+                        openModal();
+                    } else {
+                        closeModal();
+                    }
+                });
+            });
+        });
+    </script>
+@endpush --}}
