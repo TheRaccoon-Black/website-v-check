@@ -11,10 +11,23 @@ class PetugasController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $petugas = Petugas::paginate(10);
-        $grouped = $petugas->groupBy('regu')->map(function ($items, $regu) {
+
+
+        $search = $request->get('search');
+
+        if (!empty($search)) {
+            $petugas = Petugas::where('nama_petugas', 'like', "%{$search}%")
+                ->orWhere('regu', 'like', "%{$search}%")
+                ->orWhere('petugas_id', 'like', "%{$search}%")
+                ->paginate(10)
+                ->appends(request()->query());
+        } else {
+            $petugas = Petugas::paginate(10);
+        }
+
+        $grouped = Petugas::all()->groupBy('regu')->map(function ($items, $regu) {
             return (object) [
                 'regu' => $regu,
                 'total' => $items->count()
