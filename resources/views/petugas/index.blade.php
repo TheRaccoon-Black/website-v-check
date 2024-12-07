@@ -70,31 +70,26 @@
                         </script>
                     @endslot
                 </x-datatable>
-            </div>
-
-            <div id="filterDropdown" class="z-10 hidden w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
-                <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">
-                    Filter Regu</h6>
-                <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
-                    @foreach ($grouped as $item)
-                        <li class="flex items-center">
-                            <input id="{{ $item->regu }}" type="checkbox" value="{{ $item->regu }}" name="regu[]"
-                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                            <label for="apple" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                                {{ $item->regu }} ({{ $item->total }})
-                            </label>
-                        </li>
-                    @endforeach
-                </ul>
+                <div id="filterDropdown" class="z-10 hidden w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
+                    <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">
+                        Filter Regu</h6>
+                    <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
+                        @foreach ($grouped as $item)
+                            <li class="flex items-center">
+                                <input id="{{ $item->regu }}" type="checkbox" value="{{ $item->regu }}" name="regu[]"
+                                    class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                    @if (request()->get('regu') != null) {{ in_array($item->regu, request()->get('regu')) ? 'checked' : '' }} @endif>
+                                <label for="apple" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                    {{ $item->regu }} ({{ $item->total }})
+                                </label>
+                            </li>
+                        @endforeach
+                    </ul>
+                    <x-button :type="'submit'" :color="'primary'" class="w-full mt-2">Terapkan</x-button>
+                </div>
             </div>
         </form>
     </div>
-
-    {{-- 29/11/2024 --}}
-    {{-- TODO: Form slot tambah button filter & add data. buat modal component reusable di blade, buat api dasar get data --}}
-
-    {{-- 02/12/2024 --}}
-    {{-- TODO: Animate modal, buat footer, buat breadcrumb, buat alert --}}
 
     {{-- modal add --}}
     <form method="POST" action="{{ route('petugas.store') }}" id="form-add">

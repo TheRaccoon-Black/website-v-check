@@ -12,10 +12,12 @@ export default {
         "./node_modules/flowbite/**/*.js",
     ],
     safelist: [
-        {
-            pattern:
-                /animation-(fade-in|fade-out|slide-right-to-left|slide-left-to-right|slide-top-to-bottom|slide-bottom-to-top)/,
-        },
+        "animation-fade-in",
+        "animation-fade-out",
+        "animation-slide-right-to-left",
+        "animation-slide-left-to-right",
+        "animation-slide-top-to-bottom",
+        "animation-slide-bottom-to-top",
     ],
     theme: {
         extend: {

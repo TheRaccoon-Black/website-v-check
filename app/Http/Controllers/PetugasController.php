@@ -13,19 +13,24 @@ class PetugasController extends Controller
      */
     public function index(Request $request)
     {
-
-
         $search = $request->get('search');
+        $regu = $request->get('regu');
+
+        $query = Petugas::query();
 
         if (!empty($search)) {
-            $petugas = Petugas::where('nama_petugas', 'like', "%{$search}%")
-                ->orWhere('regu', 'like', "%{$search}%")
-                ->orWhere('petugas_id', 'like', "%{$search}%")
-                ->paginate(10)
-                ->appends(request()->query());
-        } else {
-            $petugas = Petugas::paginate(10);
+            $$query->where(function ($query) use ($search) {
+                $query->where('nama_petugas', 'like', "%{$search}%")
+                    ->orWhere('regu', 'like', "%{$search}%")
+                    ->orWhere('petugas_id', 'like', "%{$search}%");
+            });
         }
+
+        if (!empty($regu) && is_array($regu)) {
+            $query->whereIn('regu', $regu);
+        }
+
+        $petugas = $query->paginate(10)->appends(request()->query());
 
         $grouped = Petugas::all()->groupBy('regu')->map(function ($items, $regu) {
             return (object) [

@@ -152,7 +152,6 @@
         </table>
     </div>
 
-
     {{ $rows->links() }}
 </div>
 

@@ -28,8 +28,8 @@
     </div>
 </div>
 
-{{-- 
-@push('scripts')
+
+{{-- @push('scripts')
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const modal = document.getElementById("{{ $id }}");
@@ -40,14 +40,12 @@
             };
 
             const closeModal = () => {
-                console.log("close modal");
 
                 modal.classList.remove("animation-fade-in");
                 modal.classList.add("animation-fade-out");
                 setTimeout(() => {
                     modal.classList.add("hidden");
                     modal.classList.remove("animation-fade-out");
-                    console.log("close modal2");
                 }, 300);
             };
 
