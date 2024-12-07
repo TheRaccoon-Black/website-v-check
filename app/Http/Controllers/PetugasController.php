@@ -19,7 +19,7 @@ class PetugasController extends Controller
         $query = Petugas::query();
 
         if (!empty($search)) {
-            $$query->where(function ($query) use ($search) {
+            $query->where(function ($query) use ($search) {
                 $query->where('nama_petugas', 'like', "%{$search}%")
                     ->orWhere('regu', 'like', "%{$search}%")
                     ->orWhere('petugas_id', 'like', "%{$search}%");
