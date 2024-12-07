@@ -114,24 +114,15 @@
             @slot('form')
                 <div class="grid gap-4 mb-4 grid-cols-2">
                     <div class="col-span-2">
-                        <label for="nama_petugas" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
-                            Petugas</label>
-                        <input type="text" name="nama_petugas" id="nama_petugas-add"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Masukan Nama Petugas" required="">
+                        <x-form-input name="nama_petugas" id="nama_petugas-edit" required="true"
+                            placeholder="Masukan Nama Petugas" label="Nama Petugas" />
                     </div>
                     <div class="col-span-2">
-                        <label for="regu" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Regu</label>
-                        <input type="text" name="regu" id="regu-add"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Masukan Regu" required="">
+                        <x-form-input name="regu" id="regu-edit" required="true" placeholder="Masukan Regu" label="Regu" />
                     </div>
                     <div class="col-span-2">
-                        <label for="petugas_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ID
-                            Petugas</label>
-                        <input type="text" name="petugas_id" id="petugas_id-add"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Masukan ID Petugas" required="">
+                        <x-form-input name="petugas_id" id="petugas_id-edit" required="true" placeholder="Masukan ID Petugas"
+                            label="ID Petugas" />
                     </div>
                 </div>
                 <x-button :type="'submit'" :color="'primary'" class="w-full">
@@ -156,25 +147,16 @@
             @slot('form')
                 <div class="grid gap-4 mb-4 grid-cols-2">
                     <div class="col-span-2">
-                        <label for="nama_petugas" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
-                            Petugas</label>
-                        <input type="text" name="nama_petugas" id="nama_petugas-edit"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Masukan Nama Petugas" required="">
+                        <x-form-input name="nama_petugas" id="nama_petugas-edit" required="true"
+                            placeholder="Masukan Nama Petugas" label="Nama Petugas" />
                     </div>
                     <div class="col-span-2">
-                        <label for="regu"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Regu</label>
-                        <input type="text" name="regu" id="regu-edit"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Masukan Regu" required="">
+                        <x-form-input name="regu" id="regu-edit" required="true" placeholder="Masukan Regu"
+                            label="Regu" />
                     </div>
                     <div class="col-span-2">
-                        <label for="petugas_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ID
-                            Petugas</label>
-                        <input type="text" name="petugas_id" id="petugas_id-edit"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Masukan ID Petugas" required="">
+                        <x-form-input name="petugas_id" id="petugas_id-edit" required="true"
+                            placeholder="Masukan ID Petugas" label="ID Petugas" />
                     </div>
                 </div>
                 <x-button :type="'submit'" :color="'primary'" class="w-full">
