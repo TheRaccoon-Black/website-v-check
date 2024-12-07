@@ -22,14 +22,14 @@
     </div>
 
     </button>
-    <div data-sidebar="content" class="overflow-y-scroll scroll px-4 flex min-h-0 flex-1">
+    <div data-sidebar="content" class="overflow-y-scroll scroll pl-4 pr-2 flex min-h-0 flex-1">
         <div data-sidebar="group" class="flex gap-2 flex-col mt-2 w-full">
-            <div data-sidebar="group-label" class="text-xs font-medium text-sidebar-ring ms-2">
+            <div data-sidebar="group-label" class="text-xs font-medium text-sidebar-foreground shrink-0 ms-2">
                 Menu</div>
             <ul data-sidebar="menu" class="space-y-2 text-sm">
                 <li data-sidebar="menu-item">
                     <a href="{{ route('dashboard') }}" data-sidebar="menu-button"
-                        class="{{ request()->is('dashboard*') ? 'bg-gray-100 dark:bg-gray-700' : '' }} transition-colors flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        class="{{ request()->is('dashboard*') ? 'bg-sidebar-accent dark:bg-gray-700 font-medium' : '' }} transition-colors flex items-center p-2 text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 group">
                         <div class="flex  items-center justify-center text-sidebar-foreground">
                             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
                                 viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
@@ -43,7 +43,7 @@
                 </li>
                 <li data-sidebar="menu-item">
                     <a href="{{ route('petugas.index') }}" data-sidebar="menu-button"
-                        class="{{ request()->is('petugas*') ? 'bg-gray-100 dark:bg-gray-700' : '' }} transition-colors flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        class="{{ request()->is('petugas*') ? 'bg-sidebar-accent dark:bg-gray-700 font-medium' : '' }} transition-colors flex items-center p-2 text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 group">
                         <div class="flex  items-center justify-center text-sidebar-foreground">
                             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
                                 viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
@@ -57,7 +57,7 @@
                 </li>
                 <li data-sidebar="menu-item">
                     <a href="{{ route('checklist.index') }}" data-sidebar="menu-button"
-                        class="{{ request()->is('checklist*') ? 'bg-gray-100 dark:bg-gray-700' : '' }} transition-colors flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        class="{{ request()->is('checklist*') ? 'bg-sidebar-accent dark:bg-gray-700 font-medium' : '' }} transition-colors flex items-center p-2 text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 group">
                         <div class="flex  items-center justify-center text-sidebar-foreground">
                             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
                                 viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
@@ -72,7 +72,7 @@
                 </li>
                 <li data-sidebar="menu-item">
                     <a href="{{ route('kendaraan.index') }}" data-sidebar="menu-button"
-                        class="{{ request()->is('kendaraan*') ? 'bg-gray-100 dark:bg-gray-700' : '' }} transition-colors flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        class="{{ request()->is('kendaraan*') ? 'bg-sidebar-accent dark:bg-gray-700 font-medium' : '' }} transition-colors flex items-center p-2 text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 group">
                         <div class="flex  items-center justify-center text-sidebar-foreground">
                             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
                                 viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
@@ -86,7 +86,7 @@
                 </li>
                 <li data-sidebar="menu-item">
                     <button data-sidebar="menu-button" data-collapse-toggle="pemeriksaan-menu"
-                        class="flex items-center p-2 w-full text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 group">
+                        class="flex items-center p-2 w-full text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 group">
                         <div class="flex w-full">
                             <div class="flex items-center justify-center text-sidebar-foreground">
                                 <svg width="24" height="24" fill="none" stroke="currentColor"
@@ -109,26 +109,26 @@
                         class="{{ request()->is('pemeriksaan*') ? '' : 'hidden' }}  my-2 space-y-2 ml-4 pl-4 border-l border-sidebar-border">
                         <li>
                             <a href="{{ route('pemeriksaan.index') }}"
-                                class="{{ request()->is('pemeriksaan/utama') ? 'bg-gray-100 dark:bg-gray-700' : '' }} flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg  group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                class="{{ request()->is('pemeriksaan/utama') ? 'bg-sidebar-accent dark:bg-gray-700 font-medium' : '' }} flex items-center w-full p-2 text-sidebar-accent-foreground transition duration-75 rounded-lg  group hover:bg-sidebar-accent dark:text-white dark:hover:bg-gray-700">
                                 Kendaraan
                                 Utama
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('pemeriksaan.index') }}"
-                                class="{{ request()->is('pemeriksaan/pendukung') ? 'bg-gray-100 dark:bg-gray-700' : '' }} flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg  group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Kendaraan
+                                class="{{ request()->is('pemeriksaan/pendukung') ? 'bg-sidebar-accent dark:bg-gray-700 font-medium' : '' }} flex items-center w-full p-2 text-sidebar-accent-foreground transition duration-75 rounded-lg  group hover:bg-sidebar-accent dark:text-white dark:hover:bg-gray-700">Kendaraan
                                 Pendukung</a>
                         </li>
                         <li>
                             <a href="{{ route('pemeriksaan.recap') }}"
-                                class="{{ request()->is('pemeriksaan/rekap') ? 'bg-gray-100 dark:bg-gray-700' : '' }} flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg  group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Rekap</a>
+                                class="{{ request()->is('pemeriksaan/rekap') ? 'bg-sidebar-accent dark:bg-gray-700 font-medium' : '' }} flex items-center w-full p-2 text-sidebar-accent-foreground transition duration-75 rounded-lg  group hover:bg-sidebar-accent dark:text-white dark:hover:bg-gray-700">Rekap</a>
                         </li>
 
                     </ul>
                 </li>
                 <li data-sidebar="menu-item">
                     <a href="#" data-sidebar="menu-button"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        class="flex items-center p-2 text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 group">
                         <div class="flex  items-center justify-center text-sidebar-foreground">
                             <svg width="24" height="24" fill="none" stroke="currentColor"
                                 stroke-width="1.5" viewBox="0 0 24 24" stroke-linecap="round"
@@ -175,11 +175,11 @@
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRightButton">
                 <li>
                     <a href="#"
-                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                        class="block px-4 py-2 hover:bg-sidebar-accent dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
                 </li>
                 <li>
                     <a href="#"
-                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Logout</a>
+                        class="block px-4 py-2 hover:bg-sidebar-accent dark:hover:bg-gray-600 dark:hover:text-white">Logout</a>
                 </li>
             </ul>
         </div>
