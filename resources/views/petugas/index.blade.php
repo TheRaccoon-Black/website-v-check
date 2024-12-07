@@ -1,5 +1,20 @@
 @extends('layouts.auth.app')
 
+@section('title', 'Daftar Petugas')
+
+@section('breadcrumbs')
+    <div class="flex items-center gap-2 text-gray-900">
+        <a href="{{ route('dashboard') }}" class="text-sm font-medium hover:underline">Home</a>
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 shrink-0">
+                <path d="m9 18 6-6-6-6"></path>
+            </svg>
+        </div>
+        <span class="text-sm font-medium text-muted-foreground">Petugas</span>
+    </div>
+@endsection
+
 @section('content')
     <div class="w-full p-4 bg-card rounded-lg border sm:p-8">
         <h5 class="mb-2 text-xl font-bold text-card-foreground">Daftar Petugas</h5>
@@ -148,7 +163,8 @@
                             placeholder="Masukan Nama Petugas" required="">
                     </div>
                     <div class="col-span-2">
-                        <label for="regu" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Regu</label>
+                        <label for="regu"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Regu</label>
                         <input type="text" name="regu" id="regu-edit"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Masukan Regu" required="">
