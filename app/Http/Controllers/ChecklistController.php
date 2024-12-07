@@ -12,20 +12,66 @@ class ChecklistController extends Controller
      */
     public function index(Request $request)
     {
-        $group = $request->input('group'); // Cek parameter 'group' dari URL
-        $checklists = Checklist::all();
+        $search = $request->get('search');
+        $kategori = $request->get('kategori');
+        $jenis_kendaraan = $request->get('jenis_kendaraan');
 
-        // Grupkan berdasarkan parameter yang diterima
-        if ($group == 'kategori') {
-            $groupedChecklists = $checklists->groupBy('kategori');
-        } elseif ($group == 'jenis_kendaraan') {
-            $groupedChecklists = $checklists->groupBy('jenis_kendaraan');
-        } else {
-            // Jika tidak ada pengelompokan, tampilkan semua data dalam satu grup default
-            $groupedChecklists = collect(['Semua Checklist' => $checklists]);
+        $query = Checklist::query();
+
+        if (!empty($kategori)) {
+            $query->WhereIn('kategori', $kategori);
         }
 
-        return view('checklists.index', compact('groupedChecklists'));
+        if (!empty($jenis_kendaraan)) {
+            $query->WhereIn('jenis_kendaraan', $jenis_kendaraan);
+        }
+
+        if (!empty($search)) {
+            $query->where(function ($query) use ($search) {
+                $query->where('nama_item', 'like', "%{$search}%");
+            });
+        }
+
+        $checklists = $query->paginate(10)->appends(request()->query());
+
+        $groupedKategori = Checklist::all()->groupBy('kategori')->map(function ($items, $kategori) {
+            return (object) [
+                'kategori' => $kategori,
+                'total' => $items->count()
+            ];
+        });
+
+        $groupedJenisKendaraan =
+            Checklist::all()->groupBy('jenis_kendaraan')->map(function ($items, $jenis_kendaraan) {
+                return (object) [
+                    'jenis_kendaraan' => $jenis_kendaraan,
+                    'total' => $items->count()
+                ];
+            });
+
+        $rowCallback = function ($value, $field) {
+            if ($field === 'kategori' && $value === 'test_pompa') {
+                return 'Test Pompa';
+            }
+            if ($field === 'kategori' && $value === 'test_jalan') {
+                return 'Test Jalan';
+            }
+            if ($field === 'kategori' && $value === 'sebelum') {
+                return 'Sebelum';
+            }
+            if ($field === 'kategori' && $value === 'setelah') {
+                return 'Setelah';
+            }
+            if ($field === 'jenis_kendaraan' && $value === 'utama') {
+                return 'Kendaraan Utama';
+            }
+            if ($field === 'jenis_kendaraan' && $value === 'pendukung') {
+                return 'Kendaraan Pendukung';
+            }
+            return $value;
+        };
+
+        return view('checklists.index', compact('checklists', 'groupedKategori', 'groupedJenisKendaraan', 'rowCallback'));
     }
 
 

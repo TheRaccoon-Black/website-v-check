@@ -85,7 +85,7 @@
                         </script>
                     @endslot
                 </x-datatable>
-                <div id="filterDropdown" class="z-10 hidden w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
+                <div id="filterDropdown" class="border z-10 hidden w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
                     <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">
                         Filter Regu</h6>
                     <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
@@ -94,7 +94,8 @@
                                 <input id="{{ $item->regu }}" type="checkbox" value="{{ $item->regu }}" name="regu[]"
                                     class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                     @if (request()->get('regu') != null) {{ in_array($item->regu, request()->get('regu')) ? 'checked' : '' }} @endif>
-                                <label for="apple" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                <label for="{{ $item->regu }}"
+                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                                     {{ $item->regu }} ({{ $item->total }})
                                 </label>
                             </li>

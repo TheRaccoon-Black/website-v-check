@@ -17,12 +17,13 @@ class Datatable extends Component
     public $colAction;
     public $fields;
     public $detailRoute;
+    public $rowCallback;
 
     /**
      * Create a new component instance.
      *
      * @param array $columns
-     * @param object $rows collection of data
+     * @param object $rows
      * @param array $fields
      * @param string|null $detailRoute
      * @param bool $search
@@ -30,17 +31,19 @@ class Datatable extends Component
      * @param array|null $filters
      * @param string $placeholderFilter
      * @param array|null $colAction
+     * @param \Closure|null $rowCallback
      */
     public function __construct(
         array $columns,
         object $rows,
         array $fields,
-        string $detailRoute = null,
+        ?string $detailRoute = null,
         bool $search = false,
         bool $filter = false,
-        array $filters = null,
+        ?array $filters = null,
         string $placeholderFilter = 'Pilih Filter',
-        array $colAction = null,
+        ?array $colAction = null,
+        ?Closure $rowCallback = null
     ) {
         $this->columns = $columns;
         $this->rows = $rows;
@@ -51,6 +54,7 @@ class Datatable extends Component
         $this->filters = $filters;
         $this->placeholderFilter = $placeholderFilter;
         $this->colAction = $colAction;
+        $this->rowCallback = $rowCallback;
     }
 
     /**

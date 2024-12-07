@@ -63,9 +63,12 @@
                     <tr class="border-b dark:border-gray-700">
                         <th scope="row"
                             class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $index++ }}</th>
+                            {{ $index++ }}
+                        </th>
                         @foreach ($fields as $field)
-                            <td class="px-4 py-3">{{ $row->{$field} }}</td>
+                            <td class="px-4 py-3">
+                                {{ $rowCallback ? call_user_func($rowCallback, $row->{$field}, $field) : $row->{$field} }}
+                            </td>
                         @endforeach
 
                         @if ($colAction)
