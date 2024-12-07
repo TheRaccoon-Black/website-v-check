@@ -30,8 +30,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-
 });
 
 Route::prefix('petugas')->name('petugas.')->group(function () {
@@ -46,7 +44,7 @@ Route::prefix('petugas')->name('petugas.')->group(function () {
 // --------------------------------------------------------------------------
 // Checklist Routes
 // --------------------------------------------------------------------------
-Route::prefix('checklists')->name('checklists.')->group(function () {
+Route::prefix('checklist')->name('checklist.')->group(function () {
     Route::get('/', [ChecklistController::class, 'index'])->name('index');
     Route::get('/create', [ChecklistController::class, 'create'])->name('create');
     Route::post('/', [ChecklistController::class, 'store'])->name('store');
@@ -58,7 +56,7 @@ Route::prefix('checklists')->name('checklists.')->group(function () {
 // --------------------------------------------------------------------------
 // Kendaraan Routes
 // --------------------------------------------------------------------------
-Route::prefix('kendaraans')->name('kendaraans.')->group(function () {
+Route::prefix('kendaraan')->name('kendaraan.')->group(function () {
     Route::get('/', [KendaraanController::class, 'index'])->name('index');
     Route::get('/create', [KendaraanController::class, 'create'])->name('create');
     Route::post('/', [KendaraanController::class, 'store'])->name('store');
@@ -76,8 +74,6 @@ Route::prefix("pemeriksaan")->name("pemeriksaan.")->group(function () {
     Route::get('/rekap', [PemeriksaanController::class, 'recap'])->name('recap');
     Route::get('/arsip/{id_hasil}', [PemeriksaanController::class, 'arsip'])->name('arsip');
     Route::get('/fetch', [PemeriksaanController::class, 'fetch'])->name('fetch');
-
-
 });
 Route::get('/view-pdf', [PemeriksaanController::class, 'showpdf'])->name('view.showpdf');
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
