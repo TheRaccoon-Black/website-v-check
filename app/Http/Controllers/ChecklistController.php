@@ -11,22 +11,22 @@ class ChecklistController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-{
-    $group = $request->input('group'); // Cek parameter 'group' dari URL
-    $checklists = Checklist::all();
+    {
+        $group = $request->input('group'); // Cek parameter 'group' dari URL
+        $checklists = Checklist::all();
 
-    // Grupkan berdasarkan parameter yang diterima
-    if ($group == 'kategori') {
-        $groupedChecklists = $checklists->groupBy('kategori');
-    } elseif ($group == 'jenis_kendaraan') {
-        $groupedChecklists = $checklists->groupBy('jenis_kendaraan');
-    } else {
-        // Jika tidak ada pengelompokan, tampilkan semua data dalam satu grup default
-        $groupedChecklists = collect(['Semua Checklist' => $checklists]);
+        // Grupkan berdasarkan parameter yang diterima
+        if ($group == 'kategori') {
+            $groupedChecklists = $checklists->groupBy('kategori');
+        } elseif ($group == 'jenis_kendaraan') {
+            $groupedChecklists = $checklists->groupBy('jenis_kendaraan');
+        } else {
+            // Jika tidak ada pengelompokan, tampilkan semua data dalam satu grup default
+            $groupedChecklists = collect(['Semua Checklist' => $checklists]);
+        }
+
+        return view('checklists.index', compact('groupedChecklists'));
     }
-
-    return view('checklists.index', compact('groupedChecklists'));
-}
 
 
     public function create()
@@ -43,7 +43,7 @@ class ChecklistController extends Controller
         ]);
 
         Checklist::create($request->all());
-        return redirect()->route('checklists.index')->with('success', 'Checklist berhasil ditambahkan.');
+        return redirect()->route('checklist.index')->with('success', 'Checklist berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -63,7 +63,7 @@ class ChecklistController extends Controller
         $checklist = Checklist::findOrFail($id);
         $checklist->update($request->all());
 
-        return redirect()->route('checklists.index')->with('success', 'Checklist berhasil diperbarui.');
+        return redirect()->route('checklist.index')->with('success', 'Checklist berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -71,6 +71,6 @@ class ChecklistController extends Controller
         $checklist = Checklist::findOrFail($id);
         $checklist->delete();
 
-        return redirect()->route('checklists.index')->with('success', 'Checklist berhasil dihapus.');
+        return redirect()->route('checklist.index')->with('success', 'Checklist berhasil dihapus.');
     }
 }

@@ -39,9 +39,9 @@ class PemeriksaanController extends Controller
             'id_kendaraan' => 'required|string',
             'dinas' => 'required|in:pagi,malam',
             'checklists' => 'required|array',
-            'checklists.*.id_checklist' => 'required|exists:checklists,id',
-            'checklists.*.kondisi' => 'required|in:baik,cukup,rusak,tdk ada',
-            'checklists.*.keterangan' => 'nullable|string',
+            'checklist.*.id_checklist' => 'required|exists:checklists,id',
+            'checklist.*.kondisi' => 'required|in:baik,cukup,rusak,tdk ada',
+            'checklist.*.keterangan' => 'nullable|string',
         ]);
 
 
@@ -181,54 +181,53 @@ class PemeriksaanController extends Controller
     }
 
     public function fetch(Request $request)
-{
-    $query = Pemeriksaan::select('id_hasil', 'tanggal', 'dinas', 'id_petugas', 'id_kendaraan')
-        ->with(['petugas', 'kendaraan']);
+    {
+        $query = Pemeriksaan::select('id_hasil', 'tanggal', 'dinas', 'id_petugas', 'id_kendaraan')
+            ->with(['petugas', 'kendaraan']);
 
-    // Filter pencarian
-    if ($request->has('search') && $request->search) {
-        $search = $request->search;
-        $query->whereHas('petugas', function ($q) use ($search) {
-            $q->where('nama_petugas', 'LIKE', "%{$search}%");
-        })->orWhereHas('kendaraan', function ($q) use ($search) {
-            $q->where('nama_kendaraan', 'LIKE', "%{$search}%");
-        })->orWhere('tanggal', 'LIKE', "%{$search}%");
+        // Filter pencarian
+        if ($request->has('search') && $request->search) {
+            $search = $request->search;
+            $query->whereHas('petugas', function ($q) use ($search) {
+                $q->where('nama_petugas', 'LIKE', "%{$search}%");
+            })->orWhereHas('kendaraan', function ($q) use ($search) {
+                $q->where('nama_kendaraan', 'LIKE', "%{$search}%");
+            })->orWhere('tanggal', 'LIKE', "%{$search}%");
+        }
+
+        // Urutkan berdasarkan tanggal
+        if ($request->has('order')) {
+            $query->orderBy('tanggal', $request->order);
+        }
+
+        // Kelompokkan berdasarkan dinas
+        if ($request->has('group')) {
+            $query->orderBy('dinas');
+        }
+
+        $hasil = $query->get();
+
+
+        $hasilFormatted = $hasil->map(function ($item) {
+            $tanggal = \Carbon\Carbon::parse($item->tanggal);
+            $hari = strtolower($tanggal->translatedFormat('l')); // Contoh: 'sabtu'
+
+            $tanggalFormatted = $tanggal->format('dmY');
+            $idHasilBaru = "{$hari}{$tanggalFormatted}{$item->dinas}";
+            $idHasilFormatted = "{$hari}-{$tanggal->format('d-m-Y')}-{$item->dinas}";
+
+            return [
+                'hasil' => $idHasilBaru,
+                'id_hasil' => $idHasilFormatted,
+                'tanggal' => $item->tanggal,
+                'dinas' => ucfirst($item->dinas),
+                'petugas' => $item->petugas->nama_petugas ?? '-',
+                'kendaraan' => $item->kendaraan->nama_kendaraan ?? '-',
+            ];
+        });
+
+        $html = view('pemeriksaans.partials.rekapBody', compact('hasilFormatted'))->render();
+
+        return response()->json(['html' => $html]);
     }
-
-    // Urutkan berdasarkan tanggal
-    if ($request->has('order')) {
-        $query->orderBy('tanggal', $request->order);
-    }
-
-    // Kelompokkan berdasarkan dinas
-    if ($request->has('group')) {
-        $query->orderBy('dinas');
-    }
-
-    $hasil = $query->get();
-
-
-    $hasilFormatted = $hasil->map(function ($item) {
-        $tanggal = \Carbon\Carbon::parse($item->tanggal);
-        $hari = strtolower($tanggal->translatedFormat('l')); // Contoh: 'sabtu'
-
-        $tanggalFormatted = $tanggal->format('dmY');
-        $idHasilBaru = "{$hari}{$tanggalFormatted}{$item->dinas}";
-        $idHasilFormatted = "{$hari}-{$tanggal->format('d-m-Y')}-{$item->dinas}";
-
-        return [
-            'hasil' => $idHasilBaru,
-            'id_hasil' => $idHasilFormatted,
-            'tanggal' => $item->tanggal,
-            'dinas' => ucfirst($item->dinas),
-            'petugas' => $item->petugas->nama_petugas ?? '-',
-            'kendaraan' => $item->kendaraan->nama_kendaraan ?? '-',
-        ];
-    });
-
-    $html = view('pemeriksaans.partials.rekapBody', compact('hasilFormatted'))->render();
-
-    return response()->json(['html' => $html]);
-}
-
 }

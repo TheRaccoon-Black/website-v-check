@@ -29,7 +29,7 @@ class KendaraanController extends Controller
 
         Kendaraan::create($request->all());
 
-        return redirect()->route('kendaraans.index')->with('success', 'Kendaraan berhasil ditambahkan.');
+        return redirect()->route('kendaraan.index')->with('success', 'Kendaraan berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -50,7 +50,7 @@ class KendaraanController extends Controller
         $kendaraan = Kendaraan::findOrFail($id);
         $kendaraan->update($request->all());
 
-        return redirect()->route('kendaraans.index')->with('success', 'Kendaraan berhasil diperbarui.');
+        return redirect()->route('kendaraan.index')->with('success', 'Kendaraan berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -58,6 +58,6 @@ class KendaraanController extends Controller
         $kendaraan = Kendaraan::findOrFail($id);
         $kendaraan->delete();
 
-        return redirect()->route('kendaraans.index')->with('success', 'Kendaraan berhasil dihapus.');
+        return redirect()->route('kendaraan.index')->with('success', 'Kendaraan berhasil dihapus.');
     }
 }

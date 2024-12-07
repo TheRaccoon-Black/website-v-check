@@ -7,9 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="title" content="AdminLTE | Dashboard v3">
     <meta name="author" content="ColorlibHQ">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css" integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous"><!--end::Fonts--><!--begin::Third Party Plugin(OverlayScrollbars)-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/styles/overlayscrollbars.min.css" integrity="sha256-dSokZseQNT08wYEWiz5iLI8QPlKxG+TswNRD8k35cpg=" crossorigin="anonymous"><!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Third Party Plugin(Bootstrap Icons)-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css" integrity="sha256-Qsx5lrStHZyR9REqhUF8iQt73X06c8LGIUPzpOhwRrI=" crossorigin="anonymous"><!--end::Third Party Plugin(Bootstrap Icons)--><!--begin::Required Plugin(AdminLTE)-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
+        integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous">
+    <!--end::Fonts--><!--begin::Third Party Plugin(OverlayScrollbars)-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/styles/overlayscrollbars.min.css"
+        integrity="sha256-dSokZseQNT08wYEWiz5iLI8QPlKxG+TswNRD8k35cpg=" crossorigin="anonymous">
+    <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Third Party Plugin(Bootstrap Icons)-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css"
+        integrity="sha256-Qsx5lrStHZyR9REqhUF8iQt73X06c8LGIUPzpOhwRrI=" crossorigin="anonymous">
+    <!--end::Third Party Plugin(Bootstrap Icons)--><!--begin::Required Plugin(AdminLTE)-->
     <meta name="description"
         content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS.">
     <meta name="keywords"
@@ -73,40 +79,40 @@
                     <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu"
                         data-accordion="false">
 
-                            <li class="nav-item {{Request::is('petugas*') ? 'bg-dark' : ''}}">
-                                <a href="{{route('petugas.index')}}" class="nav-link">
-                                    <i class="nav-icon bi bi-people"></i>
-                                    <p>Petugas</p>
-                                </a>
-                            </li>
+                        <li class="nav-item {{ Request::is('petugas*') ? 'bg-dark' : '' }}">
+                            <a href="{{ route('petugas.index') }}" class="nav-link">
+                                <i class="nav-icon bi bi-people"></i>
+                                <p>Petugas</p>
+                            </a>
+                        </li>
 
-                            <li class="nav-item {{ Request::is('checklists*') ? 'bg-dark' : '' }}">
-                                <a href="{{ route('checklists.index') }}" class="nav-link">
-                                    <i class="nav-icon bi bi-check"></i>
-                                    <p>Checklists</p>
-                                </a>
-                            </li>
+                        <li class="nav-item {{ Request::is('checklists*') ? 'bg-dark' : '' }}">
+                            <a href="{{ route('checklist.index') }}" class="nav-link">
+                                <i class="nav-icon bi bi-check"></i>
+                                <p>Checklists</p>
+                            </a>
+                        </li>
 
-                            <li class="nav-item {{ Request::is('kendaraans*') ? 'bg-dark' : '' }}">
-                                <a href="{{ route('kendaraans.index') }}" class="nav-link">
-                                    <i class="nav-icon bi bi-car-front"></i>
-                                    <p>Kendaraan</p>
-                                </a>
-                            </li>
+                        <li class="nav-item {{ Request::is('kendaraans*') ? 'bg-dark' : '' }}">
+                            <a href="{{ route('kendaraan.index') }}" class="nav-link">
+                                <i class="nav-icon bi bi-car-front"></i>
+                                <p>Kendaraan</p>
+                            </a>
+                        </li>
 
-                            <li class="nav-item {{ Request::is('pemeriksaan/rekap*') ? 'bg-dark' : '' }}">
-                                <a href="{{ route('pemeriksaan.recap') }}" class="nav-link">
-                                    <i class="nav-icon bi bi-receipt"></i>
-                                    <p>Rekap Pemeriksaan</p>
-                                </a>
-                            </li>
+                        <li class="nav-item {{ Request::is('pemeriksaan/rekap*') ? 'bg-dark' : '' }}">
+                            <a href="{{ route('pemeriksaan.recap') }}" class="nav-link">
+                                <i class="nav-icon bi bi-receipt"></i>
+                                <p>Rekap Pemeriksaan</p>
+                            </a>
+                        </li>
 
-                            <li class="nav-item {{ Request::is('*') ? 'bg-dark' : '' }}">
-                                <a href="" class="nav-link">
-                                    <i class="nav-icon bi bi-book"></i>
-                                    <p>Log Book</p>
-                                </a>
-                            </li>
+                        <li class="nav-item {{ Request::is('*') ? 'bg-dark' : '' }}">
+                            <a href="" class="nav-link">
+                                <i class="nav-icon bi bi-book"></i>
+                                <p>Log Book</p>
+                            </a>
+                        </li>
 
 
         </aside> <!--end::Sidebar--> <!--begin::App Main-->
@@ -163,34 +169,34 @@
     </script> <!--end::OverlayScrollbars Configure--> <!-- OPTIONAL SCRIPTS --> <!-- apexcharts -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"
         integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8=" crossorigin="anonymous"></script>
-        <!-- jQuery -->
-<script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
+    <!-- jQuery -->
+    <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
 
-<!-- Bootstrap Bundle -->
-<script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- Bootstrap Bundle -->
+    <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-<!-- DataTables -->
-<script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <!-- DataTables -->
+    <script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
 
-<!-- JSZip for Excel -->
-<script src="{{ asset('adminlte/plugins/jszip/jszip.min.js') }}"></script>
+    <!-- JSZip for Excel -->
+    <script src="{{ asset('adminlte/plugins/jszip/jszip.min.js') }}"></script>
 
-<!-- pdfMake for PDF -->
-<script src="{{ asset('adminlte/plugins/pdfmake/pdfmake.min.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <!-- pdfMake for PDF -->
+    <script src="{{ asset('adminlte/plugins/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/pdfmake/vfs_fonts.js') }}"></script>
 
-<!-- DataTables Buttons -->
-<script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <!-- DataTables Buttons -->
+    <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
-<!-- AdminLTE App -->
-<script src="{{ asset('adminlte/dist/js/adminlte.min.js?v=3.2.0') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('adminlte/dist/js/adminlte.min.js?v=3.2.0') }}"></script>
     <script>
         // NOTICE!! DO NOT USE ANY OF THIS JAVASCRIPT
         // IT'S ALL JUST JUNK FOR DEMO
@@ -310,22 +316,24 @@
         sales_chart.render();
     </script> <!--end::Script-->
     <script>
-        $(function () {
-          $("#example1").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-          }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-          $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-          });
+        $(function() {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
         });
-      </script>
+    </script>
 </body><!--end::Body-->
 
 </html>

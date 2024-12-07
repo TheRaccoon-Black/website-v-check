@@ -28,8 +28,8 @@
                 Menu</div>
             <ul data-sidebar="menu" class="space-y-2 text-sm">
                 <li data-sidebar="menu-item">
-                    <a href="#" data-sidebar="menu-button"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <a href="{{ route('dashboard') }}" data-sidebar="menu-button"
+                        class="{{ request()->is('dashboard*') ? 'bg-gray-100 dark:bg-gray-700' : '' }} transition-colors flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <div class="flex  items-center justify-center text-sidebar-foreground">
                             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
                                 viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
@@ -42,8 +42,8 @@
                     </a>
                 </li>
                 <li data-sidebar="menu-item">
-                    <a href="#" data-sidebar="menu-button"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <a href="{{ route('petugas.index') }}" data-sidebar="menu-button"
+                        class="{{ request()->is('petugas*') ? 'bg-gray-100 dark:bg-gray-700' : '' }} transition-colors flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <div class="flex  items-center justify-center text-sidebar-foreground">
                             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
                                 viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
@@ -56,8 +56,8 @@
                     </a>
                 </li>
                 <li data-sidebar="menu-item">
-                    <a href="#" data-sidebar="menu-button"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <a href="{{ route('checklist.index') }}" data-sidebar="menu-button"
+                        class="{{ request()->is('checklist*') ? 'bg-gray-100 dark:bg-gray-700' : '' }} transition-colors flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <div class="flex  items-center justify-center text-sidebar-foreground">
                             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
                                 viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
@@ -71,8 +71,8 @@
                     </a>
                 </li>
                 <li data-sidebar="menu-item">
-                    <a href="#" data-sidebar="menu-button"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <a href="{{ route('kendaraan.index') }}" data-sidebar="menu-button"
+                        class="{{ request()->is('kendaraan*') ? 'bg-gray-100 dark:bg-gray-700' : '' }} transition-colors flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <div class="flex  items-center justify-center text-sidebar-foreground">
                             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
                                 viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
@@ -105,22 +105,23 @@
                         </svg>
                     </button>
 
-                    <ul id="pemeriksaan-menu" class="hidden my-2 space-y-2 ml-4 pl-4 border-l border-sidebar-border">
+                    <ul id="pemeriksaan-menu"
+                        class="{{ request()->is('pemeriksaan*') ? '' : 'hidden' }}  my-2 space-y-2 ml-4 pl-4 border-l border-sidebar-border">
                         <li>
-                            <a href="#"
-                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg  group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            <a href="{{ route('pemeriksaan.index') }}"
+                                class="{{ request()->is('pemeriksaan/utama') ? 'bg-gray-100 dark:bg-gray-700' : '' }} flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg  group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                 Kendaraan
                                 Utama
                             </a>
                         </li>
                         <li>
-                            <a href="#"
-                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg  group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Kendaraan
+                            <a href="{{ route('pemeriksaan.index') }}"
+                                class="{{ request()->is('pemeriksaan/pendukung') ? 'bg-gray-100 dark:bg-gray-700' : '' }} flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg  group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Kendaraan
                                 Pendukung</a>
                         </li>
                         <li>
-                            <a href="#"
-                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg  group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Rekap</a>
+                            <a href="{{ route('pemeriksaan.recap') }}"
+                                class="{{ request()->is('pemeriksaan/rekap') ? 'bg-gray-100 dark:bg-gray-700' : '' }} flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg  group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Rekap</a>
                         </li>
 
                     </ul>
