@@ -59,6 +59,7 @@
                             class="px-4 py-3 text-center">Tidak ada data.</td>
                     </tr>
                 @endif
+
                 @foreach ($rows as $row)
                     <tr class="border-b dark:border-gray-700">
                         <th scope="row"
@@ -67,7 +68,7 @@
                         </th>
                         @foreach ($fields as $field)
                             <td class="px-4 py-3">
-                                {{ $rowCallback ? call_user_func($rowCallback, $row->{$field}, $field) : $row->{$field} }}
+                                {!! $rowCallback ? call_user_func($rowCallback, $row->{$field}, $field) : $row->{$field} !!}
                             </td>
                         @endforeach
 

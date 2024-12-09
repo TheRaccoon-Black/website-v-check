@@ -39,7 +39,11 @@ class PetugasController extends Controller
             ];
         });
 
-        return view('petugas.index', compact('petugas', 'grouped'));
+        $filterCount = count(array_filter($regu ?? [], function ($value) {
+            return $value !== null;
+        }));
+
+        return view('petugas.index', compact('petugas', 'grouped', 'filterCount'));
     }
 
     public function create()

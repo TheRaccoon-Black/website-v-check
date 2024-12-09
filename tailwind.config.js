@@ -18,7 +18,11 @@ export default {
         "animation-slide-left-to-right",
         "animation-slide-top-to-bottom",
         "animation-slide-bottom-to-top",
+        {
+            pattern: /(blue|gray|red|green|pink|indigo|yellow|purple)-(.*)/,
+        },
     ],
+
     theme: {
         extend: {
             fontFamily: {

@@ -51,16 +51,17 @@ class ChecklistController extends Controller
 
         $rowCallback = function ($value, $field) {
             if ($field === 'kategori' && $value === 'test_pompa') {
-                return 'Test Pompa';
+                return '<span class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2 py-1 rounded whitespace-nowrap">Test Pompa</span>';
             }
             if ($field === 'kategori' && $value === 'test_jalan') {
-                return 'Test Jalan';
+                return '<span class="bg-indigo-100 text-indigo-800 text-sm font-medium me-2 px-2 py-1 rounded whitespace-nowrap">Test Jalan</span>';
             }
             if ($field === 'kategori' && $value === 'sebelum') {
-                return 'Sebelum';
+
+                return '<span class="bg-purple-100 text-purple-800 text-sm font-medium me-2 px-2 py-1 rounded">Sebelum</span>';
             }
             if ($field === 'kategori' && $value === 'setelah') {
-                return 'Setelah';
+                return '<span class="bg-pink-100 text-pink-800 text-sm font-medium me-2 px-2 py-1 rounded">Setelah</span>';
             }
             if ($field === 'jenis_kendaraan' && $value === 'utama') {
                 return 'Kendaraan Utama';
@@ -71,7 +72,14 @@ class ChecklistController extends Controller
             return $value;
         };
 
-        return view('checklists.index', compact('checklists', 'groupedKategori', 'groupedJenisKendaraan', 'rowCallback'));
+        $filterCount = count(array_filter(array_merge(
+            $kategori ?? [],
+            $jenis_kendaraan ?? []
+        ), function ($value) {
+            return $value !== null;
+        }));
+
+        return view('checklists.index', compact('checklists', 'groupedKategori', 'groupedJenisKendaraan', 'rowCallback', 'filterCount'));
     }
 
 
