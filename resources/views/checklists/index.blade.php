@@ -25,39 +25,44 @@
                 <x-datatable :columns="['No', 'Nama Item', 'Kategori', 'Jenis Kendaraan']" :rows="$checklists" :search="true" :fields="['nama_item', 'kategori', 'jenis_kendaraan']" :colAction="['edit', 'delete']"
                     :rowCallback="$rowCallback">
                     @slot('addButton')
-                        <x-button :color="'secondary'" data-modal-target="modal-add" data-modal-toggle="modal-add">
-                            <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path clip-rule="evenodd" fill-rule="evenodd"
-                                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-                            </svg>
-                            Tambah Checklist
-                        </x-button>
+                        <div class="col-span-6">
+                            <x-button :color="'secondary'" class="w-full" data-modal-target="modal-add"
+                                data-modal-toggle="modal-add">
+                                <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path clip-rule="evenodd" fill-rule="evenodd"
+                                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                                </svg>
+                                Tambah Checklist
+                            </x-button>
+                        </div>
                     @endslot
 
                     @slot('filterButton')
-                        <x-button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" :color="'secondary'">
-                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-2" viewbox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            Filter
-
-                            @if ($filterCount > 0)
-                                <span
-                                    class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-primary bg-gray-100 border rounded-full">
-                                    {{ $filterCount }}
-                                </span>
-                            @else
-                                <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                    <path clip-rule="evenodd" fill-rule="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                        <div class="col-span-6">
+                            <x-button id="filterDropdownButton" class="w-full" data-dropdown-toggle="filterDropdown"
+                                :color="'secondary'">
+                                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    class="h-4 w-4 mr-2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d='M4.5 7h15M7 12h10m-7 5h4' />
                                 </svg>
-                            @endif
-                        </x-button>
+                                Filter
+
+                                @if ($filterCount > 0)
+                                    <span
+                                        class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-primary bg-gray-100 border rounded-full">
+                                        {{ $filterCount }}
+                                    </span>
+                                @else
+                                    <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path clip-rule="evenodd" fill-rule="evenodd"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                    </svg>
+                                @endif
+                            </x-button>
+                        </div>
                     @endslot
 
                     @slot('editScript')
@@ -156,7 +161,8 @@
                         </x-form-select>
                     </div>
                     <div class="col-span-2">
-                        <x-form-select name="jenis_kendaraan" id="jenis_kendaraan-add" required="true" label="Jenis Kendaraan">
+                        <x-form-select name="jenis_kendaraan" id="jenis_kendaraan-add" required="true"
+                            label="Jenis Kendaraan">
                             @foreach ([['label' => 'Kendaraan Utama', 'value' => 'utama'], ['label' => 'Kendaraan Pendukung', 'value' => 'pendukung']] as $item)
                                 <option value="{{ $item['value'] }}">{{ $item['label'] }}</option>
                             @endforeach

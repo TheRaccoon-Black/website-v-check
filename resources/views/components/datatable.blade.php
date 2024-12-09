@@ -23,11 +23,17 @@
             @endif
         </div>
         <div
-            class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+            class="w-full grid gap-2 lg:gap-0 grid-cols-6 lg:w-auto lg:flex lg:flex-row lg:space-y-0 lg:items-center lg:justify-end lg:space-x-3 lg:flex-shrink-0">
 
             {{ $addButton ?? '' }}
 
             {{ $exportButton ?? '' }}
+
+            {{ $importButton ?? '' }}
+
+            {{ $printButton ?? '' }}
+
+            {{ $sortButton ?? '' }}
 
             {{ $filterButton ?? '' }}
 
