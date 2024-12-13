@@ -32,15 +32,35 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::prefix('petugas')->name('petugas.')->group(function () {
-    Route::get('/', [PetugasController::class, 'index'])->name('index');
-    Route::get('/create', [PetugasController::class, 'create'])->name('create');
-    Route::post('/', [PetugasController::class, 'store'])->name('store');
-    Route::get('/{id}/edit', [PetugasController::class, 'edit'])->name('edit');
-    Route::put('/{id}', [PetugasController::class, 'update'])->name('update');
-    Route::delete('/{id}', [PetugasController::class, 'destroy'])->name('destroy');
+
+//admin routes
+Route::middleware(['auth','role:admin'])->group(function () {
+    // Route::get('/admin/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
+    Route::prefix('petugas')->name('petugas.')->group(function () {
+        Route::get('/', [PetugasController::class, 'index'])->name('index');
+        Route::get('/create', [PetugasController::class, 'create'])->name('create');
+        Route::post('/', [PetugasController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [PetugasController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [PetugasController::class, 'update'])->name('update');
+        Route::delete('/{id}', [PetugasController::class, 'destroy'])->name('destroy');
+    });
 });
 
+//admin routes
+Route::middleware(['auth','role:petugas'])->group(function () {
+    Route::prefix("pemeriksaan")->name("pemeriksaan.")->group(function () {
+        Route::get("/", [PemeriksaanController::class, "index"])->name("index");
+        Route::get('/create', [PemeriksaanController::class, 'create'])->name('create');
+        Route::get('/cetak/{id_hasil}', [PemeriksaanController::class, 'cetak'])->name('cetak');
+        Route::post('/store', [PemeriksaanController::class, 'store'])->name('store');
+        Route::get('/rekap', [PemeriksaanController::class, 'recap'])->name('recap');
+        Route::get('/arsip/{id_hasil}', [PemeriksaanController::class, 'arsip'])->name('arsip');
+        Route::get('/fetch', [PemeriksaanController::class, 'fetch'])->name('fetch');
+    });
+
+});
+
+    
 // --------------------------------------------------------------------------
 // Checklist Routes
 // --------------------------------------------------------------------------
@@ -66,14 +86,5 @@ Route::prefix('kendaraan')->name('kendaraan.')->group(function () {
 });
 
 
-Route::prefix("pemeriksaan")->name("pemeriksaan.")->group(function () {
-    Route::get("/", [PemeriksaanController::class, "index"])->name("index");
-    Route::get('/create', [PemeriksaanController::class, 'create'])->name('create');
-    Route::get('/cetak/{id_hasil}', [PemeriksaanController::class, 'cetak'])->name('cetak');
-    Route::post('/store', [PemeriksaanController::class, 'store'])->name('store');
-    Route::get('/rekap', [PemeriksaanController::class, 'recap'])->name('recap');
-    Route::get('/arsip/{id_hasil}', [PemeriksaanController::class, 'arsip'])->name('arsip');
-    Route::get('/fetch', [PemeriksaanController::class, 'fetch'])->name('fetch');
-});
 Route::get('/view-pdf', [PemeriksaanController::class, 'showpdf'])->name('view.showpdf');
 require __DIR__ . '/auth.php';
