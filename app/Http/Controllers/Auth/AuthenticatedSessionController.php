@@ -19,6 +19,9 @@ class AuthenticatedSessionController extends Controller
     {
         return view('auth.login');
     }
+    public function createToken(){
+        return view('auth.token-login');
+    }
 
     /**
      * Handle an incoming authentication request.
@@ -49,7 +52,35 @@ class AuthenticatedSessionController extends Controller
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function loginWithToken(Request $request): RedirectResponse
+{
+    // Validasi input
+    $request->validate([
+        'token' => 'required|string',
+    ]);
+
+    // Cari user berdasarkan token
+    $user = \App\Models\User::where('unique_token', $request->token)->first();
+
+    // Jika user tidak ditemukan
+    if (!$user) {
+        return back()->with('error', 'Invalid token. Please try again.');
+    }
+
+    // Login pengguna
+    Auth::login($user);
+
+    // Redirect berdasarkan peran
+    $url = match ($user->role) {
+        'admin' => 'petugas',
+        'petugas' => 'pemeriksaan',
+        default => 'dashboard',
+    };
+
+    return redirect()->intended($url)->with('success', 'Login successful!');
+}
+
+     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
 

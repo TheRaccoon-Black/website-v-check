@@ -178,8 +178,15 @@
                         class="block px-4 py-2 hover:bg-sidebar-accent dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
                 </li>
                 <li>
-                    <a href="#"
-                        class="block px-4 py-2 hover:bg-sidebar-accent dark:hover:bg-gray-600 dark:hover:text-white">Logout</a>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+
+                        <x-dropdown-link :href="route('logout')"
+                                onclick="event.preventDefault();
+                                            this.closest('form').submit();">
+                            {{ __('Log Out') }}
+                        </x-dropdown-link>
+                    </form>
                 </li>
             </ul>
         </div>
