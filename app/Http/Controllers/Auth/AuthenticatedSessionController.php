@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\LoginLog;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use App\Providers\RouteServiceProvider;
+use App\Http\Requests\Auth\LoginRequest;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -36,6 +37,13 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        LoginLog::create([
+        'user_id' => $request->user()->id,
+        'ip_address' => $request->ip(),
+        'user_agent' => $request->header('User-Agent'),
+        'logged_in_at' => now(),
+    ]);
 
         $url = "";
         if($request->user()->role === "admin"){
@@ -69,7 +77,12 @@ class AuthenticatedSessionController extends Controller
 
     // Login pengguna
     Auth::login($user);
-
+    LoginLog::create([
+        'user_id' => $request->user()->id,
+        'ip_address' => $request->ip(),
+        'user_agent' => $request->header('User-Agent'),
+        'logged_in_at' => now(),
+    ]);
     // Redirect berdasarkan peran
     $url = match ($user->role) {
         'admin' => 'petugas',
