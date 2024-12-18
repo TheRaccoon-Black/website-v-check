@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
 
 
 //admin routes
-Route::middleware(['auth','role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
     // Route::get('/admin/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
     Route::prefix('petugas')->name('petugas.')->group(function () {
         Route::get('/', [PetugasController::class, 'index'])->name('index');
@@ -50,7 +50,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
 });
 
 //admin routes
-Route::middleware(['auth','role:petugas'])->group(function () {
+Route::middleware(['auth', 'role:admin,petugas'])->group(function () {
     Route::prefix("pemeriksaan")->name("pemeriksaan.")->group(function () {
         Route::get("/", [PemeriksaanController::class, "index"])->name("index");
         Route::get('/create', [PemeriksaanController::class, 'create'])->name('create');
@@ -60,7 +60,6 @@ Route::middleware(['auth','role:petugas'])->group(function () {
         Route::get('/arsip/{id_hasil}', [PemeriksaanController::class, 'arsip'])->name('arsip');
         Route::get('/fetch', [PemeriksaanController::class, 'fetch'])->name('fetch');
     });
-
 });
 
 

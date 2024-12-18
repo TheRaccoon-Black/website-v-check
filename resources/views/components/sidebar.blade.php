@@ -108,14 +108,14 @@
                     <ul id="pemeriksaan-menu"
                         class="{{ request()->is('pemeriksaan*') ? '' : 'hidden' }}  my-2 space-y-2 ml-4 pl-4 border-l border-sidebar-border">
                         <li>
-                            <a href="{{ route('pemeriksaan.index') }}"
+                            <a href="{{ route('pemeriksaan.create') }}?jenis=utama"
                                 class="{{ request()->is('pemeriksaan/utama') ? 'bg-sidebar-accent dark:bg-gray-700 font-medium' : '' }} flex items-center w-full p-2 text-sidebar-accent-foreground transition duration-75 rounded-lg  group hover:bg-sidebar-accent dark:text-white dark:hover:bg-gray-700">
                                 Kendaraan
                                 Utama
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('pemeriksaan.index') }}"
+                            <a href="{{ route('pemeriksaan.create') }}?jenis=pendukung"
                                 class="{{ request()->is('pemeriksaan/pendukung') ? 'bg-sidebar-accent dark:bg-gray-700 font-medium' : '' }} flex items-center w-full p-2 text-sidebar-accent-foreground transition duration-75 rounded-lg  group hover:bg-sidebar-accent dark:text-white dark:hover:bg-gray-700">Kendaraan
                                 Pendukung</a>
                         </li>
@@ -157,8 +157,8 @@
                     </svg>
                 </div>
                 <div class="grid flex-1 text-left text-sm leading-tight">
-                    <span class="truncate font-semibold">Sutarjo</span>
-                    <span class="truncate text-xs">Admin</span>
+                    <span class="truncate font-semibold">{{ Auth::user()->name }}</span>
+                    <span class="truncate text-xs">{{ Auth::user()->role }}</span>
                 </div>
                 <div>
                     <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
@@ -174,15 +174,11 @@
             class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRightButton">
                 <li>
-                    <a href="#"
-                        class="block px-4 py-2 hover:bg-sidebar-accent dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                </li>
-                <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
 
                         <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault();
+                            onclick="event.preventDefault();
                                             this.closest('form').submit();">
                             {{ __('Log Out') }}
                         </x-dropdown-link>

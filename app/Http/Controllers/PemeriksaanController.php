@@ -43,8 +43,7 @@ class PemeriksaanController extends Controller
             'checklist.*.kondisi' => 'required|in:baik,cukup,rusak,tdk ada',
             'checklist.*.keterangan' => 'nullable|string',
         ]);
-
-
+        $tanggal = \Carbon\Carbon::createFromFormat('d-m-Y', $request->tanggal)->format('Y-m-d');
         // $hari = \Carbon\Carbon::parse($request->tanggal)->translatedFormat('l');
         // $hari = strtolower($hari);
 
@@ -52,18 +51,18 @@ class PemeriksaanController extends Controller
 
         // $id_hasil = "{$hari}-{$tanggalFormatted}-{$request->dinas}";
         // Ambil nama hari dalam bahasa Indonesia
-        $hari = \Carbon\Carbon::parse($request->tanggal)->translatedFormat('l');
+        $hari = \Carbon\Carbon::parse($tanggal)->translatedFormat('l');
         $hari = strtolower($hari); // Ubah huruf kecil semua
 
         // Format tanggal menjadi "dmY" (contoh: 26042024)
-        $tanggalFormatted = \Carbon\Carbon::parse($request->tanggal)->format('dmY');
+        $tanggalFormatted = \Carbon\Carbon::parse($tanggal)->format('dmY');
 
         // Gabungkan nama hari, tanggal, dan dinas tanpa pemisah
         $id_hasil = "{$hari}{$tanggalFormatted}{$request->dinas}";
 
 
 
-        $exists = Pemeriksaan::where('tanggal', $request->tanggal)
+        $exists = Pemeriksaan::where('tanggal', $tanggal)
             ->where('id_kendaraan', $request->id_kendaraan)
             ->where('dinas', $request->dinas)
             ->exists();
@@ -81,7 +80,7 @@ class PemeriksaanController extends Controller
                 'id_hasil' => $id_hasil,
                 'id_checklist' => $item['id_checklist'],
                 'id_kendaraan' => $request->id_kendaraan,
-                'tanggal' => $request->tanggal,
+                'tanggal' => $tanggal,
                 'kondisi' => $item['kondisi'],
                 'keterangan' => $item['keterangan'] ?? null,
             ]);
