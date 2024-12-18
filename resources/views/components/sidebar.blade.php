@@ -127,6 +127,20 @@
                     </ul>
                 </li>
                 <li data-sidebar="menu-item">
+                    <a href="{{ route('view.showpdf') }}" data-sidebar="menu-button"
+                        class="flex items-center p-2 text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 group">
+                        <div class="flex  items-center justify-center text-sidebar-foreground">
+                            <svg width="24" height="24" fill="none" stroke="currentColor"
+                                stroke-width="1.5" viewBox="0 0 24 24" stroke-linecap="round"
+                                stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" class="size-5">
+                                <path
+                                    d='M12 8.94V18m5-9.06V18M7 8.94V18m5.447-14.894 7.764 3.908c.944.475.608 1.907-.447 1.907H4.236c-1.055 0-1.391-1.432-.447-1.907l7.764-3.908a1 1 0 0 1 .894 0M19.5 21h-15a1.5 1.5 0 0 1 0-3h15a1.5 1.5 0 0 1 0 3' />
+                            </svg>
+                        </div>
+                        <span class="ms-3">Lihat SOP</span>
+                    </a>
+                </li>
+                <li data-sidebar="menu-item">
                     <a href="#" data-sidebar="menu-button"
                         class="flex items-center p-2 text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 group">
                         <div class="flex  items-center justify-center text-sidebar-foreground">
