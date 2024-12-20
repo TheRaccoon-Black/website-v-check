@@ -47,6 +47,29 @@ Route::middleware(['auth','role:admin'])->group(function () {
         Route::put('/{id}', [PetugasController::class, 'update'])->name('update');
         Route::delete('/{id}', [PetugasController::class, 'destroy'])->name('destroy');
     });
+
+    // --------------------------------------------------------------------------
+    // Checklist Routes
+    // --------------------------------------------------------------------------
+    Route::prefix('checklist')->name('checklist.')->group(function () {
+        Route::get('/', [ChecklistController::class, 'index'])->name('index');
+        Route::get('/create', [ChecklistController::class, 'create'])->name('create');
+        Route::post('/', [ChecklistController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [ChecklistController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [ChecklistController::class, 'update'])->name('update');
+        Route::delete('/{id}', [ChecklistController::class, 'destroy'])->name('destroy');
+    });
+    // --------------------------------------------------------------------------
+    // Kendaraan Routes
+    // --------------------------------------------------------------------------
+    Route::prefix('kendaraan')->name('kendaraan.')->group(function () {
+        Route::get('/', [KendaraanController::class, 'index'])->name('index');
+        Route::get('/create', [KendaraanController::class, 'create'])->name('create');
+        Route::post('/', [KendaraanController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [KendaraanController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [KendaraanController::class, 'update'])->name('update');
+        Route::delete('/{id}', [KendaraanController::class, 'destroy'])->name('destroy');
+    });
 });
 
 //admin routes
@@ -64,29 +87,6 @@ Route::middleware(['auth','role:petugas'])->group(function () {
 });
 
 
-// --------------------------------------------------------------------------
-// Checklist Routes
-// --------------------------------------------------------------------------
-Route::prefix('checklist')->name('checklist.')->group(function () {
-    Route::get('/', [ChecklistController::class, 'index'])->name('index');
-    Route::get('/create', [ChecklistController::class, 'create'])->name('create');
-    Route::post('/', [ChecklistController::class, 'store'])->name('store');
-    Route::get('/{id}/edit', [ChecklistController::class, 'edit'])->name('edit');
-    Route::put('/{id}', [ChecklistController::class, 'update'])->name('update');
-    Route::delete('/{id}', [ChecklistController::class, 'destroy'])->name('destroy');
-});
-
-// --------------------------------------------------------------------------
-// Kendaraan Routes
-// --------------------------------------------------------------------------
-Route::prefix('kendaraan')->name('kendaraan.')->group(function () {
-    Route::get('/', [KendaraanController::class, 'index'])->name('index');
-    Route::get('/create', [KendaraanController::class, 'create'])->name('create');
-    Route::post('/', [KendaraanController::class, 'store'])->name('store');
-    Route::get('/{id}/edit', [KendaraanController::class, 'edit'])->name('edit');
-    Route::put('/{id}', [KendaraanController::class, 'update'])->name('update');
-    Route::delete('/{id}', [KendaraanController::class, 'destroy'])->name('destroy');
-});
 
 
 Route::get('/view-pdf', [PemeriksaanController::class, 'showpdf'])->name('view.showpdf');
