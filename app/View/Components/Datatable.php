@@ -18,6 +18,7 @@ class Datatable extends Component
     public $fields;
     public $detailRoute;
     public $rowCallback;
+    public $detailId;
 
     /**
      * Create a new component instance.
@@ -43,7 +44,8 @@ class Datatable extends Component
         ?array $filters = null,
         string $placeholderFilter = 'Pilih Filter',
         ?array $colAction = null,
-        ?Closure $rowCallback = null
+        ?Closure $rowCallback = null,
+        $detailId = null,
     ) {
         $this->columns = $columns;
         $this->rows = $rows;
@@ -55,6 +57,7 @@ class Datatable extends Component
         $this->placeholderFilter = $placeholderFilter;
         $this->colAction = $colAction;
         $this->rowCallback = $rowCallback;
+        $this->detailId = $detailId;
     }
 
     /**

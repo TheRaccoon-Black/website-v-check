@@ -14,22 +14,6 @@
 </head>
 
 <body class="antialiased">
-    <div>
-
-
-        <!-- drawer init and show -->
-        <div class="text-center">
-            <button
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                type="button" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation"
-                aria-controls="drawer-navigation">
-                Show navigation
-            </button>
-        </div>
-
-        <x-sidebar />
-
-    </div>
 
     <div
         class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">

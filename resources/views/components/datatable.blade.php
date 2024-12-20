@@ -37,6 +37,8 @@
 
             {{ $filterButton ?? '' }}
 
+            {{ $button ?? '' }}
+
         </div>
     </div>
 
@@ -97,7 +99,7 @@
                                         {{ $dropdown ?? '' }}
                                         @if (in_array('detail', $colAction) && $detailRoute)
                                             <li>
-                                                <a href="{{ route($detailRoute, $row->id) }}"
+                                                <a href="{{ route($detailRoute, $detailId ? $row->{$detailId} : $row->id) }}"
                                                     data-id="{{ $row->id }}"
                                                     class="flex w-full gap-2 text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                                     <svg width="24" height="24" fill="none"

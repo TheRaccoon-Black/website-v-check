@@ -108,14 +108,14 @@
                     <ul id="pemeriksaan-menu"
                         class="{{ request()->is('pemeriksaan*') ? '' : 'hidden' }}  my-2 space-y-2 ml-4 pl-4 border-l border-sidebar-border">
                         <li>
-                            <a href="{{ route('pemeriksaan.index') }}"
+                            <a href="{{ route('pemeriksaan.create') }}?jenis=utama"
                                 class="{{ request()->is('pemeriksaan/utama') ? 'bg-sidebar-accent dark:bg-gray-700 font-medium' : '' }} flex items-center w-full p-2 text-sidebar-accent-foreground transition duration-75 rounded-lg  group hover:bg-sidebar-accent dark:text-white dark:hover:bg-gray-700">
                                 Kendaraan
                                 Utama
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('pemeriksaan.index') }}"
+                            <a href="{{ route('pemeriksaan.create') }}?jenis=pendukung"
                                 class="{{ request()->is('pemeriksaan/pendukung') ? 'bg-sidebar-accent dark:bg-gray-700 font-medium' : '' }} flex items-center w-full p-2 text-sidebar-accent-foreground transition duration-75 rounded-lg  group hover:bg-sidebar-accent dark:text-white dark:hover:bg-gray-700">Kendaraan
                                 Pendukung</a>
                         </li>
@@ -125,6 +125,20 @@
                         </li>
 
                     </ul>
+                </li>
+                <li data-sidebar="menu-item">
+                    <a href="{{ route('view.showpdf') }}" data-sidebar="menu-button"
+                        class="flex items-center p-2 text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 group">
+                        <div class="flex  items-center justify-center text-sidebar-foreground">
+                            <svg width="24" height="24" fill="none" stroke="currentColor"
+                                stroke-width="1.5" viewBox="0 0 24 24" stroke-linecap="round"
+                                stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" class="size-5">
+                                <path
+                                    d='M12 8.94V18m5-9.06V18M7 8.94V18m5.447-14.894 7.764 3.908c.944.475.608 1.907-.447 1.907H4.236c-1.055 0-1.391-1.432-.447-1.907l7.764-3.908a1 1 0 0 1 .894 0M19.5 21h-15a1.5 1.5 0 0 1 0-3h15a1.5 1.5 0 0 1 0 3' />
+                            </svg>
+                        </div>
+                        <span class="ms-3">Lihat SOP</span>
+                    </a>
                 </li>
                 <li data-sidebar="menu-item">
                     <a href="#" data-sidebar="menu-button"
@@ -157,8 +171,8 @@
                     </svg>
                 </div>
                 <div class="grid flex-1 text-left text-sm leading-tight">
-                    <span class="truncate font-semibold">Sutarjo</span>
-                    <span class="truncate text-xs">Admin</span>
+                    <span class="truncate font-semibold">{{ Auth::user()->name }}</span>
+                    <span class="truncate text-xs">{{ Auth::user()->role }}</span>
                 </div>
                 <div>
                     <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
@@ -174,15 +188,11 @@
             class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRightButton">
                 <li>
-                    <a href="#"
-                        class="block px-4 py-2 hover:bg-sidebar-accent dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                </li>
-                <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
 
                         <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault();
+                            onclick="event.preventDefault();
                                             this.closest('form').submit();">
                             {{ __('Log Out') }}
                         </x-dropdown-link>

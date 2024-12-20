@@ -43,8 +43,7 @@ class PemeriksaanController extends Controller
             'checklist.*.kondisi' => 'required|in:baik,cukup,rusak,tdk ada',
             'checklist.*.keterangan' => 'nullable|string',
         ]);
-
-
+        $tanggal = \Carbon\Carbon::createFromFormat('d-m-Y', $request->tanggal)->format('Y-m-d');
         // $hari = \Carbon\Carbon::parse($request->tanggal)->translatedFormat('l');
         // $hari = strtolower($hari);
 
@@ -52,18 +51,18 @@ class PemeriksaanController extends Controller
 
         // $id_hasil = "{$hari}-{$tanggalFormatted}-{$request->dinas}";
         // Ambil nama hari dalam bahasa Indonesia
-        $hari = \Carbon\Carbon::parse($request->tanggal)->translatedFormat('l');
+        $hari = \Carbon\Carbon::parse($tanggal)->translatedFormat('l');
         $hari = strtolower($hari); // Ubah huruf kecil semua
 
         // Format tanggal menjadi "dmY" (contoh: 26042024)
-        $tanggalFormatted = \Carbon\Carbon::parse($request->tanggal)->format('dmY');
+        $tanggalFormatted = \Carbon\Carbon::parse($tanggal)->format('dmY');
 
         // Gabungkan nama hari, tanggal, dan dinas tanpa pemisah
         $id_hasil = "{$hari}{$tanggalFormatted}{$request->dinas}";
 
 
 
-        $exists = Pemeriksaan::where('tanggal', $request->tanggal)
+        $exists = Pemeriksaan::where('tanggal', $tanggal)
             ->where('id_kendaraan', $request->id_kendaraan)
             ->where('dinas', $request->dinas)
             ->exists();
@@ -81,7 +80,7 @@ class PemeriksaanController extends Controller
                 'id_hasil' => $id_hasil,
                 'id_checklist' => $item['id_checklist'],
                 'id_kendaraan' => $request->id_kendaraan,
-                'tanggal' => $request->tanggal,
+                'tanggal' => $tanggal,
                 'kondisi' => $item['kondisi'],
                 'keterangan' => $item['keterangan'] ?? null,
             ]);
@@ -126,40 +125,108 @@ class PemeriksaanController extends Controller
 
     //     return view('pemeriksaans.recap', compact('hasil'));
     // }
-    public function recap()
+    public function recap(Request $request)
     {
+        $search = $request->get('search');
+        $dinas = $request->get('dinas');
+        $startDate = $request->get('startDate');
+        $endDate = $request->get('endDate');
+        $sortBy = $request->get('sortBy');
+        $sort = $request->get('sort', 'asc');
 
-        $hasil = Pemeriksaan::select('id_hasil', 'tanggal', 'dinas', 'id_petugas', 'id_kendaraan')
-            ->with(['petugas', 'kendaraan'])
-            ->groupBy('id_hasil', 'tanggal', 'dinas', 'id_petugas', 'id_kendaraan') // Untuk mencegah duplikasi ID hasil
-            ->orderBy('tanggal', 'desc')
-            ->get();
+        if (!empty($startDate)) {
+            $startDate = \Carbon\Carbon::createFromFormat('d/m/Y', $startDate)->format('Y-m-d');
+        }
 
-        $hasilFormatted = $hasil->map(function ($item) {
+        if (!empty($endDate)) {
+            $endDate = \Carbon\Carbon::createFromFormat('d/m/Y', $endDate)->format('Y-m-d');
+        }
 
-            $tanggal = \Carbon\Carbon::parse($item->tanggal);
-            $hari = strtolower($tanggal->translatedFormat('l')); // Contoh: 'sabtu'
+        $query = Pemeriksaan::query();
 
-            // Format tanggal menjadi "dmY" (contoh: 26042024)
-            $tanggalFormatted = $tanggal->format('dmY');
+        $query->with(['petugas', 'kendaraan']);
 
-            $idHasilBaru = "{$hari}{$tanggalFormatted}{$item->dinas}";
+        if (!empty($dinas)) {
+            $query->WhereIn('dinas', $dinas);
+        }
 
-            $idHasilFormatted = "{$hari}-{$tanggal->format('d-m-Y')}-{$item->dinas}";
+        if (!empty($startDate) && !empty($endDate)) {
+            $query->whereBetween('tanggal', [$startDate, $endDate]);
+        }
 
-            return [
-                'hasil' => $idHasilBaru,
-                'id_hasil' => $idHasilFormatted,
-                'tanggal' => $item->tanggal,
-                'dinas' => ucfirst($item->dinas),
-                'petugas' => $item->petugas->nama_petugas ?? '-',
-                'kendaraan' => $item->kendaraan->nama_kendaraan ?? '-',
+        if (!empty($search)) {
+            $query->where(function ($query) use ($search) {
+                $query
+                    ->whereHas('kendaraan', function ($query) use ($search) {
+                        $query->where('nama_kendaraan', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('petugas', function ($query) use ($search) {
+                        $query->where('nama_petugas', 'like', "%{$search}%");
+                    });
+            });
+        }
+
+        if (!empty($sortBy) && is_string($sortBy) && in_array($sort, ['asc', 'desc'])) {
+            if ($sortBy == 'tanggal') {
+                $query->orderByRaw('CAST(' . $sortBy . ' AS UNSIGNED) ' . $sort);
+            } else {
+                $query->orderBy($sortBy, $sort);
+            }
+        }
+
+        $pemeriksaans = $query->paginate(10)->appends(request()->query());
+
+        $groupedDinas = Pemeriksaan::all()->groupBy('dinas')->map(function ($items, $dinas) {
+            return (object) [
+                'dinas' => $dinas,
+                'total' => $items->count()
             ];
         });
 
-        // dd($hasilFormatted);
+        $rowCallback = function ($value, $field) {
+            if ($field == 'dinas') {
+                return ucfirst($value);
+            }
+            if ($field == 'id_kendaraan') {
+                $id_kendaraan = $value;
+                $kendaraan = Kendaraan::find($id_kendaraan);
+                return $kendaraan->nama_kendaraan;
+            }
+            if ($field == 'id_petugas') {
+                $id_petugas = $value;
+                $petugas = Petugas::find($id_petugas);
+                return $petugas->nama_petugas;
+            }
+            if ($field == 'id_hasil') {
+                preg_match('/\d+/', $value, $matches);
+                $tanggalRaw = $matches[0];
 
-        return view('pemeriksaans.recap', compact('hasilFormatted'));
+                $dinas = substr($value, strpos($value, $tanggalRaw) + strlen($tanggalRaw));
+
+                $tanggal = \Carbon\Carbon::createFromFormat('dmY', $tanggalRaw);
+                $hari = strtolower($tanggal->locale('id')->isoFormat('dddd'));
+
+                return
+                    "{$hari}-{$tanggal->format('d-m-Y')}-{$dinas}";
+            }
+            if ($field == 'tanggal') {
+                $tanggal = \Carbon\Carbon::parse($value);
+                return $tanggal->format('d-m-Y');
+            }
+            return $value;
+        };
+
+        $filterCount = count(array_filter(array_merge(
+            $dinas ?? []
+        ), function ($value) {
+            return $value !== null;
+        }));
+
+        $sortable = (object) [
+            'tanggal' => (object) ['label' => 'Tanggal', 'field' => 'tanggal'],
+        ];
+
+        return view('pemeriksaans.recap', compact('pemeriksaans', 'groupedDinas', 'filterCount', 'sortable', 'rowCallback'));
     }
 
 
