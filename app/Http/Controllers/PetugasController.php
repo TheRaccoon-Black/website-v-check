@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Petugas;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PetugasController extends Controller
 {
@@ -12,39 +13,43 @@ class PetugasController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {
-        $search = $request->get('search');
-        $regu = $request->get('regu');
+{
+    $search = $request->get('search');
+    $regu = $request->get('regu');
+    $users = User::all();
 
-        $query = Petugas::query();
+    $query = Petugas::query();
 
-        if (!empty($search)) {
-            $query->where(function ($query) use ($search) {
-                $query->where('nama_petugas', 'like', "%{$search}%")
-                    ->orWhere('regu', 'like', "%{$search}%")
-                    ->orWhere('petugas_id', 'like', "%{$search}%");
-            });
-        }
-
-        if (!empty($regu) && is_array($regu)) {
-            $query->whereIn('regu', $regu);
-        }
-
-        $petugas = $query->paginate(10)->appends(request()->query());
-
-        $grouped = Petugas::all()->groupBy('regu')->map(function ($items, $regu) {
-            return (object) [
-                'regu' => $regu,
-                'total' => $items->count()
-            ];
+    if (!empty($search)) {
+        $query->where(function ($query) use ($search) {
+            $query->whereHas('user', function ($userQuery) use ($search) {
+                $userQuery->where('name', 'like', "%{$search}%");
+            })->orWhere('regu', 'like', "%{$search}%")
+              ->orWhere('petugas_id', 'like', "%{$search}%");
         });
-
-        $filterCount = count(array_filter($regu ?? [], function ($value) {
-            return $value !== null;
-        }));
-
-        return view('petugas.index', compact('petugas', 'grouped', 'filterCount'));
     }
+
+    if (!empty($regu) && is_array($regu)) {
+        $query->whereIn('regu', $regu);
+    }
+
+    $petugas = $query->with('user')->paginate(10)->appends(request()->query());
+
+    // $petugas = $query->paginate(10)->appends(request()->query());
+
+    $grouped = Petugas::all()->groupBy('regu')->map(function ($items, $regu) {
+        return (object) [
+            'regu' => $regu,
+            'total' => $items->count(),
+        ];
+    });
+
+    $filterCount = count(array_filter($regu ?? [], function ($value) {
+        return $value !== null;
+    }));
+
+    return view('petugas.index', compact('petugas','users', 'grouped', 'filterCount'));
+}
 
     public function create()
     {
@@ -54,7 +59,7 @@ class PetugasController extends Controller
     public function store(Request $request)
     {
         $validator =  Validator::make($request->all(), [
-            'nama_petugas' => 'required|string|max:255',
+            'user_id' => 'required|exists:users,id',
             'regu' => 'required|string|max:255',
             'petugas_id' => 'required|string|max:255|unique:petugas',
         ]);
@@ -77,7 +82,7 @@ class PetugasController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama_petugas' => 'required|string|max:255',
+            'user_id' => 'required|exists:users,id',
             'regu' => 'required|string|max:255',
             'petugas_id' => 'required|string|max:255|unique:petugas,petugas_id,' . $id,
         ]);

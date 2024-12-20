@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('petugas', function (Blueprint $table) {
             $table->id();
             $table->string('petugas_id')->nullable();
-            $table->string('nama_petugas');
+            // $table->string('nama_petugas');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('regu');
             $table->timestamps();
         });

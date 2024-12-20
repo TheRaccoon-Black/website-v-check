@@ -73,7 +73,7 @@
                                 const url = "{{ route('petugas.update', ['id' => '__id__']) }}".replace('__id__', data.id);
 
                                 const form = document.getElementById('form-edit');
-                                const inputNamaPetugas = document.getElementById('nama_petugas-edit');
+                                const inputNamaPetugas = document.getElementById('user_id-edit');
                                 const inputRegu = document.getElementById('regu-edit');
                                 const inputPetugasId = document.getElementById('petugas_id-edit');
 
@@ -121,7 +121,7 @@
     </div>
 
     {{-- modal add --}}
-    <form method="POST" action="{{ route('petugas.store') }}" id="form-add">
+    {{-- <form method="POST" action="{{ route('petugas.store') }}" id="form-add">
         @csrf
         @method('POST')
         <x-modal :id="'modal-add'" :title="'Tambah Petugas'">
@@ -150,11 +150,48 @@
                 </x-button>
             @endslot
         </x-modal>
+    </form> --}}
+
+    {{-- modal add --}}
+    <form method="POST" action="{{ route('petugas.store') }}" id="form-add">
+        @csrf
+        @method('POST')
+        <x-modal :id="'modal-add'" :title="'Tambah Petugas'">
+            @slot('form')
+                <div class="grid gap-4 mb-4 grid-cols-2">
+                    <div class="col-span-2">
+                        <x-form-select name="user_id" id="user_id-add" required="true" label="Nama Petugas">
+                            <option value="" disabled selected>Pilih Nama Petugas</option>
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </x-form-select>
+                    </div>
+                    <div class="col-span-2">
+                        <x-form-input name="regu" id="regu-add" required="true" placeholder="Masukan Regu" label="Regu" />
+                    </div>
+                    <div class="col-span-2">
+                        <x-form-input name="petugas_id" id="petugas_id-add" required="true" placeholder="Masukan ID Petugas"
+                            label="ID Petugas" />
+                    </div>
+                </div>
+                <x-button :type="'submit'" :color="'primary'" class="w-full">
+                    <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                            clip-rule="evenodd">
+                        </path>
+                    </svg>
+                    Tambahkan Petugas
+                </x-button>
+            @endslot
+        </x-modal>
     </form>
 
 
+
     {{-- modal edit --}}
-    <form method="POST" action="{{ route('petugas.update', 0) }}" id="form-edit">
+    {{-- <form method="POST" action="{{ route('petugas.update', 0) }}" id="form-edit">
         @csrf
         @method('PUT')
         <x-modal :id="'modal-edit'" :title="'Edit Petugas'">
@@ -171,6 +208,44 @@
                     <div class="col-span-2">
                         <x-form-input name="petugas_id" id="petugas_id-edit" required="true"
                             placeholder="Masukan ID Petugas" label="ID Petugas" />
+                    </div>
+                </div>
+                <x-button :type="'submit'" :color="'primary'" class="w-full">
+                    <svg class="me-1 -ms-1 w-5 h-5" width="24" height="24" fill="none" stroke="currentColor"
+                        stroke-width="1.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d='M4 21h16M5.666 13.187A2.28 2.28 0 0 0 5 14.797V18h3.223c.604 0 1.183-.24 1.61-.668l9.5-9.505a2.28 2.28 0 0 0 0-3.22l-.938-.94a2.277 2.277 0 0 0-3.222.001z' />
+                    </svg>
+                    Edit Petugas
+                </x-button>
+            @endslot
+        </x-modal>
+    </form> --}}
+
+
+    {{-- modal edit --}}
+    <form method="POST" action="{{ route('petugas.update', 0) }}" id="form-edit">
+        @csrf
+        @method('PUT')
+        <x-modal :id="'modal-edit'" :title="'Edit Petugas'">
+            @slot('form')
+                <div class="grid gap-4 mb-4 grid-cols-2">
+                    <div class="col-span-2">
+                        <x-form-select name="user_id" id="user_id-edit" required="true" label="Nama Petugas">
+                            {{-- <option value="" disabled selected>Pilih Nama Petugas</option> --}}
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </x-form-select>
+                    </div>
+                    <div class="col-span-2">
+                        <x-form-input name="regu" id="regu-edit" required="true" placeholder="Masukan Regu"
+                            value="{{ $user->regu }}" label="Regu" />
+                    </div>
+                    <div class="col-span-2">
+                        <x-form-input name="petugas_id" id="petugas_id-edit" required="true"
+                            placeholder="Masukan ID Petugas" value="{{ $user->petugas_id }}" label="ID Petugas" />
                     </div>
                 </div>
                 <x-button :type="'submit'" :color="'primary'" class="w-full">
