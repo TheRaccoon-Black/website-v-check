@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logbook Kegiatan dan Checklist Kendaraan</title>
+    <title>cetak</title>
     <style>
         @media print {
     body {
@@ -106,7 +106,7 @@
 
 <p>HARI / TANGGAL ( {{ $tanggalIndonesia }} )</p>
 
-            <img src="logo.png" alt="Logo" class="logo" width="100">
+            <img src="{{ asset('/img/logo2.png') }}" alt="Logo" class="logo" width="100">
         </div>
 
         <!-- Table -->
@@ -126,7 +126,7 @@
         <th rowspan="3"><div class="rotate-text">Cukup</div></th>
         <th rowspan="3"><div class="rotate-text">Rusak</div></th>
         <th rowspan="3"><div class="rotate-text">Tidak Ada</div></th>
-                    <th>Regu/Dinas: </th>
+                    <th>Regu/Dinas: {{$info->petugas->regu}}/{{ucfirst($info->dinas)}}</th>
                     <th>Regu/Dinas: </th>
                 </tr>
                 <tr>
@@ -134,7 +134,7 @@
                     <th>Danru:</th>
                 </tr>
                 <tr>
-                    <th></th>
+
 
                     <th colspan="2">Keterangan</th>
 
@@ -157,7 +157,8 @@
                     <td>{!! $item->kondisi === 'cukup' ? '✔' : '' !!}</td>
                     <td>{!! $item->kondisi === 'rusak' ? '✔' : '' !!}</td>
                     <td>{!! $item->kondisi === 'tdk ada' ? '✔' : '' !!}</td>
-                    <td colspan="2">{{ $item->keterangan}}</td>
+                    <td colspan="2" style="text-align: left;">{{ $item->keterangan }}</td>
+
                 </tr>
                 @endforeach
 
@@ -178,7 +179,8 @@
                     <td>{!! $item->kondisi === 'cukup' ? '✔' : '' !!}</td>
                     <td>{!! $item->kondisi === 'rusak' ? '✔' : '' !!}</td>
                     <td>{!! $item->kondisi === 'tdk ada' ? '✔' : '' !!}</td>
-                    <td colspan="2">{{ $item->keterangan}}</td>
+                    <td colspan="2" style="text-align: left;">{{ $item->keterangan }}</td>
+
                 </tr>
                 @endforeach
                 <!-- Section c -->
@@ -198,7 +200,8 @@
                     <td>{!! $item->kondisi === 'cukup' ? '✔' : '' !!}</td>
                     <td>{!! $item->kondisi === 'rusak' ? '✔' : '' !!}</td>
                     <td>{!! $item->kondisi === 'tdk ada' ? '✔' : '' !!}</td>
-                    <td colspan="2">{{ $item->keterangan}}</td>
+                    <td colspan="2" style="text-align: left;">{{ $item->keterangan }}</td>
+
                 </tr>
                 @endforeach
                 <!-- Section d -->
@@ -218,7 +221,8 @@
                     <td>{!! $item->kondisi === 'cukup' ? '✔' : '' !!}</td>
                     <td>{!! $item->kondisi === 'rusak' ? '✔' : '' !!}</td>
                     <td>{!! $item->kondisi === 'tdk ada' ? '✔' : '' !!}</td>
-                    <td colspan="2">{{ $item->keterangan}}</td>
+                    <td colspan="2" style="text-align: left;">{{ $item->keterangan }}</td>
+
                 </tr>
                 @endforeach
 
@@ -229,13 +233,13 @@
         <!-- Footer -->
         <div class="footer">
             <div class="signature">
-                <div>Menerima<br><br>Komandan Jaga</div>
+                <div>Menerima<br><br><br><br>Komandan Jaga</div>
             </div>
             <div class="signature">
-                <div>Mengetahui<br><br>ASST-MAN OF A/S & RFF</div>
+                <div>Mengetahui<br><br><br><br>ASST-MAN OF A/S & RFF</div>
             </div>
             <div class="signature">
-                <div>Menyerahkan<br><br>Komandan Jaga</div>
+                <div>Menyerahkan<br><br><br><br>Komandan Jaga</div>
             </div>
         </div>
     </div>

@@ -98,7 +98,7 @@ class PemeriksaanController extends Controller
 
 
         $pemeriksaan = Pemeriksaan::where('id_hasil', $id_hasil)
-            ->with('checklist', 'petugas', 'kendaraan')
+            ->with('checklist', 'petugas.user', 'kendaraan')
             ->get();
 
         if ($pemeriksaan->isEmpty()) {
