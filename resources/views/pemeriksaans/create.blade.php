@@ -55,18 +55,19 @@
                             </svg>
                         </div>
                         <input datepicker datepicker-buttons datepicker-autoselect-today id="default-datepicker"
-                            type="text" datepicker-format="dd-mm-yyyy"
+                            type="text" datepicker-format="d-m-y"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Pilih Tanggal" name="tanggal">
                     </div>
                 </div>
 
                 <div class="col-span-6">
-                    <x-form-select name="id_petugas" id="id_petugas-add" required="true" label="Petugas">
-                        @foreach ($petugas as $item)
-                            <option value="{{ $item->id }}">{{ $item->nama_petugas }} ({{ $item->regu }})</option>
-                        @endforeach
-                    </x-form-select>
+
+                    <h6 class="mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                        <span label=>Petugas: <br> {{ $petugas2->user->name }} ({{ $petugas2->regu }})</span>
+                    </h6>
+                    <input type="hidden" name="id_petugas" id="id_petugas-add" value="{{ $petugas2->user_id }}">
+
                 </div>
 
                 <div class="col-span-6">
