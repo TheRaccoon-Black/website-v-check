@@ -104,7 +104,7 @@
     $tanggalIndonesia = "{$hari}/{$tanggalHari}-{$bulan}-{$tahun}";
 @endphp
 
-<p>HARI / TANGGAL ( {{ $tanggalIndonesia }} )</p>{{$infoTambahan}}
+<p>HARI / TANGGAL ( {{ $tanggalIndonesia }} )</p>
 
             <img src="{{ asset('/img/logo2.png') }}" alt="Logo" class="logo" width="100">
         </div>
@@ -127,11 +127,11 @@
         <th rowspan="3"><div class="rotate-text">Rusak</div></th>
         <th rowspan="3"><div class="rotate-text">Tidak Ada</div></th>
                     <th>Regu/Dinas: {{$info->petugas->regu}}/{{ucfirst($info->dinas)}}</th>
-                    <th>Regu/Dinas: </th>
+                    <th>Regu/Dinas: {{$infoTambahan->reguPenerima}}/{{ucfirst($infoTambahan->dinasPenerima)}} </th>
                 </tr>
                 <tr>
-                    <th>Danru:</th>
-                    <th>Danru:</th>
+                    <th>Danru: {{$infoTambahan->danruPenyerah}}</th>
+                    <th>Danru: {{$infoTambahan->danruPenerima}}</th>
                 </tr>
                 <tr>
 
