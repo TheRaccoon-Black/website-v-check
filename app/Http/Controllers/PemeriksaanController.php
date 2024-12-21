@@ -43,10 +43,10 @@ class PemeriksaanController extends Controller
             'id_petugas' => 'required|exists:petugas,user_id',
             'id_kendaraan' => 'required|string',
             'dinas' => 'required|in:pagi,malam',
-            'danruPenerima'=>'required|string',//info_tambahan
-            'danruPenyerah'=>'required|string',//info_tambahan
-            'reguPenerima'=>'required|string',//info_tambahan
-            'asstMan'=>'required|string',//info_tambahan
+            'danruPenerima' => 'required|string', //info_tambahan
+            'danruPenyerah' => 'required|string', //info_tambahan
+            'reguPenerima' => 'required|string', //info_tambahan
+            'asstMan' => 'required|string', //info_tambahan
             'checklists' => 'required|array',
             'checklist.*.id_checklist' => 'required|exists:checklists,id',
             'checklist.*.kondisi' => 'required|in:baik,cukup,rusak,tdk ada',
@@ -129,7 +129,7 @@ class PemeriksaanController extends Controller
         // Ambil informasi utama (tanggal, dinas, kendaraan, petugas)
         $info = $pemeriksaan->first();
 
-        return view('pemeriksaans.cetak', compact('info','infoTambahan', 'sebelum', 'setelah', 'testJalan', 'testPompa'));
+        return view('pemeriksaans.cetak', compact('info', 'infoTambahan', 'sebelum', 'setelah', 'testJalan', 'testPompa'));
     }
 
     //     public function recap()
@@ -193,6 +193,9 @@ class PemeriksaanController extends Controller
                     });
             });
         }
+        $query->select('id_hasil', 'dinas', 'id_kendaraan', 'id_petugas', 'tanggal');
+
+        $query->groupBy('id_hasil', 'tanggal', 'dinas', 'id_petugas', 'id_kendaraan');
 
         if (!empty($sortBy) && is_string($sortBy) && in_array($sort, ['asc', 'desc'])) {
             if ($sortBy == 'tanggal') {
