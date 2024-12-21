@@ -21,9 +21,11 @@ class PemeriksaanController extends Controller
         $jenis = $request->query('jenis', 'utama');
         $checklists = Checklist::jenisKendaraan($jenis)->get();
         $petugas = Petugas::all();
+        $petugas2 = Petugas::with('user')->where('user_id', '=', Auth::user()->id)->first();
+
         $kendaraan = Kendaraan::all();
         // dd($kendaraan);
-        return view('pemeriksaans.create', compact('checklists', 'petugas', 'jenis', 'kendaraan'));
+        return view('pemeriksaans.create', compact('checklists', 'petugas', 'petugas2', 'jenis', 'kendaraan'));
     }
     public function showpdf()
     {
@@ -37,7 +39,7 @@ class PemeriksaanController extends Controller
     {
         $request->validate([
             'tanggal' => 'required|date',
-            'id_petugas' => 'required|exists:petugas,id',
+            'id_petugas' => 'required|exists:petugas,user_id',
             'id_kendaraan' => 'required|string',
             'dinas' => 'required|in:pagi,malam',
             'checklists' => 'required|array',
@@ -97,7 +99,7 @@ class PemeriksaanController extends Controller
 
 
         $pemeriksaan = Pemeriksaan::where('id_hasil', $id_hasil)
-            ->with('checklist', 'petugas', 'kendaraan')
+            ->with('checklist', 'petugas.user', 'kendaraan')
             ->get();
 
         if ($pemeriksaan->isEmpty()) {

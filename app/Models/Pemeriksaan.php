@@ -26,4 +26,6 @@ class Pemeriksaan extends Model
     {
         return $this->belongsTo(Checklist::class, 'id_checklist');
     }
+
+    
 }
