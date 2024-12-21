@@ -73,7 +73,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 //admin routes
-Route::middleware(['auth', 'role:admin,petugas'])->group(function () {
+Route::middleware(['auth', 'role:admin|petugas'])->group(function () {
     Route::prefix("pemeriksaan")->name("pemeriksaan.")->group(function () {
         Route::get("/", [PemeriksaanController::class, "index"])->name("index");
         Route::get('/create', [PemeriksaanController::class, 'create'])->name('create');

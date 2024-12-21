@@ -7,6 +7,8 @@ use App\Models\Checklist;
 use App\Models\Kendaraan;
 use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class PemeriksaanController extends Controller
 {
@@ -144,6 +146,16 @@ class PemeriksaanController extends Controller
 
         $query = Pemeriksaan::query();
 
+
+        // if (Auth::user()->role == 'petugas') {
+        //     $query->whereHas(
+        //         'user',
+        //         function ($userQuery) {
+        //             $userQuery->where('user_id', Auth::user()->id);
+        //         }
+        //     );
+        // }
+
         $query->with(['petugas', 'kendaraan']);
 
         if (!empty($dinas)) {
@@ -173,6 +185,7 @@ class PemeriksaanController extends Controller
                 $query->orderBy($sortBy, $sort);
             }
         }
+
 
         $pemeriksaans = $query->paginate(10)->appends(request()->query());
 
