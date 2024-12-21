@@ -111,7 +111,7 @@ class PemeriksaanController extends Controller
     public function cetak($id_hasil)
     {
 
-        $infoTambahan = InfoTambahan::where('id_hasil', $id_hasil)->get();
+        $infoTambahan = InfoTambahan::where('id_hasil', $id_hasil)->first();
         $pemeriksaan = Pemeriksaan::where('id_hasil', $id_hasil)
             ->with('checklist', 'petugas.user', 'kendaraan')
             ->get();
