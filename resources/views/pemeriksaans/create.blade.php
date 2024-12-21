@@ -60,6 +60,10 @@
                             placeholder="Pilih Tanggal" name="tanggal">
                     </div>
                 </div>
+                <div class="col-span-6">
+                    <x-form-input name="danruPenerima" id="danruPenerima-add" required="true" placeholder="Masukan Komandan Regu"
+                        label="Komandan Regu Penerima" />
+                </div>
 
                 <div class="col-span-6">
 
@@ -69,12 +73,27 @@
                     <input type="hidden" name="id_petugas" id="id_petugas-add" value="{{ $petugas2->user_id }}">
 
                 </div>
+                <div class="col-span-6">
+                    <x-form-input name="danruPenyerah" id="danruPenyerah-add" required="true" placeholder="Masukan Komandan Regu"
+                        label="Komandan Regu Penyerah" />
+                </div>
+                <div class="col-span-6">
+                    <x-form-input name="asstMan" id="asstMan-add" required="true" placeholder="Masukan Assmant"
+                        label="Assistant Manager" />
+                </div>
 
                 <div class="col-span-6">
                     <x-form-select name="id_kendaraan" id="id_kendaraan-add" required="true" label="Kendaraan">
                         @foreach ($kendaraan as $item)
                             <option value="{{ $item->id }}">{{ $item->nama_kendaraan }}</option>
                         @endforeach
+                    </x-form-select>
+                </div>
+                <div class="col-span-6">
+                    <x-form-select name="reguPenerima" id="reguPenerima-add" required="true" label="Regu Penerima">
+                            <option value="A">Regu A</option>
+                            <option value="B">Regu B</option>
+
                     </x-form-select>
                 </div>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Petugas;
 use App\Models\Checklist;
+use App\Models\InfoTambahan;
 use App\Models\Kendaraan;
 use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
@@ -42,6 +43,10 @@ class PemeriksaanController extends Controller
             'id_petugas' => 'required|exists:petugas,user_id',
             'id_kendaraan' => 'required|string',
             'dinas' => 'required|in:pagi,malam',
+            'danruPenerima'=>'required|string',//info_tambahan
+            'danruPenyerah'=>'required|string',//info_tambahan
+            'reguPenerima'=>'required|string',//info_tambahan
+            'asstMan'=>'required|string',//info_tambahan
             'checklists' => 'required|array',
             'checklist.*.id_checklist' => 'required|exists:checklists,id',
             'checklist.*.kondisi' => 'required|in:baik,cukup,rusak,tdk ada',
@@ -89,6 +94,15 @@ class PemeriksaanController extends Controller
                 'keterangan' => $item['keterangan'] ?? null,
             ]);
         }
+        $dinasP = $request->dinas == 'pagi' ? 'malam' : 'pagi';
+        $tambah = InfoTambahan::create([
+            'id_hasil' => $id_hasil,
+            'dinasPenerima' => $dinasP,
+            'danruPenerima' => $request->danruPenerima,
+            'danruPenyerah' => $request->danruPenyerah,
+            'reguPenerima' => $request->reguPenerima,
+            'Asstman' => $request->asstMan
+        ]);
 
         // return redirect()->route('pemeriksaan.create', ['jenis' => $request->jenis_kendaraan])
         //     ->with('success', 'Pemeriksaan berhasil disimpan!');
@@ -97,7 +111,7 @@ class PemeriksaanController extends Controller
     public function cetak($id_hasil)
     {
 
-
+        $infoTambahan = InfoTambahan::where('id_hasil', $id_hasil)->get();
         $pemeriksaan = Pemeriksaan::where('id_hasil', $id_hasil)
             ->with('checklist', 'petugas.user', 'kendaraan')
             ->get();
@@ -115,7 +129,7 @@ class PemeriksaanController extends Controller
         // Ambil informasi utama (tanggal, dinas, kendaraan, petugas)
         $info = $pemeriksaan->first();
 
-        return view('pemeriksaans.cetak', compact('info', 'sebelum', 'setelah', 'testJalan', 'testPompa'));
+        return view('pemeriksaans.cetak', compact('info','infoTambahan', 'sebelum', 'setelah', 'testJalan', 'testPompa'));
     }
 
     //     public function recap()
