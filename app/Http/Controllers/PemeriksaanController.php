@@ -193,7 +193,7 @@ class PemeriksaanController extends Controller
                     });
             });
         }
-        $query->select('id_hasil', 'dinas', 'id_kendaraan', 'id_petugas', 'tanggal');
+        $query->selectRaw('id_hasil, dinas, id_kendaraan, id_petugas, tanggal, MAX(id) as id');
 
         $query->groupBy('id_hasil', 'tanggal', 'dinas', 'id_petugas', 'id_kendaraan');
 
