@@ -163,14 +163,13 @@ class PemeriksaanController extends Controller
         $query = Pemeriksaan::query();
 
 
-        // if (Auth::user()->role == 'petugas') {
-        //     $query->whereHas(
-        //         'user',
-        //         function ($userQuery) {
-        //             $userQuery->where('user_id', Auth::user()->id);
-        //         }
-        //     );
-        // }
+        if (Auth::user()->role == 'petugas') {
+            $query->whereHas('petugas', function ($query) {
+                $query->whereHas('user', function ($query) {
+                    $query->where('role', 'petugas')->where('id', Auth::user()->id);
+                });
+            });
+        }
 
         $query->with(['petugas', 'kendaraan']);
 
@@ -189,7 +188,9 @@ class PemeriksaanController extends Controller
                         $query->where('nama_kendaraan', 'like', "%{$search}%");
                     })
                     ->orWhereHas('petugas', function ($query) use ($search) {
-                        $query->where('nama_petugas', 'like', "%{$search}%");
+                        $query->WhereHas('user', function ($query) use ($search) {
+                            $query->where('name', 'like', "%{$search}%");
+                        });
                     });
             });
         }
