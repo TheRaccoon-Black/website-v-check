@@ -152,16 +152,16 @@ class PemeriksaanController extends Controller
         $sortBy = $request->get('sortBy');
         $sort = $request->get('sort', 'asc');
 
+
         if (!empty($startDate)) {
-            $startDate = \Carbon\Carbon::createFromFormat('d/m/Y', $startDate)->format('Y-m-d');
+            $startDate = \Carbon\Carbon::createFromFormat('m/d/Y', $startDate)->format('Y-m-d');
         }
 
         if (!empty($endDate)) {
-            $endDate = \Carbon\Carbon::createFromFormat('d/m/Y', $endDate)->format('Y-m-d');
+            $endDate = \Carbon\Carbon::createFromFormat('m/d/Y', $endDate)->format('Y-m-d');
         }
 
         $query = Pemeriksaan::query();
-
 
         if (Auth::user()->role == 'petugas') {
             $query->whereHas('petugas', function ($query) {
