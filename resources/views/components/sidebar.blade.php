@@ -41,6 +41,7 @@
                         <span class="ms-3">Dashboard</span>
                     </a>
                 </li>
+                @if (auth()->user()->role == 'admin')
                 <li data-sidebar="menu-item">
                     <a href="{{ route('petugas.index') }}" data-sidebar="menu-button"
                         class="{{ request()->is('petugas*') ? 'bg-sidebar-accent dark:bg-gray-700 font-medium' : '' }} transition-colors flex items-center p-2 text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 group">
@@ -84,6 +85,7 @@
                         <span class="ms-3">Kendaraan</span>
                     </a>
                 </li>
+                @endif
                 <li data-sidebar="menu-item">
                     <button data-sidebar="menu-button" data-collapse-toggle="pemeriksaan-menu"
                         class="flex items-center p-2 w-full text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 group">
@@ -141,7 +143,7 @@
                     </a>
                 </li>
                 <li data-sidebar="menu-item">
-                    <a href="#" data-sidebar="menu-button"
+                    <a href="{{route('login-logs.index')}}" data-sidebar="menu-button"
                         class="flex items-center p-2 text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 group">
                         <div class="flex  items-center justify-center text-sidebar-foreground">
                             <svg width="24" height="24" fill="none" stroke="currentColor"

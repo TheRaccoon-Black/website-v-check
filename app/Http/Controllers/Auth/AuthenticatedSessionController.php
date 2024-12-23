@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Providers\RouteServiceProvider;
 use App\Http\Requests\Auth\LoginRequest;
+use Carbon\Carbon;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -42,7 +43,7 @@ class AuthenticatedSessionController extends Controller
         'user_id' => $request->user()->id,
         'ip_address' => $request->ip(),
         'user_agent' => $request->header('User-Agent'),
-        'logged_in_at' => now(),
+        'logged_in_at' => Carbon::now('Asia/Jakarta'),
     ]);
 
         $url = "";
@@ -81,7 +82,7 @@ class AuthenticatedSessionController extends Controller
         'user_id' => $request->user()->id,
         'ip_address' => $request->ip(),
         'user_agent' => $request->header('User-Agent'),
-        'logged_in_at' => now(),
+        'logged_in_at' => Carbon::now('Asia/Jakarta'),
     ]);
     // Redirect berdasarkan peran
     $url = match ($user->role) {

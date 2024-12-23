@@ -1,5 +1,19 @@
-@extends('pemeriksaans.template.template')
+@extends('layouts.auth.app')
 
+@section('title', 'Log Book')
+
+@section('breadcrumbs')
+    <div class="flex items-center gap-2 text-gray-900">
+        <a href="{{ route('dashboard') }}" class="text-sm font-medium hover:underline">Dashboard</a>
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 shrink-0">
+                <path d="m9 18 6-6-6-6"></path>
+            </svg>
+        </div>
+        <span class="text-sm font-medium text-muted-foreground">Log Book</span>
+    </div>
+@endsection
 @section('content')
     <div class="container mt-5">
         <h2 class="text-center mb-4">Login Logs</h2>
@@ -15,9 +29,12 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                $n = 1;
+                @endphp
                 @forelse ($logs as $log)
                     <tr>
-                        <td>{{ $log->id }}</td>
+                        <td>{{ $n++ }}</td>
                         <td>{{ $log->user->name ?? 'N/A' }}</td>
                         <td>{{ $log->ip_address }}</td>
                         <td>

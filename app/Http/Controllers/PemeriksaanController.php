@@ -81,10 +81,11 @@ class PemeriksaanController extends Controller
                 'dinas' => 'Pemeriksaan untuk dinas ini sudah dilakukan pada tanggal dan kendaraan ini.'
             ])->withInput();
         }
+        $id_user = Petugas::where('user_id', $request->id_petugas)->first()->id;
 
         foreach ($request->checklists as $item) {
             Pemeriksaan::create([
-                'id_petugas' => $request->id_petugas,
+                'id_petugas' => $id_user,
                 'dinas' => $request->dinas,
                 'id_hasil' => $id_hasil,
                 'id_checklist' => $item['id_checklist'],
@@ -171,6 +172,11 @@ class PemeriksaanController extends Controller
         //         }
         //     );
         // }
+        if (auth()->user()->role == 'petugas') {
+            $query->whereHas('petugas', function ($query) {
+                $query->where('user_id', auth()->user()->id);
+            });
+        }
 
         $query->with(['petugas', 'kendaraan']);
 
@@ -224,10 +230,15 @@ class PemeriksaanController extends Controller
                 $kendaraan = Kendaraan::find($id_kendaraan);
                 return $kendaraan->nama_kendaraan;
             }
+            // if ($field == 'id_petugas') {
+            //     $id_petugas = $value;
+            //     $petugas = Petugas::find($id_petugas);
+            //     return $petugas->nama_petugas;
+            // }
             if ($field == 'id_petugas') {
                 $id_petugas = $value;
                 $petugas = Petugas::find($id_petugas);
-                return $petugas->nama_petugas;
+                return $petugas ? $petugas->user->name : '-';
             }
             if ($field == 'id_hasil') {
                 preg_match('/\d+/', $value, $matches);
@@ -263,21 +274,21 @@ class PemeriksaanController extends Controller
 
 
 
-    public function arsip($id_hasil)
-    {
-        $pemeriksaans = Pemeriksaan::where('id_hasil', $id_hasil)
-            ->with('checklist', 'petugas', 'kendaraan')
-            ->get();
+    // public function arsip($id_hasil)
+    // {
+    //     $pemeriksaans = Pemeriksaan::where('id_hasil', $id_hasil)
+    //         ->with('checklist', 'petugas', 'kendaraan')
+    //         ->get();
 
-        if ($pemeriksaans->isEmpty()) {
-            return redirect()->back()->withErrors(['error' => 'Data arsip tidak ditemukan.']);
-        }
+    //     if ($pemeriksaans->isEmpty()) {
+    //         return redirect()->back()->withErrors(['error' => 'Data arsip tidak ditemukan.']);
+    //     }
 
-        // Ambil informasi utama (tanggal, dinas, kendaraan, petugas)
-        $info = $pemeriksaans->first();
+    //     // Ambil informasi utama (tanggal, dinas, kendaraan, petugas)
+    //     $info = $pemeriksaans->first();
 
-        return view('pemeriksaans.arsip', compact('info', 'pemeriksaans'));
-    }
+    //     return view('pemeriksaans.arsip', compact('info', 'pemeriksaans'));
+    // }
 
     public function fetch(Request $request)
     {
