@@ -1,13 +1,14 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LoginLogController;
 use App\Http\Controllers\ChecklistController;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\KendaraanController;
 use App\Http\Controllers\PemeriksaanController;
+use App\Http\Controllers\DigitalSignatureController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [Controller::class, 'dashboard'])->name('dashboard');
     Route::get('/view-pdf', [PemeriksaanController::class, 'showpdf'])->name('view.showpdf');
     Route::get('/login-logs', [LoginLogController::class, 'index'])->name('login-logs.index');
+
+    Route::get('/signatures/{id_hasil}/show', [DigitalSignatureController::class, 'showSignatureLinks'])->name('signatures.showLinks');
+    Route::get('/signatures/{link}', [DigitalSignatureController::class, 'showSignatureForm'])->name('signatures.form');
+    Route::post('/signatures/{link}', [DigitalSignatureController::class, 'saveSignature'])->name('signatures.save');
+    Route::get('/signatures/success/{link}', [DigitalSignatureController::class, 'success'])->name('signatures.success');
+
 });
 
 
@@ -47,7 +54,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/user', [PetugasController::class, 'user'])->name('user');
         Route::put('/user/{id}', [PetugasController::class, 'updateUser'])->name('updateUser');
         Route::delete('/user/{id}', [PetugasController::class, 'destroyUser'])->name('destroyUser');
-        Route::post('/user', [PetugasController::class, 'storeUser'])->name('storeUser');   
+        Route::post('/user', [PetugasController::class, 'storeUser'])->name('storeUser');
     });
 
     // --------------------------------------------------------------------------
@@ -73,6 +80,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::delete('/{id}', [KendaraanController::class, 'destroy'])->name('destroy');
     });
 });
+
 
 //admin routes
 Route::middleware(['auth', 'role:admin|petugas'])->group(function () {

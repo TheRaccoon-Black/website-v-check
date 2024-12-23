@@ -23,6 +23,9 @@
                 margin: 0;
                 padding: 0;
             }
+            .hide-on-print {
+            display: none;
+        }
         }
 
         @page {
@@ -122,6 +125,12 @@
     height: 40px; /* Memberikan ruang sekitar empat baris */
     margin-top: 10px; /* Jarak antara tanda tangan dan area nama */
 }
+    .footer .signature img {
+        width:70px;
+        height:70px;
+        position: absolute;
+        margin-left: -40px;
+    }
 
     </style>
 </head>
@@ -174,9 +183,12 @@
 
                 // Format akhir
                 $tanggalIndonesia = "{$hari}/{$tanggalHari}-{$bulan}-{$tahun}";
-            @endphp
+                @endphp
 
-            <p>HARI / TANGGAL ( {{ $tanggalIndonesia }} )</p>
+<p>HARI / TANGGAL ( {{ $tanggalIndonesia }} )</p>
+<a href="{{route('signatures.showLinks', ['id_hasil' => $info->id_hasil])}}">
+    <button class="hide-on-print">TTD</button>
+</a>
 
             <img src="{{ asset('/img/logo2.png') }}" alt="Logo" class="logo" width="100">
         </div>
@@ -287,12 +299,17 @@
                 <!-- Section d -->
                 <tr>
                     <td>D</td>
+                    @if ($lainLain->isEmpty())
                     <td>Test Pompa</td>
+                    @else
+                    <td>Lain-lain</td>
+                    @endif
                     <td style="text-align: center; font-weight: bold; background-color: #C6C6C6;" colspan="6"></td>
                 </tr>
                 @php
                     $m = 1;
                 @endphp
+                @if ($lainLain->isEmpty())
                 @foreach ($testPompa as $index => $item)
                     <tr>
                         <td>{{ $m++ }}</td>
@@ -302,9 +319,21 @@
                         <td>{!! $item->kondisi === 'rusak' ? '✔' : '' !!}</td>
                         <td>{!! $item->kondisi === 'tdk ada' ? '✔' : '' !!}</td>
                         <td colspan="2" style="text-align: left;">{{ $item->keterangan }}</td>
-
                     </tr>
                 @endforeach
+            @else
+                @foreach ($lainLain as $index => $item)
+                    <tr>
+                        <td>{{ $m++ }}</td>
+                        <td style="text-align: left;">{{ $item->checklist->nama_item }}</td>
+                        <td>{!! $item->kondisi === 'baik' ? '✔' : '' !!}</td>
+                        <td>{!! $item->kondisi === 'cukup' ? '✔' : '' !!}</td>
+                        <td>{!! $item->kondisi === 'rusak' ? '✔' : '' !!}</td>
+                        <td>{!! $item->kondisi === 'tdk ada' ? '✔' : '' !!}</td>
+                        <td colspan="2" style="text-align: left;">{{ $item->keterangan }}</td>
+                    </tr>
+                @endforeach
+            @endif
 
                 <!-- Sections C and D can follow the same structure -->
             </tbody>
@@ -325,21 +354,38 @@
         <div class="footer">
             <div class="signature">
                 <div>Menerima<br>Komandan Jaga {{$infoTambahan->reguPenerima}}</div>
-                <div class="name-space"></div>
+                @if ($ttd->ttdDanruPenerima == null)
+                    <div class="name-space"></div>
+                    @else
+                    <img src="{{ asset($ttd->ttdDanruPenerima) }}" alt="">
+                    <div class="name-space"></div>
+                @endif
                 <div class="line">{{$infoTambahan->danruPenerima}}</div>
             </div>
             <div class="signature">
                 <div>Mengetahui<br>ASST-MAN OF AS & RFF</div>
-                <div class="name-space"></div>
+                @if ($ttd->ttdAsstMan == null)
+                    <div class="name-space"></div>
+                    @else
+                    <img src="{{ asset($ttd->ttdAsstMan) }}" alt="">
+                    <div class="name-space"></div>
+                @endif
                 <div class="line">{{$infoTambahan->Asstman}}</div>
             </div>
             <div class="signature">
                 <div>Menyerahkan<br>Komandan Jaga {{$info->petugas->regu}}</div>
-                <div class="name-space"></div>
+                @if ($ttd->ttdDanruPenyerah == null)
+                    <div class="name-space"></div>
+                    @else
+                    <img src="{{ asset($ttd->ttdDanruPenyerah) }}" alt="">
+                    <div class="name-space"></div>
+                @endif
                 <div class="line">{{$infoTambahan->danruPenyerah}}</div>
             </div>
         </div>
     </div>
+    {{-- {{$info}} --}}
+    {{-- <a href="{{route('signatures.showLinks', ['id_hasil' => $info->id_hasil])}}"><button>TTD</button><a> --}}
 </body>
 
 </html>

@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Petugas;
 use App\Models\Checklist;
-use App\Models\InfoTambahan;
 use App\Models\Kendaraan;
 use App\Models\Pemeriksaan;
+use App\Models\InfoTambahan;
 use Illuminate\Http\Request;
+use App\Models\DigitalSignature;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DigitalSignatureController;
 
 
 class PemeriksaanController extends Controller
@@ -104,6 +106,9 @@ class PemeriksaanController extends Controller
             'reguPenerima' => $request->reguPenerima,
             'Asstman' => $request->asstMan
         ]);
+        $signatureController = new DigitalSignatureController();
+        $signatureController->createSignatureLinks($id_hasil);
+
 
         // return redirect()->route('pemeriksaan.create', ['jenis' => $request->jenis_kendaraan])
         //     ->with('success', 'Pemeriksaan berhasil disimpan!');
@@ -116,7 +121,7 @@ class PemeriksaanController extends Controller
         $pemeriksaan = Pemeriksaan::where('id_hasil', $id_hasil)
             ->with('checklist', 'petugas.user', 'kendaraan')
             ->get();
-
+        $ttd = DigitalSignature::where('idHasilPemeriksaan', $id_hasil)->first();
         if ($pemeriksaan->isEmpty()) {
             return redirect()->back()->withErrors(['error' => 'Data pemeriksaan tidak ditemukan.']);
         }
@@ -126,11 +131,12 @@ class PemeriksaanController extends Controller
         $setelah = $pemeriksaan->where('checklist.kategori', 'setelah');
         $testJalan = $pemeriksaan->where('checklist.kategori', 'test_jalan');
         $testPompa = $pemeriksaan->where('checklist.kategori', 'test_pompa');
+        $lainLain = $pemeriksaan->where('checklist.kategori', 'lain-lain');
 
         // Ambil informasi utama (tanggal, dinas, kendaraan, petugas)
         $info = $pemeriksaan->first();
 
-        return view('pemeriksaans.cetak', compact('info', 'infoTambahan', 'sebelum', 'setelah', 'testJalan', 'testPompa'));
+        return view('pemeriksaans.cetak', compact('info', 'ttd','infoTambahan', 'sebelum', 'setelah', 'testJalan', 'testPompa','lainLain'));
     }
 
     //     public function recap()
