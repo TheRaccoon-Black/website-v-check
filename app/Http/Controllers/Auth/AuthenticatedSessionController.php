@@ -21,7 +21,8 @@ class AuthenticatedSessionController extends Controller
     {
         return view('auth.login');
     }
-    public function createToken(){
+    public function createToken()
+    {
         return view('auth.token-login');
     }
 
@@ -47,11 +48,11 @@ class AuthenticatedSessionController extends Controller
     ]);
 
         $url = "";
-        if($request->user()->role === "admin"){
+        if ($request->user()->role === "admin") {
             $url = "petugas";
-        }elseif($request->user()->role === "petugas"){
-            $url = "pemeriksaan";
-        }else{
+        } elseif ($request->user()->role === "petugas") {
+            $url = "dashboard";
+        } else {
             $url = "dashboard";
         }
 
@@ -62,19 +63,19 @@ class AuthenticatedSessionController extends Controller
      * Destroy an authenticated session.
      */
     public function loginWithToken(Request $request): RedirectResponse
-{
-    // Validasi input
-    $request->validate([
-        'token' => 'required|string',
-    ]);
+    {
+        // Validasi input
+        $request->validate([
+            'token' => 'required|string',
+        ]);
 
-    // Cari user berdasarkan token
-    $user = \App\Models\User::where('unique_token', $request->token)->first();
+        // Cari user berdasarkan token
+        $user = \App\Models\User::where('unique_token', $request->token)->first();
 
-    // Jika user tidak ditemukan
-    if (!$user) {
-        return back()->with('error', 'Invalid token. Please try again.');
-    }
+        // Jika user tidak ditemukan
+        if (!$user) {
+            return back()->with('error', 'Invalid token. Please try again.');
+        }
 
     // Login pengguna
     Auth::login($user);
@@ -91,10 +92,10 @@ class AuthenticatedSessionController extends Controller
         default => 'dashboard',
     };
 
-    return redirect()->intended($url)->with('success', 'Login successful!');
-}
+        return redirect()->intended($url)->with('success', 'Login successful!');
+    }
 
-     public function destroy(Request $request): RedirectResponse
+    public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
 

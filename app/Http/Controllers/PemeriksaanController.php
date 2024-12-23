@@ -153,28 +153,22 @@ class PemeriksaanController extends Controller
         $sortBy = $request->get('sortBy');
         $sort = $request->get('sort', 'asc');
 
+
         if (!empty($startDate)) {
-            $startDate = \Carbon\Carbon::createFromFormat('d/m/Y', $startDate)->format('Y-m-d');
+            $startDate = \Carbon\Carbon::createFromFormat('m/d/Y', $startDate)->format('Y-m-d');
         }
 
         if (!empty($endDate)) {
-            $endDate = \Carbon\Carbon::createFromFormat('d/m/Y', $endDate)->format('Y-m-d');
+            $endDate = \Carbon\Carbon::createFromFormat('m/d/Y', $endDate)->format('Y-m-d');
         }
 
         $query = Pemeriksaan::query();
 
-
-        // if (Auth::user()->role == 'petugas') {
-        //     $query->whereHas(
-        //         'user',
-        //         function ($userQuery) {
-        //             $userQuery->where('user_id', Auth::user()->id);
-        //         }
-        //     );
-        // }
-        if (auth()->user()->role == 'petugas') {
+        if (Auth::user()->role == 'petugas') {
             $query->whereHas('petugas', function ($query) {
-                $query->where('user_id', auth()->user()->id);
+                $query->whereHas('user', function ($query) {
+                    $query->where('role', 'petugas')->where('id', Auth::user()->id);
+                });
             });
         }
 
@@ -195,11 +189,13 @@ class PemeriksaanController extends Controller
                         $query->where('nama_kendaraan', 'like', "%{$search}%");
                     })
                     ->orWhereHas('petugas', function ($query) use ($search) {
-                        $query->where('nama_petugas', 'like', "%{$search}%");
+                        $query->WhereHas('user', function ($query) use ($search) {
+                            $query->where('name', 'like', "%{$search}%");
+                        });
                     });
             });
         }
-        $query->select('id_hasil', 'dinas', 'id_kendaraan', 'id_petugas', 'tanggal');
+        $query->selectRaw('id_hasil, dinas, id_kendaraan, id_petugas, tanggal, MAX(id) as id');
 
         $query->groupBy('id_hasil', 'tanggal', 'dinas', 'id_petugas', 'id_kendaraan');
 

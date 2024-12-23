@@ -41,50 +41,50 @@
                         <span class="ms-3">Dashboard</span>
                     </a>
                 </li>
-                @if (auth()->user()->role == 'admin')
-                <li data-sidebar="menu-item">
-                    <a href="{{ route('petugas.index') }}" data-sidebar="menu-button"
-                        class="{{ request()->is('petugas*') ? 'bg-sidebar-accent dark:bg-gray-700 font-medium' : '' }} transition-colors flex items-center p-2 text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 group">
-                        <div class="flex  items-center justify-center text-sidebar-foreground">
-                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
-                                xmlns="http://www.w3.org/2000/svg" class="size-5">
-                                <path
-                                    d='M17 19.5c0-1.657-2.239-3-5-3s-5 1.343-5 3m14-3c0-1.23-1.234-2.287-3-2.75M3 16.5c0-1.23 1.234-2.287 3-2.75m12-4.014a3 3 0 1 0-4-4.472M6 9.736a3 3 0 0 1 4-4.472m2 8.236a3 3 0 1 1 0-6 3 3 0 0 1 0 6' />
-                            </svg>
-                        </div>
-                        <span class="ms-3">Petugas</span>
-                    </a>
-                </li>
-                <li data-sidebar="menu-item">
-                    <a href="{{ route('checklist.index') }}" data-sidebar="menu-button"
-                        class="{{ request()->is('checklist*') ? 'bg-sidebar-accent dark:bg-gray-700 font-medium' : '' }} transition-colors flex items-center p-2 text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 group">
-                        <div class="flex  items-center justify-center text-sidebar-foreground">
-                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
-                                xmlns="http://www.w3.org/2000/svg" class="size-5">
-                                <path
-                                    d='M5 20.25c0 .414.336.75.75.75h10.652C17.565 21 18 20.635 18 19.4v-1.445M5 20.25A2.25 2.25 0 0 1 7.25 18h10.152q.339 0 .598-.045M5 20.25V6.2c0-1.136-.072-2.389 1.092-2.982C6.52 3 7.08 3 8.2 3h9.2c1.236 0 1.6.437 1.6 1.6v11.8c0 .995-.282 1.425-1 1.555' />
-                                <path d='m9.6 10.323 1.379 1.575a.3.3 0 0 0 .466-.022L14.245 8' />
-                            </svg>
-                        </div>
-                        <span class="ms-3">Checklist</span>
-                    </a>
-                </li>
-                <li data-sidebar="menu-item">
-                    <a href="{{ route('kendaraan.index') }}" data-sidebar="menu-button"
-                        class="{{ request()->is('kendaraan*') ? 'bg-sidebar-accent dark:bg-gray-700 font-medium' : '' }} transition-colors flex items-center p-2 text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 group">
-                        <div class="flex  items-center justify-center text-sidebar-foreground">
-                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
-                                xmlns="http://www.w3.org/2000/svg" class="size-5">
-                                <path
-                                    d='M19.794 16.5A9 9 0 0 1 7.5 19.794M19.794 16.5A9 9 0 0 0 16.5 4.206M19.794 16.5 13.732 13M7.5 19.794A9 9 0 0 1 4.206 7.5M7.5 19.794l3.5-6.062M4.206 7.5A9 9 0 0 1 16.5 4.206M4.206 7.5l6.062 3.5M16.5 4.206 13 10.268M13.732 13a2 2 0 0 1-2.732.732M13.732 13A2 2 0 0 0 13 10.268m-2 3.464A2 2 0 0 1 10.268 11m0 0A2 2 0 0 1 13 10.268m.932 1.214 6.761-1.811m-8.175 4.26 1.811 6.762m-4.26-8.175-6.762 1.811m8.175-4.26L9.671 3.306' />
-                            </svg>
-                        </div>
-                        <span class="ms-3">Kendaraan</span>
-                    </a>
-                </li>
+                @if (Auth::user()->role == 'admin')
+                    <li data-sidebar="menu-item">
+                        <a href="{{ route('petugas.index') }}" data-sidebar="menu-button"
+                            class="{{ request()->is('petugas*') ? 'bg-sidebar-accent dark:bg-gray-700 font-medium' : '' }} transition-colors flex items-center p-2 text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 group">
+                            <div class="flex  items-center justify-center text-sidebar-foreground">
+                                <svg width="24" height="24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" viewBox="0 0 24 24" stroke-linecap="round"
+                                    stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" class="size-5">
+                                    <path
+                                        d='M17 19.5c0-1.657-2.239-3-5-3s-5 1.343-5 3m14-3c0-1.23-1.234-2.287-3-2.75M3 16.5c0-1.23 1.234-2.287 3-2.75m12-4.014a3 3 0 1 0-4-4.472M6 9.736a3 3 0 0 1 4-4.472m2 8.236a3 3 0 1 1 0-6 3 3 0 0 1 0 6' />
+                                </svg>
+                            </div>
+                            <span class="ms-3">Petugas</span>
+                        </a>
+                    </li>
+                    <li data-sidebar="menu-item">
+                        <a href="{{ route('checklist.index') }}" data-sidebar="menu-button"
+                            class="{{ request()->is('checklist*') ? 'bg-sidebar-accent dark:bg-gray-700 font-medium' : '' }} transition-colors flex items-center p-2 text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 group">
+                            <div class="flex  items-center justify-center text-sidebar-foreground">
+                                <svg width="24" height="24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" viewBox="0 0 24 24" stroke-linecap="round"
+                                    stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" class="size-5">
+                                    <path
+                                        d='M5 20.25c0 .414.336.75.75.75h10.652C17.565 21 18 20.635 18 19.4v-1.445M5 20.25A2.25 2.25 0 0 1 7.25 18h10.152q.339 0 .598-.045M5 20.25V6.2c0-1.136-.072-2.389 1.092-2.982C6.52 3 7.08 3 8.2 3h9.2c1.236 0 1.6.437 1.6 1.6v11.8c0 .995-.282 1.425-1 1.555' />
+                                    <path d='m9.6 10.323 1.379 1.575a.3.3 0 0 0 .466-.022L14.245 8' />
+                                </svg>
+                            </div>
+                            <span class="ms-3">Checklist</span>
+                        </a>
+                    </li>
+                    <li data-sidebar="menu-item">
+                        <a href="{{ route('kendaraan.index') }}" data-sidebar="menu-button"
+                            class="{{ request()->is('kendaraan*') ? 'bg-sidebar-accent dark:bg-gray-700 font-medium' : '' }} transition-colors flex items-center p-2 text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 group">
+                            <div class="flex  items-center justify-center text-sidebar-foreground">
+                                <svg width="24" height="24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" viewBox="0 0 24 24" stroke-linecap="round"
+                                    stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" class="size-5">
+                                    <path
+                                        d='M19.794 16.5A9 9 0 0 1 7.5 19.794M19.794 16.5A9 9 0 0 0 16.5 4.206M19.794 16.5 13.732 13M7.5 19.794A9 9 0 0 1 4.206 7.5M7.5 19.794l3.5-6.062M4.206 7.5A9 9 0 0 1 16.5 4.206M4.206 7.5l6.062 3.5M16.5 4.206 13 10.268M13.732 13a2 2 0 0 1-2.732.732M13.732 13A2 2 0 0 0 13 10.268m-2 3.464A2 2 0 0 1 10.268 11m0 0A2 2 0 0 1 13 10.268m.932 1.214 6.761-1.811m-8.175 4.26 1.811 6.762m-4.26-8.175-6.762 1.811m8.175-4.26L9.671 3.306' />
+                                </svg>
+                            </div>
+                            <span class="ms-3">Kendaraan</span>
+                        </a>
+                    </li>
                 @endif
                 <li data-sidebar="menu-item">
                     <button data-sidebar="menu-button" data-collapse-toggle="pemeriksaan-menu"
@@ -143,7 +143,7 @@
                     </a>
                 </li>
                 <li data-sidebar="menu-item">
-                    <a href="{{route('login-logs.index')}}" data-sidebar="menu-button"
+                    <a href="{{ route('login-logs.index') }}" data-sidebar="menu-button"
                         class="flex items-center p-2 text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 group">
                         <div class="flex  items-center justify-center text-sidebar-foreground">
                             <svg width="24" height="24" fill="none" stroke="currentColor"
