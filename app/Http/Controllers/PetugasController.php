@@ -107,12 +107,40 @@ class PetugasController extends Controller
 
     //------------------------------------------------------user--------------------------------------------------------
 
-    public function user(){
-        $users = User::all();
-        return view('petugas.user', compact('users'));
+    public function user(Request $request)
+    {
+        $search = $request->get('search');
+        $role = $request->get('role');
+
+        $query = User::query();
+
+        if (!empty($search)) {
+            $query->where('name', 'like', "%{$search}%");
+        }
+
+        if (!empty($role) && is_array($role)) {
+            $query->whereIn('role', $role);
+        }
+
+        $users = $query->paginate(10)->appends(request()->query());
+
+        // $petugas = $query->paginate(10)->appends(request()->query());
+
+        $grouped = User::all()->groupBy('role')->map(function ($items, $role) {
+            return (object) [
+                'role' => $role,
+                'total' => $items->count(),
+            ];
+        });
+
+        $filterCount = count(array_filter($role ?? [], function ($value) {
+            return $value !== null;
+        }));
+        return view('petugas.user', compact('users', 'grouped', 'filterCount'));
     }
 
-    public function updateUser(Request $request, $id){
+    public function updateUser(Request $request, $id)
+    {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $id,
@@ -126,14 +154,16 @@ class PetugasController extends Controller
         return redirect()->back()->with('success', 'User updated successfully.');
     }
 
-    public function destroyUser($id){
+    public function destroyUser($id)
+    {
         $user = User::findOrFail($id);
-    $user->delete();
+        $user->delete();
 
-    return redirect()->back()->with('success', 'User deleted successfully.');
+        return redirect()->back()->with('success', 'User deleted successfully.');
     }
 
-    public function storeUser(Request $request){
+    public function storeUser(Request $request)
+    {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
