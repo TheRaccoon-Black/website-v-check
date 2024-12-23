@@ -194,7 +194,7 @@
                     <div class="col-span-1 grid grid-cols-3 items-end gap-2">
                         <div class="col-span-2">
                             <x-form-input name="unique_token" id="unique_token-edit" required="true" placeholder="Token"
-                                label="Token" value="{{ Str::random(8) }}" readonly />
+                                label="Token" value="{{ Str::random(8) }}" />
                         </div>
                         <div class="col-span-1 justify-self-end">
                             <x-button data-tooltip-target="tooltip-generate" type="button" color="secondary"

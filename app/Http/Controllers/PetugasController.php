@@ -17,7 +17,8 @@ class PetugasController extends Controller
     {
         $search = $request->get('search');
         $regu = $request->get('regu');
-        $users = User::all();
+        // $users = User::all();
+        $users = User::whereDoesntHave('petugas')->get();
 
         $query = Petugas::query();
 

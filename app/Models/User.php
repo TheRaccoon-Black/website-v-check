@@ -35,6 +35,10 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function petugas()
+    {
+        return $this->hasOne(Petugas::class);
+    }
     /**
      * The attributes that should be cast.
      *
