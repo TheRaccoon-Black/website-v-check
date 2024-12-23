@@ -83,8 +83,8 @@
         /* Responsive Styles */
         @media (max-width: 768px) {
             .signature-pad {
-                width: 80%;
-                height: auto;
+                width: 300px;
+                height: 300px;
                 max-width: 350px;
             }
 
@@ -118,6 +118,7 @@
             </form>
         @endif
     </div>
+    <iframe src="{{ url('pemeriksaan/cetak/' . $signature->idHasilPemeriksaan) }}" frameborder="1" style="border:1px solid #000;width:100%;height:1000px"></iframe>
 
     <script>
         const canvas = document.getElementById('signature-pad');

@@ -24,6 +24,9 @@ use App\Http\Controllers\DigitalSignatureController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/signatures/{link}', [DigitalSignatureController::class, 'showSignatureForm'])->name('signatures.form');
+Route::post('/signatures/{link}', [DigitalSignatureController::class, 'saveSignature'])->name('signatures.save');
+Route::get('/signatures/success/{link}', [DigitalSignatureController::class, 'success'])->name('signatures.success');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -34,9 +37,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/login-logs', [LoginLogController::class, 'index'])->name('login-logs.index');
 
     Route::get('/signatures/{id_hasil}/show', [DigitalSignatureController::class, 'showSignatureLinks'])->name('signatures.showLinks');
-    Route::get('/signatures/{link}', [DigitalSignatureController::class, 'showSignatureForm'])->name('signatures.form');
-    Route::post('/signatures/{link}', [DigitalSignatureController::class, 'saveSignature'])->name('signatures.save');
-    Route::get('/signatures/success/{link}', [DigitalSignatureController::class, 'success'])->name('signatures.success');
 
 });
 
@@ -81,13 +81,13 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     });
 });
 
+Route::get('pemeriksaan/cetak/{id_hasil}', [PemeriksaanController::class, 'cetak'])->name('pemeriksaan.cetak');
 
 //admin routes
 Route::middleware(['auth', 'role:admin|petugas'])->group(function () {
     Route::prefix("pemeriksaan")->name("pemeriksaan.")->group(function () {
         Route::get("/", [PemeriksaanController::class, "index"])->name("index");
         Route::get('/create', [PemeriksaanController::class, 'create'])->name('create');
-        Route::get('/cetak/{id_hasil}', [PemeriksaanController::class, 'cetak'])->name('cetak');
         Route::post('/store', [PemeriksaanController::class, 'store'])->name('store');
         Route::get('/rekap', [PemeriksaanController::class, 'recap'])->name('recap');
         Route::get('/arsip/{id_hasil}', [PemeriksaanController::class, 'arsip'])->name('arsip');
