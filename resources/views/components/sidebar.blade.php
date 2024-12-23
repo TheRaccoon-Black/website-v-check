@@ -57,6 +57,20 @@
                         </a>
                     </li>
                     <li data-sidebar="menu-item">
+                        <a href="{{ route('petugas.user') }}" data-sidebar="menu-button"
+                            class="{{ request()->is('petugas/user') ? 'bg-sidebar-accent dark:bg-gray-700 font-medium' : '' }} transition-colors flex items-center p-2 text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 group">
+                            <div class="flex  items-center justify-center text-sidebar-foreground">
+                                <svg width="24" height="24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" viewBox="0 0 24 24" stroke-linecap="round"
+                                    stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" class="size-5">
+                                    <path
+                                        d='M17 19.5c0-1.657-2.239-3-5-3s-5 1.343-5 3m14-3c0-1.23-1.234-2.287-3-2.75M3 16.5c0-1.23 1.234-2.287 3-2.75m12-4.014a3 3 0 1 0-4-4.472M6 9.736a3 3 0 0 1 4-4.472m2 8.236a3 3 0 1 1 0-6 3 3 0 0 1 0 6' />
+                                </svg>
+                            </div>
+                            <span class="ms-3">User</span>
+                        </a>
+                    </li>
+                    <li data-sidebar="menu-item">
                         <a href="{{ route('checklist.index') }}" data-sidebar="menu-button"
                             class="{{ request()->is('checklist*') ? 'bg-sidebar-accent dark:bg-gray-700 font-medium' : '' }} transition-colors flex items-center p-2 text-sidebar-accent-foreground rounded-lg dark:text-white hover:bg-sidebar-accent dark:hover:bg-gray-700 group">
                             <div class="flex  items-center justify-center text-sidebar-foreground">

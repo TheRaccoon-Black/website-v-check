@@ -102,6 +102,57 @@ class PetugasController extends Controller
         return redirect()->route('petugas.index')->with('success', 'Petugas berhasil dihapus.');
     }
 
+
+
+
+    //------------------------------------------------------user--------------------------------------------------------
+
+    public function user(){
+        $users = User::all();
+        return view('petugas.user', compact('users'));
+    }
+
+    public function updateUser(Request $request, $id){
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $id,
+            'role' => 'required|string',
+            'unique_token' => 'required|string',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->update($request->only(['name', 'email', 'role', 'unique_token']));
+
+        return redirect()->back()->with('success', 'User updated successfully.');
+    }
+
+    public function destroyUser($id){
+        $user = User::findOrFail($id);
+    $user->delete();
+
+    return redirect()->back()->with('success', 'User deleted successfully.');
+    }
+
+    public function storeUser(Request $request){
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8',
+            'role' => 'required|string',
+            'unique_token' => 'required|string|unique:users,unique_token',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role' => $request->role,
+            'unique_token' => $request->unique_token,
+        ]);
+
+        return redirect()->back()->with('success', 'User added successfully.');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

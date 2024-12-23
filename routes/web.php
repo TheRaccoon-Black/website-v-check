@@ -44,6 +44,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/{id}/edit', [PetugasController::class, 'edit'])->name('edit');
         Route::put('/{id}', [PetugasController::class, 'update'])->name('update');
         Route::delete('/{id}', [PetugasController::class, 'destroy'])->name('destroy');
+        Route::get('/user', [PetugasController::class, 'user'])->name('user');
+        Route::put('/user/{id}', [PetugasController::class, 'updateUser'])->name('updateUser');
+        Route::delete('/user/{id}', [PetugasController::class, 'destroyUser'])->name('destroyUser');
+        Route::post('/user', [PetugasController::class, 'storeUser'])->name('storeUser');   
     });
 
     // --------------------------------------------------------------------------
