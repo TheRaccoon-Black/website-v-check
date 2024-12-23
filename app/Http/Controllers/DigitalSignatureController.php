@@ -23,13 +23,6 @@ class DigitalSignatureController extends Controller
         'linkAsstMan' => Str::uuid(),
     ]);
 
-    // return response()->json([
-    //     'message' => 'Links created successfully.',
-    //     'data' => $signature,
-    // ]);
-    // return view('signatures.links', [
-    //     'signature' => $signature,
-    // ]);
 }
 public function showSignatureLinks($id_hasil){
     $signature = DigitalSignature::where('idHasilPemeriksaan', $id_hasil)->firstOrFail();
@@ -37,17 +30,7 @@ public function showSignatureLinks($id_hasil){
         'signature' => $signature,
     ]);
 }
-// public function showSignatureForm($link)
-// {
-//     $signature = DigitalSignature::where('linkDanruPenerima', $link)
-//         ->orWhere('linkDanruPenyerah', $link)
-//         ->orWhere('linkAsstMan', $link)
-//         ->firstOrFail();
 
-//     $role = $this->getRoleByLink($signature, $link);
-
-//     return view('signatures.form', compact('signature', 'role'));
-// }
 public function showSignatureForm($link)
 {
 
@@ -113,14 +96,11 @@ public function saveSignature(Request $request, $link)
 
     $role = $this->getRoleByLink($signature, $link);
 
-    // Simpan tanda tangan ke path file
     $signatureData = $request->input('signature');
     $fileName = uniqid() . '.png';
     $filePath = 'signatures/' . $fileName;
 
-    // Storage::disk('public')->put($filePath, base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signatureData)));
     file_put_contents($filePath, base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signatureData)));
-    // Update kolom tanda tangan sesuai role
 
     if ($role === 'Danru Penerima') {
         $signature->update(['ttdDanruPenerima' => $filePath]);
