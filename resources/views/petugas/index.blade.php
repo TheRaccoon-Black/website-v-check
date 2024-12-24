@@ -168,15 +168,16 @@
                             @foreach ($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
+
                         </x-form-select>
                     </div>
                     <div class="col-span-2">
                         <x-form-input name="regu" id="regu-edit" required="true" placeholder="Masukan Regu"
-                            value="{{ $user->regu }}" label="Regu" />
+                            label="Regu" />
                     </div>
                     <div class="col-span-2">
                         <x-form-input name="petugas_id" id="petugas_id-edit" required="true"
-                            placeholder="Masukan ID Petugas" value="{{ $user->petugas_id }}" label="ID Petugas" />
+                            placeholder="Masukan ID Petugas" label="ID Petugas" />
                     </div>
                 </div>
                 <x-button :type="'submit'" :color="'primary'" class="w-full">

@@ -54,6 +54,7 @@ class PemeriksaanController extends Controller
             'checklist.*.kondisi' => 'required|in:baik,cukup,rusak,tdk ada',
             'checklist.*.keterangan' => 'nullable|string',
         ]);
+
         $tanggal = \Carbon\Carbon::createFromFormat('d-m-Y', $request->tanggal)->format('Y-m-d');
         // $hari = \Carbon\Carbon::parse($request->tanggal)->translatedFormat('l');
         // $hari = strtolower($hari);
@@ -136,7 +137,7 @@ class PemeriksaanController extends Controller
         // Ambil informasi utama (tanggal, dinas, kendaraan, petugas)
         $info = $pemeriksaan->first();
 
-        return view('pemeriksaans.cetak', compact('info', 'ttd','infoTambahan', 'sebelum', 'setelah', 'testJalan', 'testPompa','lainLain'));
+        return view('pemeriksaans.cetak', compact('info', 'ttd', 'infoTambahan', 'sebelum', 'setelah', 'testJalan', 'testPompa', 'lainLain'));
     }
 
     //     public function recap()

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -95,18 +96,21 @@
         }
     </style>
 </head>
+
 <body>
     <h1>Link Tanda Tangan</h1>
 
     <div>
         <label for="linkDanruPenerima">Danru Penerima:</label>
-        <input type="text" id="linkDanruPenerima" value="{{ url('signatures/' . $signature->linkDanruPenerima) }}" readonly>
+        <input type="text" id="linkDanruPenerima" value="{{ url('signatures/' . $signature->linkDanruPenerima) }}"
+            readonly>
         <button onclick="copyToClipboard('linkDanruPenerima')">Copy</button>
     </div>
 
     <div>
         <label for="linkDanruPenyerah">Danru Penyerah:</label>
-        <input type="text" id="linkDanruPenyerah" value="{{ url('signatures/' . $signature->linkDanruPenyerah) }}" readonly>
+        <input type="text" id="linkDanruPenyerah" value="{{ url('signatures/' . $signature->linkDanruPenyerah) }}"
+            readonly>
         <button onclick="copyToClipboard('linkDanruPenyerah')">Copy</button>
     </div>
 
@@ -116,4 +120,5 @@
         <button onclick="copyToClipboard('linkAsstMan')">Copy</button>
     </div>
 </body>
+
 </html>

@@ -61,8 +61,8 @@
                     </div>
                 </div>
                 <div class="col-span-6">
-                    <x-form-input name="danruPenerima" id="danruPenerima-add" required="true" placeholder="Masukan Komandan Regu"
-                        label="Komandan Regu Penerima" />
+                    <x-form-input name="danruPenerima" id="danruPenerima-add" required="true"
+                        placeholder="Masukan Komandan Regu" label="Komandan Regu Penerima" />
                 </div>
 
                 <div class="col-span-6">
@@ -74,8 +74,8 @@
 
                 </div>
                 <div class="col-span-6">
-                    <x-form-input name="danruPenyerah" id="danruPenyerah-add" required="true" placeholder="Masukan Komandan Regu"
-                        label="Komandan Regu Penyerah" />
+                    <x-form-input name="danruPenyerah" id="danruPenyerah-add" required="true"
+                        placeholder="Masukan Komandan Regu" label="Komandan Regu Penyerah" />
                 </div>
                 <div class="col-span-6">
                     <x-form-input name="asstMan" id="asstMan-add" required="true" placeholder="Masukan Assmant"
@@ -91,9 +91,8 @@
                 </div>
                 <div class="col-span-6">
                     <x-form-select name="reguPenerima" id="reguPenerima-add" required="true" label="Regu Penerima">
-                            <option value="A">Regu A</option>
-                            <option value="B">Regu B</option>
-
+                        <option value="A">Regu A</option>
+                        <option value="B">Regu B</option>
                     </x-form-select>
                 </div>
 
@@ -143,8 +142,8 @@
                                         <td scope="row" class="py-4 pe-4 font-medium text-gray-900 dark:text-white">
                                             {{ $checklist->nama_item }}</td>
                                         <td class="py-4 pe-4">
-                                            <x-form-select name="checklists[{{ $loop->index }}][kondisi]" id="kondisi-add"
-                                                required="true">
+                                            <x-form-select name="checklists[{{ $loop->index }}][kondisi]"
+                                                id="kondisi-add" required="true">
                                                 <option value="">Pilih Kondisi</option>
                                                 <option value="baik">Baik</option>
                                                 <option value="cukup">Cukup</option>

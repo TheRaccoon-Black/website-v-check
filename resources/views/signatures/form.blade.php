@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -94,32 +95,58 @@
                 font-size: 1.2em;
             }
         }
+
+        @media (max-width: 768px) {
+            .signature-container {
+                grid-column: span 12;
+            }
+
+            .iframe-container {
+                grid-column: span 12;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .signature-container {
+                grid-column: span 4;
+            }
+
+            .iframe-container {
+                grid-column: span 8;
+            }
+        }
     </style>
 </head>
+
 <body>
-    <div>
-        <h1>Tanda Tangan Digital</h1>
-        <p><strong>Role:</strong> {{ $role }}</p>
-        <p>Harus diisi Oleh: <strong>{{$name}}</strong></p>
+    <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; width: 100%;">
+        <div class="signature-container">
+            <h1>Tanda Tangan Digital</h1>
+            <p><strong>Role:</strong> {{ $role }}</p>
+            <p>Harus diisi Oleh: <strong>{{ $name }}</strong></p>
 
-        @if(isset($isFilled) && $isFilled)
-            <p>Tanda tangan sudah diisi oleh {{ $role }}.</p>
-        @else
-            <form id="signature-form" method="POST" action="{{ route('signatures.save', ['link' => request()->route('link')]) }}">
-                @csrf
-                <input type="hidden" id="signature" name="signature">
-                <div class="signature-pad-container">
-                    <canvas id="signature-pad" class="signature-pad"></canvas>
-                </div>
-                <div class="button-group">
-                    <button type="button" id="clear-button">Clear</button>
-                    <button type="submit">Submit</button>
-                </div>
-            </form>
-        @endif
+            @if (isset($isFilled) && $isFilled)
+                <p>Tanda tangan sudah diisi oleh {{ $role }}.</p>
+            @else
+                <form id="signature-form" method="POST"
+                    action="{{ route('signatures.save', ['link' => request()->route('link')]) }}">
+                    @csrf
+                    <input type="hidden" id="signature" name="signature">
+                    <div class="signature-pad-container">
+                        <canvas id="signature-pad" class="signature-pad"></canvas>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" id="clear-button">Clear</button>
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
+            @endif
+        </div>
+        <div class="iframe-container">
+            <iframe src="{{ url('pemeriksaan/cetak/' . $signature->idHasilPemeriksaan) }}" frameborder="1"
+                style="border:1px solid #000;width:100%;height:1000px"></iframe>
+        </div>
     </div>
-    <iframe src="{{ url('pemeriksaan/cetak/' . $signature->idHasilPemeriksaan) }}" frameborder="1" style="border:1px solid #000;width:100%;height:1000px"></iframe>
-
     <script>
         const canvas = document.getElementById('signature-pad');
         const signaturePad = new SignaturePad(canvas);
@@ -152,4 +179,5 @@
         });
     </script>
 </body>
+
 </html>

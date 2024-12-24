@@ -23,9 +23,10 @@
                 margin: 0;
                 padding: 0;
             }
+
             .hide-on-print {
-            display: none;
-        }
+                display: none !important;
+            }
         }
 
         @page {
@@ -121,17 +122,20 @@
             margin: 10px auto 0 auto;
             padding-top: 5px;
         }
-        .footer .signature .name-space {
-    height: 40px; /* Memberikan ruang sekitar empat baris */
-    margin-top: 10px; /* Jarak antara tanda tangan dan area nama */
-}
-    .footer .signature img {
-        width:70px;
-        height:70px;
-        position: absolute;
-        margin-left: -40px;
-    }
 
+        .footer .signature .name-space {
+            height: 40px;
+            /* Memberikan ruang sekitar empat baris */
+            margin-top: 10px;
+            /* Jarak antara tanda tangan dan area nama */
+        }
+
+        .footer .signature img {
+            width: 70px;
+            height: 70px;
+            position: absolute;
+            margin-left: -40px;
+        }
     </style>
 </head>
 
@@ -183,12 +187,9 @@
 
                 // Format akhir
                 $tanggalIndonesia = "{$hari}/{$tanggalHari}-{$bulan}-{$tahun}";
-                @endphp
+            @endphp
 
-<p>HARI / TANGGAL ( {{ $tanggalIndonesia }} )</p>
-<a href="{{route('signatures.showLinks', ['id_hasil' => $info->id_hasil])}}">
-    <button class="hide-on-print">TTD</button>
-</a>
+            <p>HARI / TANGGAL ( {{ $tanggalIndonesia }} )</p>
 
             <img src="{{ asset('/img/logo2.png') }}" alt="Logo" class="logo" width="100">
         </div>
@@ -300,9 +301,9 @@
                 <tr>
                     <td>D</td>
                     @if ($lainLain->isEmpty())
-                    <td>Test Pompa</td>
+                        <td>Test Pompa</td>
                     @else
-                    <td>Lain-lain</td>
+                        <td>Lain-lain</td>
                     @endif
                     <td style="text-align: center; font-weight: bold; background-color: #C6C6C6;" colspan="6"></td>
                 </tr>
@@ -310,34 +311,77 @@
                     $m = 1;
                 @endphp
                 @if ($lainLain->isEmpty())
-                @foreach ($testPompa as $index => $item)
-                    <tr>
-                        <td>{{ $m++ }}</td>
-                        <td style="text-align: left;">{{ $item->checklist->nama_item }}</td>
-                        <td>{!! $item->kondisi === 'baik' ? '✔' : '' !!}</td>
-                        <td>{!! $item->kondisi === 'cukup' ? '✔' : '' !!}</td>
-                        <td>{!! $item->kondisi === 'rusak' ? '✔' : '' !!}</td>
-                        <td>{!! $item->kondisi === 'tdk ada' ? '✔' : '' !!}</td>
-                        <td colspan="2" style="text-align: left;">{{ $item->keterangan }}</td>
-                    </tr>
-                @endforeach
-            @else
-                @foreach ($lainLain as $index => $item)
-                    <tr>
-                        <td>{{ $m++ }}</td>
-                        <td style="text-align: left;">{{ $item->checklist->nama_item }}</td>
-                        <td>{!! $item->kondisi === 'baik' ? '✔' : '' !!}</td>
-                        <td>{!! $item->kondisi === 'cukup' ? '✔' : '' !!}</td>
-                        <td>{!! $item->kondisi === 'rusak' ? '✔' : '' !!}</td>
-                        <td>{!! $item->kondisi === 'tdk ada' ? '✔' : '' !!}</td>
-                        <td colspan="2" style="text-align: left;">{{ $item->keterangan }}</td>
-                    </tr>
-                @endforeach
-            @endif
+                    @foreach ($testPompa as $index => $item)
+                        <tr>
+                            <td>{{ $m++ }}</td>
+                            <td style="text-align: left;">{{ $item->checklist->nama_item }}</td>
+                            <td>{!! $item->kondisi === 'baik' ? '✔' : '' !!}</td>
+                            <td>{!! $item->kondisi === 'cukup' ? '✔' : '' !!}</td>
+                            <td>{!! $item->kondisi === 'rusak' ? '✔' : '' !!}</td>
+                            <td>{!! $item->kondisi === 'tdk ada' ? '✔' : '' !!}</td>
+                            <td colspan="2" style="text-align: left;">{{ $item->keterangan }}</td>
+                        </tr>
+                    @endforeach
+                @else
+                    @foreach ($lainLain as $index => $item)
+                        <tr>
+                            <td>{{ $m++ }}</td>
+                            <td style="text-align: left;">{{ $item->checklist->nama_item }}</td>
+                            <td>{!! $item->kondisi === 'baik' ? '✔' : '' !!}</td>
+                            <td>{!! $item->kondisi === 'cukup' ? '✔' : '' !!}</td>
+                            <td>{!! $item->kondisi === 'rusak' ? '✔' : '' !!}</td>
+                            <td>{!! $item->kondisi === 'tdk ada' ? '✔' : '' !!}</td>
+                            <td colspan="2" style="text-align: left;">{{ $item->keterangan }}</td>
+                        </tr>
+                    @endforeach
+                @endif
 
                 <!-- Sections C and D can follow the same structure -->
             </tbody>
         </table>
+        <div style="display: flex; justify-content: center; align-items: center;" class="hide-on-print">
+            <a href="{{ route('signatures.showLinks', ['id_hasil' => $info->id_hasil]) }}"
+                style="border: 1px solid #000; border-radius: 10px; padding: 10px; text-decoration: none; background-color: #f2f2f2; color: #000; margin: 10px; display: flex; align-items: center;">
+                Tanda Tangan Disini
+                <span style="display: inline-flex; align-items: center; justify-content: center; margin-left: 5px;">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d='M6.92 6.956 5.45 5.473m9.309 1.483 1.47-1.483m-10.78 10.88 1.47-1.484m3.92-9.89V3m-5.88 7.913H3m13.875 5.923 3.814-1.506a.496.496 0 0 0 0-.921l-9.165-3.615a.492.492 0 0 0-.635.64l3.582 9.251c.162.42.75.42.912 0z' />
+                    </svg>
+                </span>
+            </a>
+
+            <a href="#" onclick="printPage(event)"
+                style="border: 1px solid #000; border-radius: 10px; padding: 10px; text-decoration: none; background-color: #f2f2f2; color: #000; margin: 10px; display: flex; align-items: center;">
+                Print
+                <span style="display: inline-flex; align-items: center; justify-content: center; margin-left: 5px;">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d='M19 10V5a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v5m15 0H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1' />
+                        <path d='M17.5 20v-3a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v3m-4-7h2' />
+                    </svg>
+                </span>
+            </a>
+        </div>
+
+        <script>
+            function printPage(e) {
+                e.preventDefault();
+                window.print();
+            }
+        </script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                if (window.self !== window.top) {
+                    document.querySelector('.hide-on-print').style.display = 'none';
+                }
+            });
+        </script>
 
         <!-- Footer -->
         {{-- <div class="footer">
@@ -353,34 +397,34 @@
         </div> --}}
         <div class="footer">
             <div class="signature">
-                <div>Menerima<br>Komandan Jaga {{$infoTambahan->reguPenerima}}</div>
+                <div>Menerima<br>Komandan Jaga {{ $infoTambahan->reguPenerima }}</div>
                 @if ($ttd->ttdDanruPenerima == null)
                     <div class="name-space"></div>
-                    @else
+                @else
                     <img src="{{ asset($ttd->ttdDanruPenerima) }}" alt="">
                     <div class="name-space"></div>
                 @endif
-                <div class="line">{{$infoTambahan->danruPenerima}}</div>
+                <div class="line">{{ $infoTambahan->danruPenerima }}</div>
             </div>
             <div class="signature">
                 <div>Mengetahui<br>ASST-MAN OF AS & RFF</div>
                 @if ($ttd->ttdAsstMan == null)
                     <div class="name-space"></div>
-                    @else
+                @else
                     <img src="{{ asset($ttd->ttdAsstMan) }}" alt="">
                     <div class="name-space"></div>
                 @endif
-                <div class="line">{{$infoTambahan->Asstman}}</div>
+                <div class="line">{{ $infoTambahan->Asstman }}</div>
             </div>
             <div class="signature">
-                <div>Menyerahkan<br>Komandan Jaga {{$info->petugas->regu}}</div>
+                <div>Menyerahkan<br>Komandan Jaga {{ $info->petugas->regu }}</div>
                 @if ($ttd->ttdDanruPenyerah == null)
                     <div class="name-space"></div>
-                    @else
+                @else
                     <img src="{{ asset($ttd->ttdDanruPenyerah) }}" alt="">
                     <div class="name-space"></div>
                 @endif
-                <div class="line">{{$infoTambahan->danruPenyerah}}</div>
+                <div class="line">{{ $infoTambahan->danruPenyerah }}</div>
             </div>
         </div>
     </div>
