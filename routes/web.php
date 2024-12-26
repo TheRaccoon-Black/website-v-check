@@ -24,6 +24,9 @@ use App\Http\Controllers\DigitalSignatureController;
 // Route::get('/', function () {
 //     return view('landing');
 // });
+Route::get('//qrLogin', function () {
+    return view('qrLogin');
+})->name('qrLogin');
 
 Route::get('/', [Controller::class, 'landing']);
 Route::get('/signatures/{link}', [DigitalSignatureController::class, 'showSignatureForm'])->name('signatures.form');

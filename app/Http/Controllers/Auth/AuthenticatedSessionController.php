@@ -88,7 +88,7 @@ class AuthenticatedSessionController extends Controller
     // Redirect berdasarkan peran
     $url = match ($user->role) {
         'admin' => 'petugas',
-        'petugas' => 'pemeriksaan',
+        'petugas' => 'dashboard',
         default => 'dashboard',
     };
 
