@@ -302,19 +302,19 @@
             @slot('form')
                 <div class="grid gap-4 mb-4 grid-cols-2">
                     <div class="col-span-2">
-                        <x-form-input name="no_polisi" id="no_polisi-add" required="true" placeholder="Masukan No Polisi"
+                        <x-form-input name="no_polisi" id="no_polisi-edit" required="true" placeholder="Masukan No Polisi"
                             label="No Polisi" />
                     </div>
                     <div class="col-span-2">
-                        <x-form-input name="nama_kendaraan" id="nama_kendaraan-add" required="true"
+                        <x-form-input name="nama_kendaraan" id="nama_kendaraan-edit" required="true"
                             placeholder="Masukan Nama Kendaraan" label="Nama Kendaraan" />
                     </div>
                     <div class="col-span-2">
-                        <x-form-input name="merk" id="merk-add" required="true" placeholder="Masukan Merk Kendaraan"
+                        <x-form-input name="merk" id="merk-edit" required="true" placeholder="Masukan Merk Kendaraan"
                             label="Merk Kendaraan" />
                     </div>
                     <div class="col-span-2">
-                        <x-form-input name="tahun" id="tahun-add" required="true" type="number" placeholder="xxxx"
+                        <x-form-input name="tahun" id="tahun-edit" required="true" type="number" placeholder="xxxx"
                             label="Tahun" />
                     </div>
                 </div>
