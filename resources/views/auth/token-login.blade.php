@@ -4,7 +4,7 @@
             @csrf
             <div class="flex flex-col items-center gap-2">
                 <a href="#" class="flex flex-col items-center gap-2 font-medium">
-                    <div class="flex h-8 w-8 items-center justify-center rounded-md">
+                    {{-- <div class="flex h-8 w-8 items-center justify-center rounded-md">
                         <svg fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"
                             stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"
                             class="size-6">
@@ -12,6 +12,10 @@
                                 d='M7.805 3.469C8.16 3.115 8.451 3 8.937 3h6.126c.486 0 .778.115 1.132.469l4.336 4.336c.354.354.469.646.469 1.132v6.126c0 .5-.125.788-.469 1.132l-4.336 4.336c-.354.354-.646.469-1.132.469H8.937c-.5 0-.788-.125-1.132-.469L3.47 16.195c-.355-.355-.47-.646-.47-1.132V8.937c0-.5.125-.788.469-1.132z' />
                             <path d='m8.667 12.633 1.505 1.721a1 1 0 0 0 1.564-.073L15.333 9.3' />
                         </svg>
+
+                    </div> --}}
+                    <div class="flex h-16 w-16 items-center justify-center rounded-md">
+                        <img src="{{ asset('img/airport.png') }}" alt="Logo" >
 
                     </div>
                     <span class="sr-only">{{ env('APP_NAME', 'Laravel') }}</span>

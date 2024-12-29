@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pemeriksaan;
 use App\Models\Petugas;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Validation\ValidatesRequests;
+use App\Models\LoginLog;
+use App\Models\Kendaraan;
+use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Controller extends BaseController
 {
@@ -84,4 +86,25 @@ class Controller extends BaseController
 
         return view('dashboard', compact('pemeriksaanCount', 'chartData', 'petugasCount'));
     }
+
+    public function landing()
+{
+    // Menghitung jumlah pemeriksaan berdasarkan grup 'id_hasil'
+    // $jumlahPemeriksaan = Pemeriksaan::groupBy('id_hasil')->count();
+    $jumlahPemeriksaan = Pemeriksaan::distinct('id_hasil')->count('id_hasil');
+
+
+    // Menghitung jumlah petugas
+    $jumlahPetugas = Petugas::count();
+
+    // Menghitung jumlah log masuk
+    $loginLog = LoginLog::count();
+
+    // Menghitung jumlah kendaraan
+    $kendaraan = Kendaraan::count();
+
+    // Mengirim data ke view
+    return view('landing', compact('jumlahPemeriksaan', 'jumlahPetugas', 'loginLog', 'kendaraan'));
+}
+
 }
