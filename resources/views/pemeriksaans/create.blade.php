@@ -17,7 +17,7 @@
     <div class="w-full p-4 bg-card rounded-lg border sm:p-8">
         <h5 class="mb-2 text-xl font-bold text-card-foreground">Form Pemeriksaan - {{ ucfirst($jenis) }}</h5>
         <p class="mb-5 text-sm text-muted-foreground">
-            Form pemeriksaan ini digunakan untuk melakukan pemeriksaan kendaraan utama.<br class="hidden sm:block"> Anda
+            Form pemeriksaan ini digunakan untuk melakukan pemeriksaan kendaraan {{ ucfirst($jenis) }}.<br class="hidden sm:block"> Anda
             dapat mengisi data pemeriksaan disini.
         </p>
         <form action="{{ route('pemeriksaan.store') }}" method="POST">
@@ -93,6 +93,7 @@
                     <x-form-select name="reguPenerima" id="reguPenerima-add" required="true" label="Regu Penerima">
                         <option value="A">Regu A</option>
                         <option value="B">Regu B</option>
+                        <option value="c">Regu C</option>
                     </x-form-select>
                 </div>
 

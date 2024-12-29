@@ -12,6 +12,12 @@
             document.execCommand("copy");
             alert("Link copied to clipboard: " + copyText.value);
         }
+        function shareToWhatsApp(elementId) {
+            const inputElement = document.getElementById(elementId);
+            const url = inputElement.value;
+            const whatsappURL = `https://wa.me/?text=${encodeURIComponent(url)}`;
+            window.open(whatsappURL, '_blank');
+        }
     </script>
     <style>
         /* Basic Reset */
@@ -105,6 +111,7 @@
         <input type="text" id="linkDanruPenerima" value="{{ url('signatures/' . $signature->linkDanruPenerima) }}"
             readonly>
         <button onclick="copyToClipboard('linkDanruPenerima')">Copy</button>
+        <button onclick="shareToWhatsApp('linkDanruPenerima')">Share to WhatsApp</button>
     </div>
 
     <div>
@@ -112,13 +119,33 @@
         <input type="text" id="linkDanruPenyerah" value="{{ url('signatures/' . $signature->linkDanruPenyerah) }}"
             readonly>
         <button onclick="copyToClipboard('linkDanruPenyerah')">Copy</button>
+        <button onclick="shareToWhatsApp('linkDanruPenyerah')">Share to WhatsApp</button>
     </div>
 
     <div>
         <label for="linkAsstMan">Asst Man:</label>
         <input type="text" id="linkAsstMan" value="{{ url('signatures/' . $signature->linkAsstMan) }}" readonly>
         <button onclick="copyToClipboard('linkAsstMan')">Copy</button>
+        <button onclick="shareToWhatsApp('linkAsstMan')">Share to WhatsApp</button>
     </div>
+
+    <script>
+        function copyToClipboard(elementId) {
+            const inputElement = document.getElementById(elementId);
+            inputElement.select();
+            inputElement.setSelectionRange(0, 99999); // For mobile devices
+            document.execCommand("copy");
+            alert("Copied to clipboard: " + inputElement.value);
+        }
+
+        function shareToWhatsApp(elementId) {
+            const inputElement = document.getElementById(elementId);
+            const url = inputElement.value;
+            const whatsappURL = `https://wa.me/?text=${encodeURIComponent(url)}`;
+            window.open(whatsappURL, '_blank');
+        }
+    </script>
 </body>
+
 
 </html>

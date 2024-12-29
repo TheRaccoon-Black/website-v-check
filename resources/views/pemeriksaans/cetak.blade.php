@@ -144,7 +144,8 @@
         <!-- Header -->
         <div class="header">
             <h1>LOGBOOK KEGIATAN DAN CHECKLIST</h1>
-            <h1>KENDARAAN UTAMA ARFF</h1>
+            <h1>KENDARAAN {{$info->checklist->jenis_kendaraan}} ARFF</h1>
+            
             @php
                 $tanggal = \Carbon\Carbon::parse($info->tanggal)->format('l/d-M-Y');
 

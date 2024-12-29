@@ -420,7 +420,22 @@
             </div>
 
         </section><!-- /Portfolio Section -->
+        <style>
+            .team-member .member-img {
+                width: 100%;
+                height: 400px;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
 
+            .team-member .member-img img {
+                width: auto;
+                height: 100%;
+                object-fit: cover;
+            }
+        </style>
 
         <!-- Team Section -->
         <section id="team" class="team section light-background">
@@ -440,11 +455,11 @@
                         data-aos-delay="100">
                         <div class="team-member">
                             <div class="member-img">
-                                <img src="assets/img/team/team-1.jpg" class="img-fluid" alt="">
+                                <img src="{{ asset('/img/img1.jpg') }}" class="img-fluid" alt="">
                             </div>
                             <div class="member-info">
-                                <h4>Andi Setiawan</h4>
-                                <span>Project Manager</span>
+                                <h4>Arie Sanjaya</h4>
+                                <span>Asstman AS & RFF</span>
                             </div>
                         </div>
                     </div><!-- End Team Member -->
@@ -453,11 +468,11 @@
                         data-aos-delay="200">
                         <div class="team-member">
                             <div class="member-img">
-                                <img src="assets/img/team/team-2.jpg" class="img-fluid" alt="">
+                                <img src="{{ asset('/img/img2.jpg') }}" class="img-fluid" alt="">
                             </div>
                             <div class="member-info">
-                                <h4>Siti Rahmawati</h4>
-                                <span>Software Developer</span>
+                                <h4>Deni</h4>
+                                <span>Team A leader</span>
                             </div>
                         </div>
                     </div><!-- End Team Member -->
@@ -466,11 +481,11 @@
                         data-aos-delay="300">
                         <div class="team-member">
                             <div class="member-img">
-                                <img src="assets/img/team/team-3.jpg" class="img-fluid" alt="">
+                                <img src="{{ asset('/img/img3.jpg') }}" class="img-fluid" alt="">
                             </div>
                             <div class="member-info">
-                                <h4>Ahmad Zulkifli</h4>
-                                <span>UI/UX Designer</span>
+                                <h4>Nurhadi Kusuma</h4>
+                                <span>Team B Leader</span>
                             </div>
                         </div>
                     </div><!-- End Team Member -->
@@ -479,11 +494,11 @@
                         data-aos-delay="400">
                         <div class="team-member">
                             <div class="member-img">
-                                <img src="assets/img/team/team-4.jpg" class="img-fluid" alt="">
+                                <img src="{{ asset('/img/img2.jpg') }}" class="img-fluid" alt="">
                             </div>
                             <div class="member-info">
-                                <h4>Dewi Lestari</h4>
-                                <span>Quality Assurance</span>
+                                <h4>Andy</h4>
+                                <span>Team C leader</span>
                             </div>
                         </div>
                     </div><!-- End Team Member -->
